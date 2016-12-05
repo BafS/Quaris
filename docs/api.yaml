@@ -73,6 +73,28 @@ paths:
             description: Unexpected error
             schema:
               $ref: '#/definitions/Error'
+  /events:
+    post:
+      summary: Create a new event
+      description: When an event happens on the client side, an Event object is posted to the
+        API.
+      parameters:
+        - name: event
+          in: body
+          description: Event to add
+          required: true
+          schema:
+            $ref: '#/definitions/Event'
+      tags:
+        - Event
+      responses:
+        201:
+          description: Event was added
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+      
   /rules:
     get:
       summary: All Rules
@@ -162,6 +184,9 @@ definitions:
       action:
         type: string
         description: Action to take if condition is met (js).
+      enabled:
+        type: boolean
+        description: If the Rule is enabled or not
   Badge:
     type: object
     properties:
@@ -171,12 +196,28 @@ definitions:
       description:
         type: string
         description: Badge description
+      icon:
+        type: string
+        format: binary
+        description: Image associated to the badge
   Scale:
     type: object
     properties:
       name:
         type: string
         description: Scale's name
+      description:
+        type: string
+        description: Scale's description
+  Event:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Event's name
+      payload:
+        type: object
+        description: Parameters to use in rules
   Error:
     type: object
     properties:
