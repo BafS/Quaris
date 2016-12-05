@@ -1,0 +1,187 @@
+swagger: '2.0'
+info:
+  title: Quaris
+  description: Quaris API specification
+  version: "0.1.0"
+# the domain of the service
+host: api.quaris.com
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /badges:
+    get:
+      summary: All Badges
+      description: The Badges endpoint returns information about all the badges existing.
+      tags:
+        - Badge
+      responses:
+        200:
+          description: Badges' information
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Badge'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a new Badge
+      description: Create a new Badge.
+      parameters:
+        - name: badge
+          in: body
+          description: Badge to add
+          required: true
+          schema:
+            $ref: '#/definitions/Badge'
+      tags:
+        - Badge
+      responses:
+        201:
+          description: Badge was created
+        409:
+          description: Conflict, the badge name already exists
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /badges/{badgename}:
+    get:
+        summary: Badge Information
+        description: |
+          The Badge Information endpoint returns information about the given badge.
+        parameters:
+          - name: badgename
+            in: path
+            description: A specific Badge's name
+            required: true
+            type: string
+        tags:
+          - Badge
+        responses:
+          200:
+            description: Badge object
+            schema:
+              $ref: '#/definitions/Badge'
+          default:
+            description: Unexpected error
+            schema:
+              $ref: '#/definitions/Error'
+  /rules:
+    get:
+      summary: All Rules
+      description: The Rules endpoint returns information about all the existing rules.
+      tags:
+        - Rule
+      responses:
+        200:
+          description: Rules' information
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Rule'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a new Rule
+      description: Create a new Rule.
+      parameters:
+        - name: rule
+          in: body
+          description: Rule to add
+          required: true
+          schema:
+            $ref: '#/definitions/Rule'
+      tags:
+        - Rule
+      responses:
+        201:
+          description: Rule was created
+        409:
+          description: Conflict, the rule name already exists
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /scales:
+    get:
+      summary: All Scales
+      description: The Scales endpoint returns information about all the existing scales.
+      tags:
+        - Scale
+      responses:
+        200:
+          description: Scales' information
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Scale'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create a new Scale
+      description: Create a new Scale.
+      parameters:
+        - name: scale
+          in: body
+          description: Scale to add
+          required: true
+          schema:
+            $ref: '#/definitions/Scale'
+      tags:
+        - Scale
+      responses:
+        201:
+          description: Scale was created
+        409:
+          description: Conflict, the Scale name already exists
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Rule:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Rule's name. Unique identifier.
+      condition:
+        type: string
+        description: Logical condition needed to apply the rule (js).
+      action:
+        type: string
+        description: Action to take if condition is met (js).
+  Badge:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Unique identifier representing the badge name.
+      description:
+        type: string
+        description: Badge description
+  Scale:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Scale's name
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
