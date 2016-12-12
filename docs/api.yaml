@@ -13,6 +13,71 @@ basePath: /v1
 produces:
   - application/json
 paths:
+  /registrations:
+    get:
+      produces:
+        - application/json
+      responses:
+        200:
+          description:  List all registered applications
+          schema:
+            title: Registration summary
+            type: array
+            items:
+              $ref: '#/definitions/RegistrationSummary'
+    post:
+      consumes:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: The info required to register an application
+          schema:
+            $ref: '#/definitions/Registration'
+          required: true
+      responses:
+        201:
+          description: Register a new application
+  /auth:
+    post:
+      operationId: authenticateApplicationAndGetToken
+      consumes:
+      - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: The info required to authenticate an application
+          schema:
+            $ref: '#/definitions/Credentials'
+          required: true
+      responses:
+        200:
+          description: Authentication sucessful
+          schema:
+            $ref: '#/definitions/Token'
+        401:
+          description: Authentication failed
+  /users/{id}:
+    get:
+      description:  Retrieve one user by id
+      operationId: findUserById
+      parameters:
+        - $ref: '#/parameters/TokenHeader'
+        - name: id
+          in: path
+          description: id of the user to fetch
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description:
+              Returns the specified user state
+          schema:
+            $ref: '#/definitions/User'
   /badges:
     get:
       summary: All Badges
@@ -78,7 +143,11 @@ paths:
       summary: Create a new event
       description: When an event happens on the client side, an Event object is posted to the
         API.
+      operationId: reportEvent
+      consumes:
+        - application/json
       parameters:
+        - $ref: '#/parameters/TokenHeader'
         - name: event
           in: body
           description: Event to add
@@ -88,8 +157,10 @@ paths:
       tags:
         - Event
       responses:
-        201:
-          description: Event was added
+        202:
+          description: Event was accepted
+          schema:
+            $ref: '#/definitions/Event'
         default:
           description: Unexpected error
           schema:
@@ -172,6 +243,37 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 definitions:
+  User:
+    type: object
+    properties:
+      userId:
+        type: string
+      numberOfEvents:
+        type: integer
+  RegistrationSummary:
+    type: object
+    properties:
+      applicationName:
+        type: string
+  Registration:
+    type: object
+    properties:
+      applicationName:
+        type: string
+      password:
+        type: string
+  Credentials:
+    type: object
+    properties:
+      applicationName:
+        type: string
+      password:
+        type: string
+  Token:
+    type: object
+    properties:
+      applicationName:
+        type: string
   Rule:
     type: object
     properties:
@@ -218,6 +320,9 @@ definitions:
       payload:
         type: object
         description: Parameters to use in rules
+      timestamp:
+        type: string
+        format: date-time
   Error:
     type: object
     properties:
@@ -226,3 +331,10 @@ definitions:
         format: int32
       message:
         type: string
+parameters: 
+  TokenHeader:
+    description: token that identifies the application sending the request
+    name: X-Gamification-Token
+    in: header
+    required: true
+    type: string
