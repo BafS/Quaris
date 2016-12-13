@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Olivier Liechti
  */
 @RestController
-public class EventsEndpoint implements EventsApi {
+public class EventsEndpoint {
+//        implements EventsApi {
 
   private final ApplicationRepository applicationsRepository;
   private final EventProcessor eventProcessor;
@@ -26,7 +27,7 @@ public class EventsEndpoint implements EventsApi {
     this.eventProcessor = eventProcessor;
   }
 
-  @Override
+//  @Override
   public ResponseEntity reportEvent(@RequestHeader(value="X-Gamification-Token") String xGamificationToken, @RequestBody Event event) {
     String targetApplicationName = xGamificationToken;
     String targetEndUserId = event.getUserId();

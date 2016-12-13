@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Olivier Liechti
  */
 @RestController
-public class RegistrationsEndpoint implements RegistrationsApi {
+public class RegistrationsEndpoint {
+        //implements RegistrationsApi {
 
   private ApplicationRepository applicationsRepository;
 
@@ -36,13 +37,11 @@ public class RegistrationsEndpoint implements RegistrationsApi {
     return ResponseEntity.ok(result);
   }
 
-  ;
-
   @Override
   public ResponseEntity<Void> registrationsPost(@RequestBody Registration registration) {
     Application newApplication = new Application();
     newApplication.setName(registration.getApplicationName());
-    String passwordHash = registration.getPassword(); // LOL
+    String passwordHash = registration.getHashedPassword(); // LOL
     newApplication.setPasswordHash(passwordHash);
     try {
       applicationsRepository.save(newApplication);

@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Olivier Liechti
  */
 @RestController
-public class UsersEndpoint implements UsersApi {
+public class UsersEndpoint {
+        //implements UsersApi {
 
   private final ApplicationRepository applicationRepository;
   private final EndUserRepository endUserRepository;
