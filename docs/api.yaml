@@ -165,7 +165,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-      
+
   /rules:
     get:
       summary: All Rules
@@ -331,7 +331,7 @@ definitions:
         format: int32
       message:
         type: string
-parameters: 
+parameters:
   TokenHeader:
     description: token that identifies the application sending the request
     name: X-Gamification-Token
