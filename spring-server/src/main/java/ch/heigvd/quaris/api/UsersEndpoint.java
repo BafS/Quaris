@@ -27,14 +27,14 @@ public class UsersEndpoint {
     this.endUserRepository = endUserRepository;
   }
 
-  @Override
+  // @Override
   public ResponseEntity findUserById(@RequestHeader(value="X-Gamification-Token") String xGamificationToken, @PathVariable("id") String userId) {
     String targetApplicationName = xGamificationToken;
     Application targetApplication = applicationRepository.findByName(targetApplicationName);
     if (targetApplication == null || userId == null) {
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
-    EndUser endUser = endUserRepository.findByApplicationNameAndIdInGamifiedApplication(targetApplicationName, userId);
+    EndUser endUser = endUserRepository.findByApplicationNameAndIdInApplication(targetApplicationName, userId);
     User user = new User();
     user.setUserId(endUser.getIdInGamifiedApplication());
     user.setNumberOfEvents(endUser.getNumberOfEvents());

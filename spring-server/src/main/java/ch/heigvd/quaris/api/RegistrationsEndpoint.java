@@ -26,7 +26,7 @@ public class RegistrationsEndpoint {
     this.applicationsRepository = applicationsRepository;
   }
 
-  @Override
+//  @Override
   public ResponseEntity<List<RegistrationSummary>> registrationsGet() {
     List<RegistrationSummary> result = new ArrayList<>();
     for (Application application : applicationsRepository.findAll()) {
@@ -37,7 +37,7 @@ public class RegistrationsEndpoint {
     return ResponseEntity.ok(result);
   }
 
-  @Override
+//  @Override
   public ResponseEntity<Void> registrationsPost(@RequestBody Registration registration) {
     Application newApplication = new Application();
     newApplication.setName(registration.getApplicationName());
