@@ -1,4 +1,4 @@
-package ch.heigvd.quaris.model;
+package ch.heigvd.quaris.models;
 
 import java.io.Serializable;
 import javax.persistence.Column;

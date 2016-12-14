@@ -2,8 +2,8 @@ package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.dto.Credentials;
 import ch.heigvd.quaris.api.dto.Token;
-import ch.heigvd.quaris.dao.ApplicationRepository;
-import ch.heigvd.quaris.model.Application;
+import ch.heigvd.quaris.repositories.ApplicationRepository;
+import ch.heigvd.quaris.models.Application;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;

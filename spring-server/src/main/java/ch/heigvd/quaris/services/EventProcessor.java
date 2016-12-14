@@ -1,9 +1,9 @@
 package ch.heigvd.quaris.services;
 
 import ch.heigvd.quaris.api.dto.Event;
-import ch.heigvd.quaris.dao.EndUserRepository;
-import ch.heigvd.quaris.model.Application;
-import ch.heigvd.quaris.model.EndUser;
+import ch.heigvd.quaris.repositories.EndUserRepository;
+import ch.heigvd.quaris.models.Application;
+import ch.heigvd.quaris.models.EndUser;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

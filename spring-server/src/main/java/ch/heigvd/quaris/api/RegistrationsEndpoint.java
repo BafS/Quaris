@@ -2,8 +2,8 @@ package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.dto.Registration;
 import ch.heigvd.quaris.api.dto.RegistrationSummary;
-import ch.heigvd.quaris.dao.ApplicationRepository;
-import ch.heigvd.quaris.model.Application;
+import ch.heigvd.quaris.repositories.ApplicationRepository;
+import ch.heigvd.quaris.models.Application;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.DataIntegrityViolationException;

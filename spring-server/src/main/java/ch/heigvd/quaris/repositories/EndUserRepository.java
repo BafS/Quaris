@@ -1,6 +1,6 @@
-package ch.heigvd.quaris.dao;
+package ch.heigvd.quaris.repositories;
 
-import ch.heigvd.quaris.model.EndUser;
+import ch.heigvd.quaris.models.EndUser;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
  *
  * @author Olivier Liechti (olivier.liechti@heig-vd.ch)
  */
-//@Repository
+@Repository
 public interface EndUserRepository extends CrudRepository<EndUser, Long>{
 
-  public EndUser findByApplicationNameAndIdInApplication(String targetApplicationName, String targetEndUserId);
+    public EndUser findByApplicationNameAndIdInApplication(String targetApplicationName, String targetEndUserId);
   
 }

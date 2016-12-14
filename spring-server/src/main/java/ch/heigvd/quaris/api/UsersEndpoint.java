@@ -1,10 +1,10 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.dto.User;
-import ch.heigvd.quaris.dao.ApplicationRepository;
-import ch.heigvd.quaris.dao.EndUserRepository;
-import ch.heigvd.quaris.model.Application;
-import ch.heigvd.quaris.model.EndUser;
+import ch.heigvd.quaris.repositories.ApplicationRepository;
+import ch.heigvd.quaris.repositories.EndUserRepository;
+import ch.heigvd.quaris.models.Application;
+import ch.heigvd.quaris.models.EndUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
