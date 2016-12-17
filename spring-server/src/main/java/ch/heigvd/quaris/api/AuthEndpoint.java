@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
  * @author Olivier Liechti
+ * @author Fabien Salathe
  */
 @RestController
-public class AuthEndpoint implements AuthApi
-{
+public class AuthEndpoint implements AuthApi {
+
     @Autowired
     private ApplicationRepository applicationsRepository;
 
@@ -28,8 +28,10 @@ public class AuthEndpoint implements AuthApi
     public ResponseEntity authenticateApplicationAndGetToken(@RequestBody Credentials body) {
         String applicationName = body.getApplicationName();
         String password = body.getPassword();
-        Application application = applicationsRepository.findByName(applicationName); // We are not authenticating yet!
-        if (application != null) {
+        Application application = applicationsRepository.findByName(applicationName);
+
+        // Check password TODO: hash
+        if (application.getPasswordHash().equals(password)) {
             Token token = new Token();
             token.setApplicationName(application.getName());
             return ResponseEntity.ok(token);

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
  * @author Olivier Liechti
  */
 @RestController
@@ -30,18 +29,18 @@ public class UsersEndpoint implements UsersApi {
 //    this.endUserRepository = endUserRepository;
 //  }
 
-  // @Override
-  public ResponseEntity findUserById(@RequestHeader(value="X-Gamification-Token") String xGamificationToken, @PathVariable("id") String userId) {
-    String targetApplicationName = xGamificationToken;
-    Application targetApplication = applicationRepository.findByName(targetApplicationName);
-    if (targetApplication == null || userId == null) {
-      return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+    @Override
+    public ResponseEntity findUserById(@RequestHeader(value = "X-Gamification-Token") String xGamificationToken, @PathVariable("id") String userId) {
+        String targetApplicationName = xGamificationToken;
+        Application targetApplication = applicationRepository.findByName(targetApplicationName);
+        if (targetApplication == null || userId == null) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        }
+        EndUser endUser = endUserRepository.findByApplicationNameAndIdInApplication(targetApplicationName, userId);
+        User user = new User();
+        user.setUserId(endUser.getIdInGamifiedApplication());
+        user.setNumberOfEvents(endUser.getNumberOfEvents());
+        return ResponseEntity.ok(user);
     }
-    EndUser endUser = endUserRepository.findByApplicationNameAndIdInApplication(targetApplicationName, userId);
-    User user = new User();
-    user.setUserId(endUser.getIdInGamifiedApplication());
-    user.setNumberOfEvents(endUser.getNumberOfEvents());
-    return ResponseEntity.ok(user);
-  }
 
 }
