@@ -6,6 +6,8 @@ import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.models.Application;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Olivier Liechti
  */
 @RestController
-public class RegistrationsEndpoint {
-        //implements RegistrationsApi {
+public class RegistrationsEndpoint implements RegistrationsApi {
 
-  private ApplicationRepository applicationsRepository;
+    @Autowired
+    private ApplicationRepository applicationsRepository;
 
-  public RegistrationsEndpoint(ApplicationRepository applicationsRepository) {
-    this.applicationsRepository = applicationsRepository;
-  }
+//  public RegistrationsEndpoint(ApplicationRepository applicationsRepository) {
+//    this.applicationsRepository = applicationsRepository;
+//  }
 
 //  @Override
   public ResponseEntity<List<RegistrationSummary>> registrationsGet() {

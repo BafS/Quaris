@@ -10,49 +10,49 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * User
+ * Scale
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
 
-public class User   {
-  private String userId = null;
+public class Scale   {
+  private String name = null;
 
-  private Integer numberOfEvents = null;
+  private String description = null;
 
-  public User userId(String userId) {
-    this.userId = userId;
+  public Scale name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Get userId
-   * @return userId
+   * Scale's name
+   * @return name
   **/
-  @ApiModelProperty(value = "")
-  public String getUserId() {
-    return userId;
+  @ApiModelProperty(value = "Scale's name")
+  public String getName() {
+    return name;
   }
 
-  public void setUserId(String userId) {
-    this.userId = userId;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public User numberOfEvents(Integer numberOfEvents) {
-    this.numberOfEvents = numberOfEvents;
+  public Scale description(String description) {
+    this.description = description;
     return this;
   }
 
    /**
-   * Get numberOfEvents
-   * @return numberOfEvents
+   * Scale's description
+   * @return description
   **/
-  @ApiModelProperty(value = "")
-  public Integer getNumberOfEvents() {
-    return numberOfEvents;
+  @ApiModelProperty(value = "Scale's description")
+  public String getDescription() {
+    return description;
   }
 
-  public void setNumberOfEvents(Integer numberOfEvents) {
-    this.numberOfEvents = numberOfEvents;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 
@@ -64,23 +64,23 @@ public class User   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    User user = (User) o;
-    return Objects.equals(this.userId, user.userId) &&
-        Objects.equals(this.numberOfEvents, user.numberOfEvents);
+    Scale scale = (Scale) o;
+    return Objects.equals(this.name, scale.name) &&
+        Objects.equals(this.description, scale.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userId, numberOfEvents);
+    return Objects.hash(name, description);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class User {\n");
+    sb.append("class Scale {\n");
     
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
-    sb.append("    numberOfEvents: ").append(toIndentedString(numberOfEvents)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -5,6 +5,7 @@ import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.services.EventProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,13 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EventsEndpoint implements EventsApi {
 
-    private final ApplicationRepository applicationsRepository;
-    private final EventProcessor eventProcessor;
+    @Autowired
+    private final ApplicationRepository applicationsRepository = null;
 
-    public EventsEndpoint(ApplicationRepository applicationsRepository, EndUserRepository endUsersRepository, EventProcessor eventProcessor) {
-        this.applicationsRepository = applicationsRepository;
-        this.eventProcessor = eventProcessor;
-    }
+    @Autowired
+    private final EventProcessor eventProcessor = null;
+
+//    public EventsEndpoint(ApplicationRepository applicationsRepository, EndUserRepository endUsersRepository, EventProcessor eventProcessor) {
+//        this.applicationsRepository = applicationsRepository;
+//        this.eventProcessor = eventProcessor;
+//    }
 
     @Override
     public ResponseEntity reportEvent(@RequestHeader(value="X-Gamification-Token") String xGamificationToken, @RequestBody Event event) {

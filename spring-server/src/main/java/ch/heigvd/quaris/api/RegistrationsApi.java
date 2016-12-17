@@ -1,16 +1,22 @@
 package ch.heigvd.quaris.api;
 
-import ch.heigvd.quaris.api.dto.Registration;
 import ch.heigvd.quaris.api.dto.RegistrationSummary;
+import ch.heigvd.quaris.api.dto.Registration;
+
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-13T13:20:34.690Z")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
 
 @Api(value = "registrations", description = "the registrations API")
 public interface RegistrationsApi {
@@ -31,6 +37,10 @@ public interface RegistrationsApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Void> registrationsPost(@ApiParam(value = "The info required to register an application", required = true) @RequestBody Registration body);
+    ResponseEntity<Void> registrationsPost(
+
+@ApiParam(value = "The info required to register an application" ,required=true ) @RequestBody Registration body
+
+);
 
 }

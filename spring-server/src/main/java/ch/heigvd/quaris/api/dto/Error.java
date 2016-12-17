@@ -10,29 +10,49 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * RegistrationSummary
+ * Error
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
 
-public class RegistrationSummary   {
-  private String applicationName = null;
+public class Error   {
+  private Integer code = null;
 
-  public RegistrationSummary applicationName(String applicationName) {
-    this.applicationName = applicationName;
+  private String message = null;
+
+  public Error code(Integer code) {
+    this.code = code;
     return this;
   }
 
    /**
-   * Get applicationName
-   * @return applicationName
+   * Get code
+   * @return code
   **/
   @ApiModelProperty(value = "")
-  public String getApplicationName() {
-    return applicationName;
+  public Integer getCode() {
+    return code;
   }
 
-  public void setApplicationName(String applicationName) {
-    this.applicationName = applicationName;
+  public void setCode(Integer code) {
+    this.code = code;
+  }
+
+  public Error message(String message) {
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * Get message
+   * @return message
+  **/
+  @ApiModelProperty(value = "")
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
   }
 
 
@@ -44,21 +64,23 @@ public class RegistrationSummary   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RegistrationSummary registrationSummary = (RegistrationSummary) o;
-    return Objects.equals(this.applicationName, registrationSummary.applicationName);
+    Error error = (Error) o;
+    return Objects.equals(this.code, error.code) &&
+        Objects.equals(this.message, error.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicationName);
+    return Objects.hash(code, message);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RegistrationSummary {\n");
+    sb.append("class Error {\n");
     
-    sb.append("    applicationName: ").append(toIndentedString(applicationName)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();
   }

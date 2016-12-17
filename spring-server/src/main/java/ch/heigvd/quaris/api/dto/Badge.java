@@ -5,34 +5,32 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.joda.time.DateTime;
 
 
 
 
 /**
- * Event
+ * Badge
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
 
-public class Event   {
+public class Badge   {
   private String name = null;
 
-  private Object payload = null;
+  private String description = null;
 
-  private DateTime timestamp = null;
-  private String userId;
+  private byte[] icon = null;
 
-  public Event name(String name) {
+  public Badge name(String name) {
     this.name = name;
     return this;
   }
 
    /**
-   * Event's name
+   * Unique identifier representing the badge name.
    * @return name
   **/
-  @ApiModelProperty(value = "Event's name")
+  @ApiModelProperty(value = "Unique identifier representing the badge name.")
   public String getName() {
     return name;
   }
@@ -41,40 +39,40 @@ public class Event   {
     this.name = name;
   }
 
-  public Event payload(Object payload) {
-    this.payload = payload;
+  public Badge description(String description) {
+    this.description = description;
     return this;
   }
 
    /**
-   * Parameters to use in rules
-   * @return payload
+   * Badge description
+   * @return description
   **/
-  @ApiModelProperty(value = "Parameters to use in rules")
-  public Object getPayload() {
-    return payload;
+  @ApiModelProperty(value = "Badge description")
+  public String getDescription() {
+    return description;
   }
 
-  public void setPayload(Object payload) {
-    this.payload = payload;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
-  public Event timestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
+  public Badge icon(byte[] icon) {
+    this.icon = icon;
     return this;
   }
 
    /**
-   * Get timestamp
-   * @return timestamp
+   * Image associated to the badge
+   * @return icon
   **/
-  @ApiModelProperty(value = "")
-  public DateTime getTimestamp() {
-    return timestamp;
+  @ApiModelProperty(value = "Image associated to the badge")
+  public byte[] getIcon() {
+    return icon;
   }
 
-  public void setTimestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
+  public void setIcon(byte[] icon) {
+    this.icon = icon;
   }
 
 
@@ -86,25 +84,25 @@ public class Event   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Event event = (Event) o;
-    return Objects.equals(this.name, event.name) &&
-        Objects.equals(this.payload, event.payload) &&
-        Objects.equals(this.timestamp, event.timestamp);
+    Badge badge = (Badge) o;
+    return Objects.equals(this.name, badge.name) &&
+        Objects.equals(this.description, badge.description) &&
+        Objects.equals(this.icon, badge.icon);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, payload, timestamp);
+    return Objects.hash(name, description, icon);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Event {\n");
+    sb.append("class Badge {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    icon: ").append(toIndentedString(icon)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -118,14 +116,6 @@ public class Event   {
       return "null";
     }
     return o.toString().replace("\n", "\n    ");
-  }
-
-  public String getUserId() {
-    return userId;
-  }
-
-  public void setUserId(String userId) {
-    this.userId = userId;
   }
 }
 

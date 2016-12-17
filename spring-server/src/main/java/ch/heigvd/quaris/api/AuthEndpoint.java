@@ -4,6 +4,7 @@ import ch.heigvd.quaris.api.dto.Credentials;
 import ch.heigvd.quaris.api.dto.Token;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.models.Application;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Olivier Liechti
  */
 @RestController
-public class AuthEndpoint
-//        implements AuthApi
+public class AuthEndpoint implements AuthApi
 {
+    @Autowired
     private ApplicationRepository applicationsRepository;
 
-    public AuthEndpoint(ApplicationRepository applicationsRepository) {
-        this.applicationsRepository = applicationsRepository;
-    }
+//    public AuthEndpoint(ApplicationRepository applicationsRepository) {
+//        this.applicationsRepository = applicationsRepository;
+//    }
 
-//  @Override
+    @Override
     public ResponseEntity authenticateApplicationAndGetToken(@RequestBody Credentials body) {
         String applicationName = body.getApplicationName();
         String password = body.getPassword();

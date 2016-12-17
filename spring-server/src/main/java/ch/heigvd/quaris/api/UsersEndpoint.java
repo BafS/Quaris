@@ -5,6 +5,7 @@ import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.models.EndUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,16 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Olivier Liechti
  */
 @RestController
-public class UsersEndpoint {
-        //implements UsersApi {
+public class UsersEndpoint implements UsersApi {
 
-  private final ApplicationRepository applicationRepository;
-  private final EndUserRepository endUserRepository;
+    @Autowired
+    private final ApplicationRepository applicationRepository = null;
 
-  public UsersEndpoint(ApplicationRepository applicationRepository, EndUserRepository endUserRepository) {
-    this.applicationRepository = applicationRepository;
-    this.endUserRepository = endUserRepository;
-  }
+    @Autowired
+    private final EndUserRepository endUserRepository = null;
+
+//  public UsersEndpoint(ApplicationRepository applicationRepository, EndUserRepository endUserRepository) {
+//    this.applicationRepository = applicationRepository;
+//    this.endUserRepository = endUserRepository;
+//  }
 
   // @Override
   public ResponseEntity findUserById(@RequestHeader(value="X-Gamification-Token") String xGamificationToken, @PathVariable("id") String userId) {
