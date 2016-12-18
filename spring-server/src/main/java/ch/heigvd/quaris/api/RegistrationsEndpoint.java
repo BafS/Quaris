@@ -24,10 +24,6 @@ public class RegistrationsEndpoint implements RegistrationsApi {
     @Autowired
     private ApplicationRepository applicationsRepository;
 
-//  public RegistrationsEndpoint(ApplicationRepository applicationsRepository) {
-//    this.applicationsRepository = applicationsRepository;
-//  }
-
     @Override
     public ResponseEntity<List<RegistrationSummary>> registrationsGet() {
         List<RegistrationSummary> result = new ArrayList<>();
