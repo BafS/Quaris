@@ -8,6 +8,12 @@ host: api.quaris.com
 # array of all schemes that your API supports
 schemes:
   - https
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    description: JWT token that identifies the application sending the request
+    in: header
 # will be prefixed to all paths
 basePath: /v1
 produces:
@@ -63,8 +69,9 @@ paths:
     get:
       description:  Retrieve one user by id
       operationId: findUserById
+      security:
+        - Bearer: []
       parameters:
-        - $ref: '#/parameters/TokenHeader'
         - name: id
           in: path
           description: id of the user to fetch
@@ -82,6 +89,8 @@ paths:
     get:
       summary: All Badges
       description: The Badges endpoint returns information about all the badges existing.
+      security:
+        - Bearer: []
       tags:
         - Badge
       responses:
@@ -98,6 +107,8 @@ paths:
     post:
       summary: Create a new Badge
       description: Create a new Badge.
+      security:
+        - Bearer: []
       parameters:
         - name: badge
           in: body
@@ -121,6 +132,8 @@ paths:
         summary: Badge Information
         description: |
           The Badge Information endpoint returns information about the given badge.
+        security:
+          - Bearer: []
         parameters:
           - name: badgename
             in: path
@@ -146,8 +159,9 @@ paths:
       operationId: reportEvent
       consumes:
         - application/json
+      security:
+        - Bearer: []
       parameters:
-        - $ref: '#/parameters/TokenHeader'
         - name: event
           in: body
           description: Event to add
@@ -170,6 +184,8 @@ paths:
     get:
       summary: All Rules
       description: The Rules endpoint returns information about all the existing rules.
+      security:
+        - Bearer: []
       tags:
         - Rule
       responses:
@@ -186,6 +202,8 @@ paths:
     post:
       summary: Create a new Rule
       description: Create a new Rule.
+      security:
+        - Bearer: []
       parameters:
         - name: rule
           in: body
@@ -208,6 +226,8 @@ paths:
     get:
       summary: All Scales
       description: The Scales endpoint returns information about all the existing scales.
+      security:
+        - Bearer: []
       tags:
         - Scale
       responses:
@@ -224,6 +244,8 @@ paths:
     post:
       summary: Create a new Scale
       description: Create a new Scale.
+      security:
+        - Bearer: []
       parameters:
         - name: scale
           in: body
@@ -331,10 +353,3 @@ definitions:
         format: int32
       message:
         type: string
-parameters:
-  TokenHeader:
-    description: token that identifies the application sending the request
-    name: X-Gamification-Token
-    in: header
-    required: true
-    type: string
