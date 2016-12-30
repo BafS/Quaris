@@ -16,12 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
 
 @Api(value = "badges", description = "the badges API")
 public interface BadgesApi {
 
-    @ApiOperation(value = "Badge Information", notes = "The Badge Information endpoint returns information about the given badge. ", response = Badge.class, tags={ "Badge", })
+    @ApiOperation(value = "Badge Information", notes = "The Badge Information endpoint returns information about the given badge. ", response = Badge.class, authorizations = {
+        @Authorization(value = "Bearer")
+    }, tags={ "Badge", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Badge object", response = Badge.class),
         @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class) })
@@ -35,7 +37,9 @@ public interface BadgesApi {
 );
 
 
-    @ApiOperation(value = "All Badges", notes = "The Badges endpoint returns information about all the badges existing.", response = Badge.class, responseContainer = "List", tags={ "Badge", })
+    @ApiOperation(value = "All Badges", notes = "The Badges endpoint returns information about all the badges existing.", response = Badge.class, responseContainer = "List", authorizations = {
+        @Authorization(value = "Bearer")
+    }, tags={ "Badge", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Badges' information", response = Badge.class),
         @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class) })
@@ -45,7 +49,9 @@ public interface BadgesApi {
     ResponseEntity<List<Badge>> badgesGet();
 
 
-    @ApiOperation(value = "Create a new Badge", notes = "Create a new Badge.", response = Void.class, tags={ "Badge", })
+    @ApiOperation(value = "Create a new Badge", notes = "Create a new Badge.", response = Void.class, authorizations = {
+        @Authorization(value = "Bearer")
+    }, tags={ "Badge", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Badge was created", response = Void.class),
         @ApiResponse(code = 409, message = "Conflict, the badge name already exists", response = Void.class),

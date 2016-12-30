@@ -16,12 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
 
 @Api(value = "rules", description = "the rules API")
 public interface RulesApi {
 
-    @ApiOperation(value = "All Rules", notes = "The Rules endpoint returns information about all the existing rules.", response = Rule.class, responseContainer = "List", tags={ "Rule", })
+    @ApiOperation(value = "All Rules", notes = "The Rules endpoint returns information about all the existing rules.", response = Rule.class, responseContainer = "List", authorizations = {
+        @Authorization(value = "Bearer")
+    }, tags={ "Rule", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Rules' information", response = Rule.class),
         @ApiResponse(code = 200, message = "Unexpected error", response = Rule.class) })
@@ -31,7 +33,9 @@ public interface RulesApi {
     ResponseEntity<List<Rule>> rulesGet();
 
 
-    @ApiOperation(value = "Create a new Rule", notes = "Create a new Rule.", response = Void.class, tags={ "Rule", })
+    @ApiOperation(value = "Create a new Rule", notes = "Create a new Rule.", response = Void.class, authorizations = {
+        @Authorization(value = "Bearer")
+    }, tags={ "Rule", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Rule was created", response = Void.class),
         @ApiResponse(code = 409, message = "Conflict, the rule name already exists", response = Void.class),

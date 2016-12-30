@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Badge
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
 
 public class Badge   {
   private String name = null;

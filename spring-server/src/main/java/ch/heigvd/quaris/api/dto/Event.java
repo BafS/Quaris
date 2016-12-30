@@ -13,7 +13,7 @@ import org.joda.time.DateTime;
 /**
  * Event
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
 
 public class Event   {
   private String name = null;
@@ -120,12 +120,8 @@ public class Event   {
     return o.toString().replace("\n", "\n    ");
   }
 
-  public String getUserId() {
-    return userId;
-  }
-
-  public void setUserId(String userId) {
-    this.userId = userId;
-  }
+    public String getUserId() {
+        return userId;
+    }
 }
 

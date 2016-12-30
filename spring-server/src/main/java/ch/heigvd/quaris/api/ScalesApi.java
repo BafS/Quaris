@@ -16,12 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
 
 @Api(value = "scales", description = "the scales API")
 public interface ScalesApi {
 
-    @ApiOperation(value = "All Scales", notes = "The Scales endpoint returns information about all the existing scales.", response = Scale.class, responseContainer = "List", tags={ "Scale", })
+    @ApiOperation(value = "All Scales", notes = "The Scales endpoint returns information about all the existing scales.", response = Scale.class, responseContainer = "List", authorizations = {
+        @Authorization(value = "Bearer")
+    }, tags={ "Scale", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Scales' information", response = Scale.class),
         @ApiResponse(code = 200, message = "Unexpected error", response = Scale.class) })
@@ -31,7 +33,9 @@ public interface ScalesApi {
     ResponseEntity<List<Scale>> scalesGet();
 
 
-    @ApiOperation(value = "Create a new Scale", notes = "Create a new Scale.", response = Void.class, tags={ "Scale", })
+    @ApiOperation(value = "Create a new Scale", notes = "Create a new Scale.", response = Void.class, authorizations = {
+        @Authorization(value = "Bearer")
+    }, tags={ "Scale", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Scale was created", response = Void.class),
         @ApiResponse(code = 409, message = "Conflict, the Scale name already exists", response = Void.class),

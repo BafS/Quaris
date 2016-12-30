@@ -15,22 +15,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-14T23:22:01.292+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
 
 @Api(value = "users", description = "the users API")
 public interface UsersApi {
 
-    @ApiOperation(value = "", notes = "Retrieve one user by id", response = User.class, tags={  })
+    @ApiOperation(value = "", notes = "Retrieve one user by id", response = User.class, authorizations = {
+        @Authorization(value = "Bearer")
+    }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Returns the specified user state", response = User.class) })
     @RequestMapping(value = "/users/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<User> findUserById(
-@ApiParam(value = "token that identifies the application sending the request" ,required=true ) @RequestHeader(value="X-Gamification-Token", required=true) String xGamificationToken
-
-
-,
 @ApiParam(value = "id of the user to fetch",required=true ) @PathVariable("id") String id
 
 

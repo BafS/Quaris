@@ -28,7 +28,7 @@ public class EventProcessor {
         if (targetEndUser == null) {
             targetEndUser = new EndUser();
             targetEndUser.setApplication(application);
-            targetEndUser.setIdInGamifiedApplication(event.getUserId());
+            targetEndUser.setIdInGamifiedApplication(event.getUserId()); // TODO
             targetEndUser.setNumberOfEvents(1);
             endUsersRepository.save(targetEndUser);
         } else {

@@ -31,8 +31,12 @@ public class EventsEndpoint implements EventsApi {
 //    }
 
     @Override
-    public ResponseEntity reportEvent(@RequestHeader(value="X-Gamification-Token") String xGamificationToken, @RequestBody Event event) {
-        String targetApplicationName = xGamificationToken;
+    public ResponseEntity reportEvent(@RequestBody Event event) {
+//        public ResponseEntity reportEvent(@RequestHeader(value="X-Gamification-Token") String xGamificationToken, @RequestBody Event event) {
+//            String targetApplicationName = xGamificationToken;
+        // -> Still pass X-Gamification-Token for public paths only ?
+
+        String targetApplicationName = "TODO";
         String targetEndUserId = event.getUserId();
         Application targetApplication = applicationsRepository.findByName(targetApplicationName);
         if (targetApplication == null || targetEndUserId == null) {
