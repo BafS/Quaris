@@ -54,8 +54,8 @@
                             <language>spring</language>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
-                                <modelPackage>ch.heigvd.queris.api.dto</modelPackage>
-                                <apiPackage>ch.heigvd.queris.api</apiPackage>
+                                <modelPackage>ch.heigvd.quaris.api.dto</modelPackage>
+                                <apiPackage>ch.heigvd.quaris.api</apiPackage>
                             </configOptions>
                             <output>target/generated-sources/swagger</output>
                         </configuration>
