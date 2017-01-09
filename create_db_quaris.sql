@@ -65,7 +65,7 @@ create table event(
     foreign key(user_id) references user(id)
 );
 
-create table user_badges (
+create table user_badge (
 	id int not null,
 	user_id int not null,
 	badge_id int not null,
@@ -74,7 +74,7 @@ create table user_badges (
     foreign key (badge_id) references badge(id)
 );
 
-create table user_scales (
+create table user_scale (
 	id int not null,
 	user_id int not null,
 	scale_id int not null,
