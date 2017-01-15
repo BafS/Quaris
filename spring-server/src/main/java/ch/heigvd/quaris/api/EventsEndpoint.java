@@ -34,10 +34,14 @@ public class EventsEndpoint implements EventsApi {
     public ResponseEntity reportEvent(@ApiParam(value = "Event to add", required = true) @RequestBody Event event) {
 //        public ResponseEntity reportEvent(@RequestHeader(value="X-Gamification-Token") String xGamificationToken, @RequestBody Event event) {
 //            String targetApplicationName = xGamificationToken;
-        // -> Still pass X-Gamification-Token for public paths only ?
 
-        String targetApplicationName = "TODO";
-        String targetEndUserId = event.getIdentifier();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String targetApplicationName = "";
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            targetApplicationName = authentication.getName();
+        }
+
         Application targetApplication = applicationsRepository.findByName(targetApplicationName);
         if (targetApplication == null || targetEndUserId == null) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
