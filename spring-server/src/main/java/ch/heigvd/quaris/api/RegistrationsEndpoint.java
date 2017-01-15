@@ -1,5 +1,6 @@
 package ch.heigvd.quaris.api;
 
+import ch.heigvd.quaris.api.definitions.RegistrationsApi;
 import ch.heigvd.quaris.api.dto.Registration;
 import ch.heigvd.quaris.api.dto.RegistrationSummary;
 import ch.heigvd.quaris.repositories.ApplicationRepository;

@@ -55,7 +55,7 @@
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
                                 <modelPackage>ch.heigvd.quaris.api.dto</modelPackage>
-                                <apiPackage>ch.heigvd.quaris.api</apiPackage>
+                                <apiPackage>ch.heigvd.quaris.api.definitions</apiPackage>
                             </configOptions>
                             <output>target/generated-sources/swagger</output>
                         </configuration>

@@ -1,17 +1,15 @@
 package ch.heigvd.quaris.api;
 
+import ch.heigvd.quaris.api.definitions.EventsApi;
 import ch.heigvd.quaris.api.dto.Event;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
-import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.services.EventProcessor;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 /**

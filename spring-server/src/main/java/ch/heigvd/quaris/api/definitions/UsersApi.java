@@ -1,4 +1,4 @@
-package ch.heigvd.quaris.api;
+package ch.heigvd.quaris.api.definitions;
 
 import ch.heigvd.quaris.api.dto.User;
 

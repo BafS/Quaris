@@ -1,5 +1,6 @@
 package ch.heigvd.quaris.api;
 
+import ch.heigvd.quaris.api.definitions.UsersApi;
 import ch.heigvd.quaris.api.dto.User;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.EndUserRepository;
