@@ -40,7 +40,7 @@ public class RegistrationsEndpoint implements RegistrationsApi {
     public ResponseEntity<Void> registrationsPost(@RequestBody Registration registration) {
         Application newApplication = new Application();
         newApplication.setName(registration.getApplicationName());
-        String passwordHash = registration.getPassword(); // TODO
+        String passwordHash = registration.getPassword(); // TODO hash password
         newApplication.setPasswordHash(passwordHash);
 
         System.out.println("> New registration:");

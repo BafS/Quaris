@@ -4,11 +4,15 @@ import ch.heigvd.quaris.api.definitions.EventsApi;
 import ch.heigvd.quaris.api.dto.Event;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.models.Application;
+import ch.heigvd.quaris.repositories.EventRepository;
 import ch.heigvd.quaris.services.EventProcessor;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,12 +27,10 @@ public class EventsEndpoint implements EventsApi {
     private final ApplicationRepository applicationsRepository = null;
 
     @Autowired
-    private final EventProcessor eventProcessor = null;
+    private final EventRepository eventRepository = null;
 
-//    public EventsEndpoint(ApplicationRepository applicationsRepository, EndUserRepository endUsersRepository, EventProcessor eventProcessor) {
-//        this.applicationsRepository = applicationsRepository;
-//        this.eventProcessor = eventProcessor;
-//    }
+    @Autowired
+    private final EventProcessor eventProcessor = null;
 
     @Override
     public ResponseEntity reportEvent(@ApiParam(value = "Event to add", required = true) @RequestBody Event event) {
@@ -43,10 +45,14 @@ public class EventsEndpoint implements EventsApi {
         }
 
         Application targetApplication = applicationsRepository.findByName(targetApplicationName);
+
+        String targetEndUserId = event.getIdentifier();
+
         if (targetApplication == null || targetEndUserId == null) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
         eventProcessor.processEvent(targetApplication, event);
+
         return ResponseEntity.accepted().build();
     }
 }
