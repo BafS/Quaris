@@ -3,9 +3,8 @@ info:
   title: Quaris
   description: Quaris API specification
   version: "0.1.0"
-# the domain of the service
 host: api.quaris.com
-# array of all schemes that your API supports
+basePath: /v1
 schemes:
   - https
 securityDefinitions:
@@ -14,8 +13,6 @@ securityDefinitions:
     name: Authorization
     description: JWT token that identifies the application sending the request
     in: header
-# will be prefixed to all paths
-basePath: /v1
 produces:
   - application/json
 paths:
@@ -25,7 +22,7 @@ paths:
         - application/json
       responses:
         200:
-          description:  List all registered applications
+          description: List all registered applications
           schema:
             title: Registration summary
             type: array
@@ -44,6 +41,7 @@ paths:
       responses:
         201:
           description: Register a new application
+
   /auth:
     post:
       operationId: authenticateApplicationAndGetToken
@@ -65,9 +63,10 @@ paths:
             $ref: '#/definitions/Token'
         401:
           description: Authentication failed
+
   /users/{id}:
     get:
-      description:  Retrieve one user by id
+      description: Retrieve one user by id
       operationId: findUserById
       security:
         - Bearer: []
@@ -85,6 +84,7 @@ paths:
               Returns the specified user state
           schema:
             $ref: '#/definitions/User'
+
   /badges:
     get:
       summary: All Badges
@@ -151,6 +151,7 @@ paths:
             description: Unexpected error
             schema:
               $ref: '#/definitions/Error'
+
   /events:
     post:
       summary: Create a new event
@@ -339,9 +340,12 @@ definitions:
       name:
         type: string
         description: Event's name
+      identifier:
+        type: string
+        description: user identifier
       payload:
         type: object
-        description: Parameters to use in rules
+        description: Parameters to use in rules (optional)
       timestamp:
         type: string
         format: date-time
