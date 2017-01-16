@@ -16,6 +16,8 @@ public class Event implements Serializable {
     @ManyToOne
     private EndUser user; // Identifier
 
+    private String identifier;
+
     @OneToOne
     private Application app;
 
@@ -50,6 +52,14 @@ public class Event implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     //    public String getPayload() {

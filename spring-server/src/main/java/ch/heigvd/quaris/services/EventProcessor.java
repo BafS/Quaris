@@ -24,22 +24,23 @@ public class EventProcessor {
     public void processEvent(Application application, Event event) {
 
         EndUser targetEndUser = event.getUser();
-        System.out.println("[i] targetEndUser:: " + targetEndUser.getIdInGamifiedApplication());
-        // endUsersRepository.findByApplicationNameAndIdInApplication(application.getName(), event.getUser().getIdInGamifiedApplication());
 
         if (targetEndUser == null) {
             // TODO org.modelmapper ?
 
             targetEndUser = new EndUser();
             targetEndUser.setApplication(application);
-            targetEndUser.setIdInGamifiedApplication(event.getUser().getIdInGamifiedApplication());
+            targetEndUser.setIdInGamifiedApplication(event.getIdentifier());
             targetEndUser.setNumberOfEvents(1);
             endUsersRepository.save(targetEndUser);
         } else {
-            event.setUser(targetEndUser);
-            eventRepository.save(event);
+            System.out.println("[i] targetEndUser:: " + targetEndUser.getIdInGamifiedApplication());
+            // endUsersRepository.findByApplicationNameAndIdInApplication(application.getName(), event.getUser().getIdInGamifiedApplication());
 
             targetEndUser.setNumberOfEvents(targetEndUser.getNumberOfEvents() + 1);
         }
+
+        event.setUser(targetEndUser);
+        eventRepository.save(event);
     }
 }

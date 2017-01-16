@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author Olivier Liechti
+ * @author Fabien Salathe & Henrik Akesson
  */
 @RestController
 public class EventsEndpoint implements EventsApi {
@@ -35,9 +35,6 @@ public class EventsEndpoint implements EventsApi {
 
     @Override
     public ResponseEntity reportEvent(@ApiParam(value = "Event to add", required = true) @RequestBody Event event) {
-//        public ResponseEntity reportEvent(@RequestHeader(value="X-Gamification-Token") String xGamificationToken, @RequestBody Event event) {
-//            String targetApplicationName = xGamificationToken;
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String targetApplicationName = "";
@@ -46,10 +43,7 @@ public class EventsEndpoint implements EventsApi {
         }
 
         Application targetApplication = applicationsRepository.findByName(targetApplicationName);
-
         String targetEndUserId = event.getIdentifier();
-
-        System.out.println("[i] App: " + targetApplication.getName() + " ---- " + targetEndUserId);
 
         if (targetApplication == null || targetEndUserId == null) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
@@ -60,11 +54,14 @@ public class EventsEndpoint implements EventsApi {
         ch.heigvd.quaris.models.Event eventModel = new ch.heigvd.quaris.models.Event();
         eventModel.setApp(targetApplication);
         // eventModel.setPayload(""); // event.getPayload()); // TODO ?
-        eventModel.setUser(targetEndUser);
+
+        eventModel.setUser(targetEndUser); // TODO remove ?
+        eventModel.setIdentifier(targetEndUserId);
+
         eventModel.setType(event.getType());
 
         eventProcessor.processEvent(targetApplication, eventModel);
 
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.ok().build();
     }
 }

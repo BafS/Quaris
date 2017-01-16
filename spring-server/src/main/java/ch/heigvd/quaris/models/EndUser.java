@@ -7,7 +7,7 @@ import javax.persistence.*;
  * @author Olivier Liechti
  */
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class EndUser implements Serializable {
 
     @Id
@@ -23,10 +23,6 @@ public class EndUser implements Serializable {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Application getApplication() {
