@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @author Fabien Salathe & Henrik Akesson
  */
 @Repository
-public interface ScalesRepository extends CrudRepository<Scale, Long> {
+public interface ScaleRepository extends CrudRepository<Scale, Long> {
 }

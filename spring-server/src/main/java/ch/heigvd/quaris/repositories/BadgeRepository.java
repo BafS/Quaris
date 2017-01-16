@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @author Fabien Salathe & Henrik Akesson
  */
 @Repository
-public interface BadgesRepository extends CrudRepository<Badge, Long> {
+public interface BadgeRepository extends CrudRepository<Badge, Long> {
 }

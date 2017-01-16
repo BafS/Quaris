@@ -31,20 +31,11 @@ public class RulesEndpoint implements RulesApi {
     // public ResponseEntity<List<Rule>> rulesGet() {
     @Override
     public ResponseEntity rulesGet() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        ApplicationService as = new ApplicationService();
 
-        String targetApplicationName = "";
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            targetApplicationName = authentication.getName();
-        }
-
-//        ApplicationService as = new ApplicationService();
-
-        Iterable<ch.heigvd.quaris.models.Rule> allRules = rulesRepository.findAll();
+        Iterable<ch.heigvd.quaris.models.Rule> allRules = rulesRepository.findByApplicationName(as.getCurrentApplicationName());
 
         return ResponseEntity.ok(allRules);
-
-        // return ResponseEntity.notFound().build();
     }
 
     @Override
@@ -54,7 +45,6 @@ public class RulesEndpoint implements RulesApi {
         }
 
         ApplicationService as = new ApplicationService();
-
 
         Application app = applicationsRepository.findByName(as.getCurrentApplicationName());
         System.out.println("targetApplicationName: " + app.getName()); // DEBUG
