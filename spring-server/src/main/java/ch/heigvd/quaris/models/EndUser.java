@@ -1,6 +1,7 @@
 package ch.heigvd.quaris.models;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -20,6 +21,14 @@ public class EndUser implements Serializable {
     private String idInApplication;
 
     private int numberOfEvents;
+
+    @ManyToMany
+    @JoinTable(
+            name="user_badge",
+            joinColumns=@JoinColumn(name="user_id", referencedColumnName="id"),
+            inverseJoinColumns=@JoinColumn(name="badge_id", referencedColumnName="id")
+    )
+    private List<Badge> projects;
 
     public long getId() {
         return id;

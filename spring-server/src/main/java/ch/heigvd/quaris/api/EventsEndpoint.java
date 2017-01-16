@@ -8,7 +8,6 @@ import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.services.EventProcessor;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -24,14 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EventsEndpoint implements EventsApi {
 
-    @Autowired
-    private final ApplicationRepository applicationsRepository = null;
+    private final ApplicationRepository applicationsRepository;
 
-    @Autowired
-    private final EndUserRepository endUsersRepository = null;
+    private final EndUserRepository endUsersRepository;
 
-    @Autowired
-    private final EventProcessor eventProcessor = null;
+    private final EventProcessor eventProcessor;
+
+    public EventsEndpoint(ApplicationRepository applicationsRepository, EndUserRepository endUsersRepository, EventProcessor eventProcessor) {
+        this.applicationsRepository = applicationsRepository;
+        this.endUsersRepository = endUsersRepository;
+        this.eventProcessor = eventProcessor;
+    }
 
     @Override
     public ResponseEntity reportEvent(@ApiParam(value = "Event to add", required = true) @RequestBody Event event) {

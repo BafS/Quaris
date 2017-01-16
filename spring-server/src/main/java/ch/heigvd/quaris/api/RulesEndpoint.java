@@ -5,6 +5,7 @@ import ch.heigvd.quaris.api.dto.Rule;
 import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.RuleRepository;
+import ch.heigvd.quaris.services.ApplicationService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class RulesEndpoint implements RulesApi {
             targetApplicationName = authentication.getName();
         }
 
-        Application targetApplication = applicationsRepository.findByName(targetApplicationName);
+//        ApplicationService as = new ApplicationService();
 
         Iterable<ch.heigvd.quaris.models.Rule> allRules = rulesRepository.findAll();
 
@@ -48,6 +49,25 @@ public class RulesEndpoint implements RulesApi {
 
     @Override
     public ResponseEntity<Void> rulesPost(@ApiParam(value = "Rule to add", required = true) @RequestBody Rule rule) {
-        return null;
+        if (rule == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        ApplicationService as = new ApplicationService();
+
+
+        Application app = applicationsRepository.findByName(as.getCurrentApplicationName());
+        System.out.println("targetApplicationName: " + app.getName()); // DEBUG
+
+        ch.heigvd.quaris.models.Rule ruleModel = new ch.heigvd.quaris.models.Rule();
+        ruleModel.setName(rule.getName());
+        ruleModel.setAction(rule.getAction());
+        ruleModel.setApplication(app);
+//        ruleModel.setEnabled(rule.getEnabled());
+        // TODO condition
+
+        rulesRepository.save(ruleModel);
+
+        return ResponseEntity.ok().build();
     }
 }
