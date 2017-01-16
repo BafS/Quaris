@@ -1,6 +1,6 @@
 package ch.heigvd.quaris.services;
 
-import ch.heigvd.quaris.api.dto.Event;
+import ch.heigvd.quaris.models.Event;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.models.EndUser;
@@ -22,24 +22,23 @@ public class EventProcessor {
     @Async
     @Transactional
     public void processEvent(Application application, Event event) {
-        EndUser targetEndUser = endUsersRepository.findByApplicationNameAndIdInApplication(application.getName(), event.getIdentifier());
+
+        EndUser targetEndUser = event.getUser();
+        System.out.println("[i] targetEndUser:: " + targetEndUser.getIdInGamifiedApplication());
+        // endUsersRepository.findByApplicationNameAndIdInApplication(application.getName(), event.getUser().getIdInGamifiedApplication());
+
         if (targetEndUser == null) {
             // TODO org.modelmapper ?
 
             targetEndUser = new EndUser();
             targetEndUser.setApplication(application);
-            targetEndUser.setIdInGamifiedApplication(event.getIdentifier());
+            targetEndUser.setIdInGamifiedApplication(event.getUser().getIdInGamifiedApplication());
             targetEndUser.setNumberOfEvents(1);
             endUsersRepository.save(targetEndUser);
-
-            ch.heigvd.quaris.models.Event eventModel = new ch.heigvd.quaris.models.Event();
-            eventModel.setApp(application);
-            eventModel.setPayload(""); // event.getPayload()); // TODO
-            eventModel.setUser(targetEndUser);
-
-            eventRepository.save(eventModel);
-
         } else {
+            event.setUser(targetEndUser);
+            eventRepository.save(event);
+
             targetEndUser.setNumberOfEvents(targetEndUser.getNumberOfEvents() + 1);
         }
     }

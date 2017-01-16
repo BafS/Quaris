@@ -19,8 +19,10 @@ public class Event implements Serializable {
     @OneToOne
     private Application app;
 
-    @Column
-    private String payload;
+    private String type;
+
+    // @Column
+    // private String payload;
 
     public long getId() {
         return id;
@@ -42,12 +44,19 @@ public class Event implements Serializable {
         this.app = app;
     }
 
-    public String getPayload() {
-        return payload;
+    public String getType() {
+        return type;
     }
 
-    public void setPayload(String payload) {
-        this.payload = payload;
+    public void setType(String type) {
+        this.type = type;
     }
 
+    //    public String getPayload() {
+//        return payload;
+//    }
+//
+//    public void setPayload(String payload) {
+//        this.payload = payload;
+//    }
 }

@@ -2,9 +2,10 @@ package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.EventsApi;
 import ch.heigvd.quaris.api.dto.Event;
+import ch.heigvd.quaris.models.EndUser;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.models.Application;
-import ch.heigvd.quaris.repositories.EventRepository;
+import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.services.EventProcessor;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class EventsEndpoint implements EventsApi {
     private final ApplicationRepository applicationsRepository = null;
 
     @Autowired
-    private final EventRepository eventRepository = null;
+    private final EndUserRepository endUsersRepository = null;
 
     @Autowired
     private final EventProcessor eventProcessor = null;
@@ -48,10 +49,21 @@ public class EventsEndpoint implements EventsApi {
 
         String targetEndUserId = event.getIdentifier();
 
+        System.out.println("[i] App: " + targetApplication.getName() + " ---- " + targetEndUserId);
+
         if (targetApplication == null || targetEndUserId == null) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
-        eventProcessor.processEvent(targetApplication, event);
+
+        EndUser targetEndUser = endUsersRepository.findByApplicationNameAndIdInApplication(targetApplication.getName(), targetEndUserId);
+
+        ch.heigvd.quaris.models.Event eventModel = new ch.heigvd.quaris.models.Event();
+        eventModel.setApp(targetApplication);
+        // eventModel.setPayload(""); // event.getPayload()); // TODO ?
+        eventModel.setUser(targetEndUser);
+        eventModel.setType(event.getType());
+
+        eventProcessor.processEvent(targetApplication, eventModel);
 
         return ResponseEntity.accepted().build();
     }

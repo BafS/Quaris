@@ -337,9 +337,9 @@ definitions:
   Event:
     type: object
     properties:
-      name:
+      type:
         type: string
-        description: Event's name
+        description: Event's type
       identifier:
         type: string
         description: user identifier
