@@ -22,47 +22,47 @@ import java.util.List;
 public interface BadgesApi {
 
     @ApiOperation(value = "Badge Information", notes = "The Badge Information endpoint returns information about the given badge. ", response = Badge.class, authorizations = {
-        @Authorization(value = "Bearer")
-    }, tags={ "Badge", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Badge object", response = Badge.class),
-        @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class) })
+            @Authorization(value = "Bearer")
+    }, tags = {"Badge",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Badge object", response = Badge.class),
+            @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class)})
     @RequestMapping(value = "/badges/{badgename}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<Badge> badgesBadgenameGet(
-@ApiParam(value = "A specific Badge's name",required=true ) @PathVariable("badgename") String badgename
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<Badge> badgesNameGet(
+            @ApiParam(value = "A specific Badge's name", required = true) @PathVariable("badgename") String badgename
 
 
-);
+    );
 
 
     @ApiOperation(value = "All Badges", notes = "The Badges endpoint returns information about all the badges existing.", response = Badge.class, responseContainer = "List", authorizations = {
-        @Authorization(value = "Bearer")
-    }, tags={ "Badge", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Badges' information", response = Badge.class),
-        @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class) })
+            @Authorization(value = "Bearer")
+    }, tags = {"Badge",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Badges' information", response = Badge.class),
+            @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class)})
     @RequestMapping(value = "/badges",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+            produces = {"application/json"},
+            method = RequestMethod.GET)
     ResponseEntity<List<Badge>> badgesGet();
 
 
     @ApiOperation(value = "Create a new Badge", notes = "Create a new Badge.", response = Void.class, authorizations = {
-        @Authorization(value = "Bearer")
-    }, tags={ "Badge", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Badge was created", response = Void.class),
-        @ApiResponse(code = 409, message = "Conflict, the badge name already exists", response = Void.class),
-        @ApiResponse(code = 200, message = "Unexpected error", response = Void.class) })
+            @Authorization(value = "Bearer")
+    }, tags = {"Badge",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Badge was created", response = Void.class),
+            @ApiResponse(code = 409, message = "Conflict, the badge name already exists", response = Void.class),
+            @ApiResponse(code = 200, message = "Unexpected error", response = Void.class)})
     @RequestMapping(value = "/badges",
-        produces = { "application/json" }, 
-        method = RequestMethod.POST)
+            produces = {"application/json"},
+            method = RequestMethod.POST)
     ResponseEntity<Void> badgesPost(
 
-@ApiParam(value = "Badge to add" ,required=true ) @RequestBody Badge badge
+            @ApiParam(value = "Badge to add", required = true) @RequestBody Badge badge
 
-);
+    );
 
 }

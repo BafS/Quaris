@@ -15,9 +15,30 @@ public class Badge implements Serializable {
     @ManyToOne
     private Application application;
 
+    @Column(unique = true)
     private String name;
 
     private String description;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     // private String icon; // byte[] ?
 }
