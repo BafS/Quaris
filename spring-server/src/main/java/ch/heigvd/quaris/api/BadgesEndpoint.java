@@ -60,9 +60,12 @@ public class BadgesEndpoint implements BadgesApi {
         List<ch.heigvd.quaris.models.Badge> allBadges = badgeRepository.findByApplicationName(as.getCurrentApplicationName());
         Optional<ch.heigvd.quaris.models.Badge> optionalBadgeToReturn = allBadges.stream().filter(badge -> badge.getName().equals(badgename)).findFirst();
         Badge b = new Badge();
-        b.setName(optionalBadgeToReturn.get().getName());
-        b.setDescription(optionalBadgeToReturn.get().getDescription());
-        return ResponseEntity.ok(b);
+        if(optionalBadgeToReturn.isPresent()) {
+            b.setName(optionalBadgeToReturn.get().getName());
+            b.setDescription(optionalBadgeToReturn.get().getDescription());
+            return ResponseEntity.ok(b);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @Override

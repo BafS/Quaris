@@ -26,7 +26,8 @@ public interface BadgesApi {
     }, tags = {"Badge",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Badge object", response = Badge.class),
-            @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class)})
+            @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class),
+            @ApiResponse(code = 404, message = "Badge not found", response = Void.class)})
     @RequestMapping(value = "/badges/{badgename}",
             produces = {"application/json"},
             method = RequestMethod.GET)
