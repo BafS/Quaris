@@ -15,7 +15,42 @@ public class Scale {
     @ManyToOne
     private Application application;
 
+    @Column(unique = true)
     private String name;
 
-    private long points;
+    private String description;
+
+    private long points; // value
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public long getPoints() {
+        return points;
+    }
+
+    public void setPoints(long points) {
+        this.points = points;
+    }
 }

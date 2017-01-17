@@ -4,10 +4,13 @@ import ch.heigvd.quaris.models.Scale;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  *
  * @author Fabien Salathe & Henrik Akesson
  */
 @Repository
 public interface ScaleRepository extends CrudRepository<Scale, Long> {
+    public List<Scale> findByApplicationName(String applicationName);
 }
