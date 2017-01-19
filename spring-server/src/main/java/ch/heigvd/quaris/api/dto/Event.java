@@ -1,17 +1,21 @@
 package ch.heigvd.quaris.api.dto;
 
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.joda.time.DateTime;
 
-import java.util.Objects;
+
 
 
 /**
  * Event
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-16T15:31:26.895+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-19T23:29:29.334+01:00")
 
-public class Event {
+public class Event   {
   private String type = null;
 
   private String identifier = null;
@@ -94,7 +98,7 @@ public class Event {
 
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;
     }
@@ -117,7 +121,7 @@ public class Event {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Event {\n");
-
+    
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    identifier: ").append(toIndentedString(identifier)).append("\n");
     sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
@@ -130,7 +134,7 @@ public class Event {
    * Convert the given object to string with each line indented by 4 spaces
    * (except the first line).
    */
-  private String toIndentedString(Object o) {
+  private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
     }

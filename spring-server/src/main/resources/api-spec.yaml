@@ -95,7 +95,7 @@ paths:
         - Badge
       responses:
         200:
-          description: Badges' information
+          description: Badge's information
           schema:
             type: array
             items:
@@ -147,6 +147,8 @@ paths:
             description: Badge object
             schema:
               $ref: '#/definitions/Badge'
+          404:
+            description: Badge not found
           default:
             description: Unexpected error
             schema:
@@ -223,6 +225,7 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+
   /scales:
     get:
       summary: All Scales
