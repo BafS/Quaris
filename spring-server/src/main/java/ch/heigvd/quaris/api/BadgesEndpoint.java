@@ -55,18 +55,12 @@ public class BadgesEndpoint implements BadgesApi {
     @Override
     public ResponseEntity<Badge> badgesBadgenameGet(@ApiParam(value = "A specific Badge's name", required = true) @PathVariable("badgename") String badgename) {
         ApplicationService as = new ApplicationService();
+        ch.heigvd.quaris.models.Badge badgeModel = badgeRepository.findByNameAndApplicationName(badgename, as.getCurrentApplicationName());
 
-        // TODO -> SQL
-        List<ch.heigvd.quaris.models.Badge> allBadges = badgeRepository.findByApplicationName(as.getCurrentApplicationName());
-        Optional<ch.heigvd.quaris.models.Badge> optionalBadgeToReturn = allBadges
-                .stream()
-                .filter(badge -> badge.getName().equals(badgename))
-                .findFirst();
-
-        Badge badgeDTO = new Badge();
-        if (optionalBadgeToReturn.isPresent()) {
-            badgeDTO.setName(optionalBadgeToReturn.get().getName());
-            badgeDTO.setDescription(optionalBadgeToReturn.get().getDescription());
+        if (badgeModel != null) {
+            Badge badgeDTO = new Badge();
+            badgeDTO.setName(badgeModel.getName());
+            badgeDTO.setDescription(badgeModel.getDescription());
             return ResponseEntity.ok(badgeDTO);
         }
 
