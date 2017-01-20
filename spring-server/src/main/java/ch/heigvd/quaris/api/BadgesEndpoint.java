@@ -2,13 +2,12 @@ package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.BadgesApi;
 import ch.heigvd.quaris.models.Application;
-import ch.heigvd.quaris.models.Badge;
+import ch.heigvd.quaris.api.dto.Badge;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.BadgeRepository;
 import ch.heigvd.quaris.services.ApplicationService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +30,7 @@ public class BadgesEndpoint implements BadgesApi {
     private final BadgeRepository badgeRepository = null;
 
     @Override
-    public ResponseEntity<Void> badgesPost(@ApiParam(value = "Badge to add", required = true) @RequestBody ch.heigvd.quaris.api.dto.Badge badgeDTO) {
+    public ResponseEntity<Void> badgesPost(@ApiParam(value = "Badge to add", required = true) @RequestBody Badge badgeDTO) {
         if (badgeDTO == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -40,7 +39,7 @@ public class BadgesEndpoint implements BadgesApi {
 
         Application app = applicationsRepository.findByName(as.getCurrentApplicationName());
 
-        Badge badgeModel = new Badge();
+        ch.heigvd.quaris.models.Badge badgeModel = new ch.heigvd.quaris.models.Badge();
         badgeModel.setName(badgeDTO.getName());
         badgeModel.setDescription(badgeDTO.getDescription());
         badgeModel.setApplication(app);
@@ -54,13 +53,18 @@ public class BadgesEndpoint implements BadgesApi {
     }
 
     @Override
-    public ResponseEntity<ch.heigvd.quaris.api.dto.Badge> badgesBadgenameGet(@ApiParam(value = "A specific Badge's name", required = true) @PathVariable("badgename") String badgename) {
+    public ResponseEntity<Badge> badgesBadgenameGet(@ApiParam(value = "A specific Badge's name", required = true) @PathVariable("badgename") String badgename) {
         ApplicationService as = new ApplicationService();
-        List<Badge> allBadges = badgeRepository.findByApplicationName(as.getCurrentApplicationName());
-        Optional<Badge> optionalBadgeToReturn = allBadges.stream().filter(badge -> badge.getName().equals(badgename)).findFirst();
 
-        ch.heigvd.quaris.api.dto.Badge badgeDTO = new ch.heigvd.quaris.api.dto.Badge();
-        if(optionalBadgeToReturn.isPresent()) {
+        // TODO -> SQL
+        List<ch.heigvd.quaris.models.Badge> allBadges = badgeRepository.findByApplicationName(as.getCurrentApplicationName());
+        Optional<ch.heigvd.quaris.models.Badge> optionalBadgeToReturn = allBadges
+                .stream()
+                .filter(badge -> badge.getName().equals(badgename))
+                .findFirst();
+
+        Badge badgeDTO = new Badge();
+        if (optionalBadgeToReturn.isPresent()) {
             badgeDTO.setName(optionalBadgeToReturn.get().getName());
             badgeDTO.setDescription(optionalBadgeToReturn.get().getDescription());
             return ResponseEntity.ok(badgeDTO);

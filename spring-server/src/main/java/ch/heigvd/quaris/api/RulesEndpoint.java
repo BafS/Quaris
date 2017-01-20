@@ -15,6 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  *
  * @author Fabien Salathe
@@ -33,9 +37,19 @@ public class RulesEndpoint implements RulesApi {
     public ResponseEntity rulesGet() {
         ApplicationService as = new ApplicationService();
 
-        Iterable<ch.heigvd.quaris.models.Rule> allRules = rulesRepository.findByApplicationName(as.getCurrentApplicationName());
+        List<ch.heigvd.quaris.models.Rule> allRulesModel = rulesRepository.findByApplicationName(as.getCurrentApplicationName());
 
-        return ResponseEntity.ok(allRules);
+        // Create DTOs
+        Stream<Rule> allRulesDTO = allRulesModel.parallelStream().map(rm -> {
+            Rule ruleDTO = new Rule();
+            ruleDTO.setName(rm.getName());
+            ruleDTO.setCriteria(rm.getCriteria());
+            ruleDTO.setAction(rm.getAction());
+            ruleDTO.setEnabled(true); // TODO
+            return ruleDTO;
+        });
+
+        return ResponseEntity.ok(allRulesDTO.collect(Collectors.toList()));
     }
 
     @Override
@@ -53,8 +67,8 @@ public class RulesEndpoint implements RulesApi {
         ruleModel.setName(rule.getName());
         ruleModel.setAction(rule.getAction());
         ruleModel.setApplication(app);
-//        ruleModel.setEnabled(rule.getEnabled());
-        // TODO condition
+        ruleModel.setCriteria(rule.getCriteria());
+        ruleModel.setEnabled(rule.getEnabled());
 
         rulesRepository.save(ruleModel);
 

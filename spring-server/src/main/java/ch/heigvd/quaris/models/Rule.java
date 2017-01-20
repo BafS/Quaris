@@ -18,8 +18,8 @@ public class Rule implements Serializable {
 
     private String name;
 
-//    private String condition;
-//
+    private String criteria;
+
     private String action;
 
     private boolean enabled;
@@ -54,5 +54,13 @@ public class Rule implements Serializable {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
     }
 }

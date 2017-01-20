@@ -310,12 +310,12 @@ definitions:
       name:
         type: string
         description: Rule's name. Unique identifier.
-      condition:
+      criteria:
         type: string
-        description: Logical condition needed to apply the rule (js).
+        description: Logical condition needed to apply the rule (javascript).
       action:
         type: string
-        description: Action to take if condition is met (js).
+        description: Action to take if condition is met (javascript).
       enabled:
         type: boolean
         description: If the Rule is enabled or not

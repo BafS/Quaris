@@ -12,12 +12,12 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Rule
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-20T20:41:52.586+01:00")
 
 public class Rule   {
   private String name = null;
 
-  private String condition = null;
+  private String criteria = null;
 
   private String action = null;
 
@@ -41,22 +41,22 @@ public class Rule   {
     this.name = name;
   }
 
-  public Rule condition(String condition) {
-    this.condition = condition;
+  public Rule criteria(String criteria) {
+    this.criteria = criteria;
     return this;
   }
 
    /**
-   * Logical condition needed to apply the rule (js).
-   * @return condition
+   * Logical condition needed to apply the rule (javascript).
+   * @return criteria
   **/
-  @ApiModelProperty(value = "Logical condition needed to apply the rule (js).")
-  public String getCondition() {
-    return condition;
+  @ApiModelProperty(value = "Logical condition needed to apply the rule (javascript).")
+  public String getCriteria() {
+    return criteria;
   }
 
-  public void setCondition(String condition) {
-    this.condition = condition;
+  public void setCriteria(String criteria) {
+    this.criteria = criteria;
   }
 
   public Rule action(String action) {
@@ -65,10 +65,10 @@ public class Rule   {
   }
 
    /**
-   * Action to take if condition is met (js).
+   * Action to take if condition is met (javascript).
    * @return action
   **/
-  @ApiModelProperty(value = "Action to take if condition is met (js).")
+  @ApiModelProperty(value = "Action to take if condition is met (javascript).")
   public String getAction() {
     return action;
   }
@@ -106,14 +106,14 @@ public class Rule   {
     }
     Rule rule = (Rule) o;
     return Objects.equals(this.name, rule.name) &&
-        Objects.equals(this.condition, rule.condition) &&
+        Objects.equals(this.criteria, rule.criteria) &&
         Objects.equals(this.action, rule.action) &&
         Objects.equals(this.enabled, rule.enabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, condition, action, enabled);
+    return Objects.hash(name, criteria, action, enabled);
   }
 
   @Override
@@ -122,7 +122,7 @@ public class Rule   {
     sb.append("class Rule {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    condition: ").append(toIndentedString(condition)).append("\n");
+    sb.append("    criteria: ").append(toIndentedString(criteria)).append("\n");
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("}");
