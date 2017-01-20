@@ -15,7 +15,7 @@ public class Badge implements Serializable {
     @ManyToOne
     private Application application;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
     private String description;

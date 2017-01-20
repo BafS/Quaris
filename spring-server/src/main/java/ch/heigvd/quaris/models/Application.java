@@ -19,7 +19,7 @@ public class Application implements Serializable, UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Column

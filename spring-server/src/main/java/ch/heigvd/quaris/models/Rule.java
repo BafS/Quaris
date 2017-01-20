@@ -16,10 +16,13 @@ public class Rule implements Serializable {
     @ManyToOne
     private Application application;
 
+    @Column(unique = true)
     private String name;
 
+    @Lob
     private String criteria;
 
+    @Lob
     private String action;
 
     private boolean enabled;

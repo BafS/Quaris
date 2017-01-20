@@ -10,7 +10,7 @@ import java.util.Collection;
  */
 public class AuthenticatedUser implements Authentication {
 
-    private String name;
+    private String name; // Application name
     private boolean authenticated = true;
 
     AuthenticatedUser(String name){
