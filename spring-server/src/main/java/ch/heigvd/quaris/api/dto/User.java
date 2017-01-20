@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.joda.time.LocalDate;
 
 
 
@@ -12,12 +13,14 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * User
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-20T19:51:07.406+01:00")
 
 public class User   {
   private String userId = null;
 
   private Integer numberOfEvents = null;
+
+  private LocalDate creationDate = null;
 
   public User userId(String userId) {
     this.userId = userId;
@@ -55,6 +58,24 @@ public class User   {
     this.numberOfEvents = numberOfEvents;
   }
 
+  public User creationDate(LocalDate creationDate) {
+    this.creationDate = creationDate;
+    return this;
+  }
+
+   /**
+   * Get creationDate
+   * @return creationDate
+  **/
+  @ApiModelProperty(value = "")
+  public LocalDate getCreationDate() {
+    return creationDate;
+  }
+
+  public void setCreationDate(LocalDate creationDate) {
+    this.creationDate = creationDate;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -66,12 +87,13 @@ public class User   {
     }
     User user = (User) o;
     return Objects.equals(this.userId, user.userId) &&
-        Objects.equals(this.numberOfEvents, user.numberOfEvents);
+        Objects.equals(this.numberOfEvents, user.numberOfEvents) &&
+        Objects.equals(this.creationDate, user.creationDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userId, numberOfEvents);
+    return Objects.hash(userId, numberOfEvents, creationDate);
   }
 
   @Override
@@ -81,6 +103,7 @@ public class User   {
     
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    numberOfEvents: ").append(toIndentedString(numberOfEvents)).append("\n");
+    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

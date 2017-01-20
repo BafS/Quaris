@@ -24,7 +24,8 @@ public interface UsersApi {
         @Authorization(value = "Bearer")
     }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Returns the specified user state", response = User.class) })
+        @ApiResponse(code = 200, message = "Returns the specified user state", response = User.class),
+        @ApiResponse(code = 404, message = "User not found", response = User.class) })
     @RequestMapping(value = "/users/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)

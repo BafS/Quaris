@@ -80,10 +80,11 @@ paths:
         - application/json
       responses:
         200:
-          description:
-              Returns the specified user state
+          description: Returns the specified user state
           schema:
             $ref: '#/definitions/User'
+        404:
+          description: User not found
 
   /badges:
     get:
@@ -276,6 +277,9 @@ definitions:
         type: string
       numberOfEvents:
         type: integer
+      creationDate:
+        type: string
+        format: date
   RegistrationSummary:
     type: object
     properties:
