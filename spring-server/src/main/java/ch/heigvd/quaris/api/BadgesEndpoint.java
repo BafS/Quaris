@@ -1,8 +1,8 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.BadgesApi;
-import ch.heigvd.quaris.api.dto.Badge;
 import ch.heigvd.quaris.models.Application;
+import ch.heigvd.quaris.models.Badge;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.BadgeRepository;
 import ch.heigvd.quaris.services.ApplicationService;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
+
 /**
  * Created by Henrik on 17-Jan-17.
  */
@@ -30,8 +31,8 @@ public class BadgesEndpoint implements BadgesApi {
     private final BadgeRepository badgeRepository = null;
 
     @Override
-    public ResponseEntity<Void> badgesPost(@ApiParam(value = "Badge to add", required = true) @RequestBody Badge badge) {
-        if (badge == null) {
+    public ResponseEntity<Void> badgesPost(@ApiParam(value = "Badge to add", required = true) @RequestBody ch.heigvd.quaris.api.dto.Badge badgeDTO) {
+        if (badgeDTO == null) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -39,32 +40,32 @@ public class BadgesEndpoint implements BadgesApi {
 
         Application app = applicationsRepository.findByName(as.getCurrentApplicationName());
 
-        ch.heigvd.quaris.models.Badge badgeModel = new ch.heigvd.quaris.models.Badge();
-        badgeModel.setName(badge.getName());
-        badgeModel.setDescription(badge.getDescription());
+        Badge badgeModel = new Badge();
+        badgeModel.setName(badgeDTO.getName());
+        badgeModel.setDescription(badgeDTO.getDescription());
         badgeModel.setApplication(app);
 
-        try {
+        if (badgeRepository != null) {
             badgeRepository.save(badgeModel);
             return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (DataIntegrityViolationException e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getClass());
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
+
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
 
     @Override
-    public ResponseEntity<Badge> badgesNameGet(@ApiParam(value = "A specific Badge's name", required = true) @PathVariable("badgename") String badgename) {
+    public ResponseEntity<ch.heigvd.quaris.api.dto.Badge> badgesBadgenameGet(@ApiParam(value = "A specific Badge's name", required = true) @PathVariable("badgename") String badgename) {
         ApplicationService as = new ApplicationService();
-        List<ch.heigvd.quaris.models.Badge> allBadges = badgeRepository.findByApplicationName(as.getCurrentApplicationName());
-        Optional<ch.heigvd.quaris.models.Badge> optionalBadgeToReturn = allBadges.stream().filter(badge -> badge.getName().equals(badgename)).findFirst();
-        Badge b = new Badge();
+        List<Badge> allBadges = badgeRepository.findByApplicationName(as.getCurrentApplicationName());
+        Optional<Badge> optionalBadgeToReturn = allBadges.stream().filter(badge -> badge.getName().equals(badgename)).findFirst();
+
+        ch.heigvd.quaris.api.dto.Badge badgeDTO = new ch.heigvd.quaris.api.dto.Badge();
         if(optionalBadgeToReturn.isPresent()) {
-            b.setName(optionalBadgeToReturn.get().getName());
-            b.setDescription(optionalBadgeToReturn.get().getDescription());
-            return ResponseEntity.ok(b);
+            badgeDTO.setName(optionalBadgeToReturn.get().getName());
+            badgeDTO.setDescription(optionalBadgeToReturn.get().getDescription());
+            return ResponseEntity.ok(badgeDTO);
         }
+
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

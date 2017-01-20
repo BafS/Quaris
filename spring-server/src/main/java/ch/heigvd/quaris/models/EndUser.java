@@ -1,6 +1,7 @@
 package ch.heigvd.quaris.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
@@ -18,17 +19,32 @@ public class EndUser implements Serializable {
     @ManyToOne
     private Application application;
 
+    @Column(nullable = false)
     private String idInApplication;
 
     private int numberOfEvents;
 
+    @Temporal(TemporalType.DATE)
+    private Date creationDate;
+
+    //@ManyToMany //(targetEntity = Badge.class)
+//    @JoinTable(
+//            name="user_badges",
+//            joinColumns=@JoinColumn(name="user_id"),
+//            inverseJoinColumns=@JoinColumn(name="badge_id")
+//    )
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "user_badges",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "badge_id")
+//    )
+
     @ManyToMany
-    @JoinTable(
-            name="user_badge",
-            joinColumns=@JoinColumn(name="user_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="badge_id", referencedColumnName="id")
-    )
-    private List<Badge> projects;
+    private List<Badge> badges;
+
+    @ManyToMany
+    private List<Scale> scales;
 
     public long getId() {
         return id;
