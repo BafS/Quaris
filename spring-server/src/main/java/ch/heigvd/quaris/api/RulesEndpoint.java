@@ -7,11 +7,9 @@ import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.RuleRepository;
 import ch.heigvd.quaris.services.ApplicationService;
 import io.swagger.annotations.ApiParam;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,14 +38,9 @@ public class RulesEndpoint implements RulesApi {
         List<ch.heigvd.quaris.models.Rule> allRulesModel = rulesRepository.findByApplicationName(as.getCurrentApplicationName());
 
         // Create DTOs
-        Stream<Rule> allRulesDTO = allRulesModel.parallelStream().map(rm -> {
-            Rule ruleDTO = new Rule();
-            ruleDTO.setName(rm.getName());
-            ruleDTO.setCriteria(rm.getCriteria());
-            ruleDTO.setAction(rm.getAction());
-            ruleDTO.setEnabled(true); // TODO
-            return ruleDTO;
-        });
+        Stream<Rule> allRulesDTO = allRulesModel
+                .parallelStream()
+                .map(rm -> new ModelMapper().map(rm, Rule.class));
 
         return ResponseEntity.ok(allRulesDTO.collect(Collectors.toList()));
     }

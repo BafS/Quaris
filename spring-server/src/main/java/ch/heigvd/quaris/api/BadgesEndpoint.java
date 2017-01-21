@@ -7,16 +7,13 @@ import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.BadgeRepository;
 import ch.heigvd.quaris.services.ApplicationService;
 import io.swagger.annotations.ApiParam;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Optional;
-
 
 /**
  * Created by Henrik on 17-Jan-17.
@@ -44,6 +41,7 @@ public class BadgesEndpoint implements BadgesApi {
         badgeModel.setDescription(badgeDTO.getDescription());
         badgeModel.setApplication(app);
 
+
         if (badgeRepository != null) {
             badgeRepository.save(badgeModel);
             return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -58,9 +56,8 @@ public class BadgesEndpoint implements BadgesApi {
         ch.heigvd.quaris.models.Badge badgeModel = badgeRepository.findByNameAndApplicationName(badgename, as.getCurrentApplicationName());
 
         if (badgeModel != null) {
-            Badge badgeDTO = new Badge();
-            badgeDTO.setName(badgeModel.getName());
-            badgeDTO.setDescription(badgeModel.getDescription());
+            ModelMapper modelMapper = new ModelMapper();
+            Badge badgeDTO = modelMapper.map(badgeModel, Badge.class);
             return ResponseEntity.ok(badgeDTO);
         }
 

@@ -7,6 +7,7 @@ import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.ScaleRepository;
 import ch.heigvd.quaris.services.ApplicationService;
 import io.swagger.annotations.ApiParam;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,12 +34,11 @@ public class ScalesEndpoint implements ScalesApi {
         ApplicationService as = new ApplicationService();
         List<ch.heigvd.quaris.models.Scale> all = scalesRepository.findByApplicationName(as.getCurrentApplicationName());
 
-        List<Scale> dtos = all.parallelStream().map(sm -> {
-            Scale s = new Scale();
-            s.setName(sm.getName());
-            s.setDescription(sm.getDescription());
-            return s;
-        }).collect(Collectors.toList());
+        // Create DTOs
+        List<Scale> dtos = all
+                .parallelStream()
+                .map(sm -> new ModelMapper().map(sm, Scale.class))
+                .collect(Collectors.toList());
 
         return ResponseEntity.ok(dtos);
     }
