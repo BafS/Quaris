@@ -2,6 +2,7 @@ package ch.heigvd.quaris.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Fabien Salathe on 16.01.17.
@@ -14,6 +15,9 @@ public class Badge implements Serializable {
 
     @ManyToOne
     private Application application;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "badge")
+    private List<EndUser> end_user;
 
     @Column(unique = true, nullable = false)
     private String name;

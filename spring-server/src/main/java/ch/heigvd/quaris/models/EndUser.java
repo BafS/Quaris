@@ -6,10 +6,10 @@ import java.util.List;
 import javax.persistence.*;
 
 /**
- * @author Olivier Liechti
+ * @author Fabien Salathe & Henrik Akesson
  */
 @Entity
-@Table(name = "user")
+@Table
 public class EndUser implements Serializable {
 
     @Id
@@ -27,21 +27,13 @@ public class EndUser implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date creationDate;
 
-    //@ManyToMany //(targetEntity = Badge.class)
+    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(
-//            name="user_badges",
-//            joinColumns=@JoinColumn(name="user_id"),
-//            inverseJoinColumns=@JoinColumn(name="badge_id")
+//            name = "end_user_badge",
+//            joinColumns = {@JoinColumn(name = "end_user_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "badge_id")}
 //    )
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "user_badges",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "badge_id")
-//    )
-
-    @ManyToMany
-    private List<Badge> badges;
+    private List<Badge> badge;
 
     @ManyToMany
     private List<Scale> scales;
@@ -74,4 +66,35 @@ public class EndUser implements Serializable {
         this.numberOfEvents = numberOfEvents;
     }
 
+    public String getIdInApplication() {
+        return idInApplication;
+    }
+
+    public void setIdInApplication(String idInApplication) {
+        this.idInApplication = idInApplication;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public List<Badge> getBadges() {
+        return badge;
+    }
+
+    public void setBadges(List<Badge> badges) {
+        this.badge = badges;
+    }
+
+    public List<Scale> getScales() {
+        return scales;
+    }
+
+    public void setScales(List<Scale> scales) {
+        this.scales = scales;
+    }
 }

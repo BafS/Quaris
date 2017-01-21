@@ -6,6 +6,7 @@ import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.models.EndUser;
+import ch.heigvd.quaris.services.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,17 +27,9 @@ public class UsersEndpoint implements UsersApi {
 
     @Override
     public ResponseEntity findUserById(@PathVariable("id") String userId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String targetApplicationName = new ApplicationService().getCurrentApplicationName();
 
-        String targetApplicationName = "";
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            targetApplicationName = authentication.getName();
-        }
-
-        System.out.println("targetApplicationName: " + targetApplicationName); // DEBUG
-
-        Application targetApplication = applicationRepository.findByName(targetApplicationName);
-        if (targetApplication == null || userId == null) {
+        if (userId == null) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
 
