@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
  *
  * @author Fabien Salathe
  */
-@Repository
-public interface EventRepository extends CrudRepository<Event, Long> {
-
-    // public Event findByName(String name);
-
-}
+//@Repository
+//public interface EventRepository extends CrudRepository<Event, Long> {
+//
+//    // public Event findByName(String name);
+//
+//}

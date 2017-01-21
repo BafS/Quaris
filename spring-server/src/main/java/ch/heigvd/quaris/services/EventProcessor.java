@@ -1,10 +1,13 @@
 package ch.heigvd.quaris.services;
 
 import ch.heigvd.quaris.models.*;
+import ch.heigvd.quaris.models.Badge;
+import ch.heigvd.quaris.models.Event;
+import ch.heigvd.quaris.models.Rule;
 import ch.heigvd.quaris.repositories.BadgeRepository;
 import ch.heigvd.quaris.repositories.EndUserRepository;
-import ch.heigvd.quaris.repositories.EventRepository;
 import ch.heigvd.quaris.repositories.RuleRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -31,16 +34,13 @@ public class EventProcessor {
 
     private final EndUserRepository endUserRepository;
 
-    private final EventRepository eventRepository;
-
     private final RuleRepository ruleRepository;
 
     private final BadgeRepository badgeRepository;
 
     @Autowired
-    public EventProcessor(EndUserRepository endUserRepository, EventRepository eventRepository, RuleRepository ruleRepository, BadgeRepository badgeRepository) {
+    public EventProcessor(EndUserRepository endUserRepository, RuleRepository ruleRepository, BadgeRepository badgeRepository) {
         this.endUserRepository = endUserRepository;
-        this.eventRepository = eventRepository;
         this.ruleRepository = ruleRepository;
         this.badgeRepository = badgeRepository;
     }
@@ -80,9 +80,9 @@ public class EventProcessor {
         // TODO sanitariz the script
 
         try {
-            engine.eval("function funAction(identifier, event, scales, a, b, c, d) {\n" +
+            engine.eval("function funAction(identifier, event, scales, a, b, c) {\n" +
                     "var Helper = Java.type('ch.heigvd.quaris.services.EventProcessor');\n" +
-                    "var quaris = new Helper(a, b, c, d);\n" +
+                    "var quaris = new Helper(a, b, c);\n" +
                     "print('identifier is: ' + identifier + ', replies:' + scales.replies);\n" +
                     "// quaris.addBadge(identifier, 'asd');\n" +
                     script + "\n" +
@@ -96,7 +96,7 @@ public class EventProcessor {
 
             result = (boolean) invocable.invokeFunction(
                     "funAction", event.getIdentifier(), event, scales,
-                    endUserRepository, eventRepository, ruleRepository, badgeRepository // TODO can we do better ?
+                    endUserRepository, ruleRepository, badgeRepository // TODO can we do better ?
             );
         } catch (ScriptException e) {
             e.printStackTrace();
@@ -143,12 +143,14 @@ public class EventProcessor {
     }
 
     private boolean addEventToElasticsearch(final Event event) {
-        final String url = "http://127.0.0.1:9200/quaris-app1/events";
+        final String url = "http://127.0.0.1:9200/quaris-app7/events";
+
+        ch.heigvd.quaris.api.dto.Event eventDTO = new ModelMapper().map(event, ch.heigvd.quaris.api.dto.Event.class);
 
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<Event> request = new HttpEntity<>(event);
-        ResponseEntity<Event> response = restTemplate
-                .exchange(url, HttpMethod.POST, request, Event.class);
+        HttpEntity<ch.heigvd.quaris.api.dto.Event> request = new HttpEntity<>(eventDTO);
+        ResponseEntity<ch.heigvd.quaris.api.dto.Event> response = restTemplate
+                .exchange(url, HttpMethod.POST, request, ch.heigvd.quaris.api.dto.Event.class);
 
         return response.getStatusCode().equals(HttpStatus.CREATED);
     }
@@ -191,6 +193,6 @@ public class EventProcessor {
         targetEndUser.setNumberOfEvents(targetEndUser.getNumberOfEvents() + 1);
 
         event.setUser(targetEndUser);
-        eventRepository.save(event);
+        // eventRepository.save(event);
     }
 }
