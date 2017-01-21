@@ -6,9 +6,14 @@ import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.repositories.EventRepository;
 import ch.heigvd.quaris.repositories.RuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -137,6 +142,17 @@ public class EventProcessor {
         }
     }
 
+    private boolean addEventToElasticsearch(final Event event) {
+        final String url = "http://127.0.0.1:9200/quaris-app1/events";
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<Event> request = new HttpEntity<>(event);
+        ResponseEntity<Event> response = restTemplate
+                .exchange(url, HttpMethod.POST, request, Event.class);
+
+        return response.getStatusCode().equals(HttpStatus.CREATED);
+    }
+
     @Async
     @Transactional
     public void processEvent(Application application, Event event) {
@@ -155,7 +171,7 @@ public class EventProcessor {
 //        List<Rule> rules = ruleRepository.findByApplicationId(application.getId());
         List<Rule> rules = ruleRepository.findByApplicationName(application.getName());
 
-        System.out.println("----------" + application.getName());
+        System.out.println("------" + application.getName());
 
         rules.parallelStream()
                 // Filter rules if criteria is true
@@ -163,7 +179,11 @@ public class EventProcessor {
                 // Apply action
                 .forEach(rule -> {
                     System.out.println("ACTION FOR " + rule.getName());
-                    this.applyRuleAction(event, rule.getAction());
+                    if (this.applyRuleAction(event, rule.getAction())) {
+                        System.out.println("ACTION OK [" + rule.getName() + "]");
+                        // TODO ?
+                    }
+                    this.addEventToElasticsearch(event);
                 });
 
         System.out.println("[i] targetEndUser:: " + targetEndUser.getIdInGamifiedApplication());
