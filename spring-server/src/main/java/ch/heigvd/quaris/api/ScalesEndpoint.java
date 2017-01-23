@@ -56,7 +56,7 @@ public class ScalesEndpoint implements ScalesApi {
         scaleModel.setApplication(app);
         scaleModel.setName(scale.getName());
         scaleModel.setDescription(scale.getDescription());
-        scaleModel.setPoints(0);
+        // scaleModel.setPoints(0);
 
         if (scalesRepository.save(scaleModel) == null) {
             // Todo -> if duplicate

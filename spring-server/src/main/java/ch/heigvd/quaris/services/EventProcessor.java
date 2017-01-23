@@ -7,6 +7,7 @@ import ch.heigvd.quaris.models.Rule;
 import ch.heigvd.quaris.repositories.BadgeRepository;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.repositories.RuleRepository;
+import ch.heigvd.quaris.repositories.ScaleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -38,38 +39,15 @@ public class EventProcessor {
 
     private final BadgeRepository badgeRepository;
 
+    private final ScaleRepository scaleRepository;
+
     @Autowired
-    public EventProcessor(EndUserRepository endUserRepository, RuleRepository ruleRepository, BadgeRepository badgeRepository) {
+    public EventProcessor(
+            EndUserRepository endUserRepository, RuleRepository ruleRepository, BadgeRepository badgeRepository, ScaleRepository scaleRepository) {
         this.endUserRepository = endUserRepository;
         this.ruleRepository = ruleRepository;
         this.badgeRepository = badgeRepository;
-    }
-
-    public void addBadge(String identifier, String badgeName) {
-        System.out.println("[i] Add new badge tu user " + identifier);
-
-        String targetApplicationName = new ApplicationService().getCurrentApplicationName();
-
-        EndUser endUser = endUserRepository.findByApplicationNameAndIdInApplication(targetApplicationName, identifier);
-        Badge badge = badgeRepository.findByNameAndApplicationName(badgeName, targetApplicationName);
-
-        if (endUser != null) {
-//            if (!endUser.hasBadge(badge)) {
-            endUser.getBadges().add(badge);
-
-            endUser.getBadges().forEach(b -> {
-                System.out.println(b.getName());
-            });
-
-//            }
-            endUserRepository.save(endUser);
-        }
-
-        System.out.println("[i] Badge [" + badgeName + "] added to [" + identifier + "]!");
-    }
-
-    public void removeBadge(String badgeName) {
-
+        this.scaleRepository = scaleRepository;
     }
 
     private boolean applyRuleAction(final Event event, String script) {
@@ -77,12 +55,13 @@ public class EventProcessor {
 
         boolean result = false;
 
-        // TODO sanitariz the script
+        // TODO sanitarise the script
+        // TODO add timeout
 
         try {
             engine.eval("function funAction(identifier, event, scales, a, b, c) {\n" +
-                    "var Helper = Java.type('ch.heigvd.quaris.services.EventProcessor');\n" +
-                    "var quaris = new Helper(a, b, c);\n" +
+                    "var EventScriptsProcessor = Java.type('ch.heigvd.quaris.services.EventScriptsProcessor');\n" +
+                    "var quaris = new EventScriptsProcessor(a, b, c);\n" +
                     "print('identifier is: ' + identifier + ', replies:' + scales.replies);\n" +
                     "// quaris.addBadge(identifier, 'asd');\n" +
                     script + "\n" +
@@ -96,7 +75,7 @@ public class EventProcessor {
 
             result = (boolean) invocable.invokeFunction(
                     "funAction", event.getIdentifier(), event, scales,
-                    endUserRepository, ruleRepository, badgeRepository // TODO can we do better ?
+                    endUserRepository, badgeRepository, scaleRepository // TODO can we do better ?
             );
         } catch (ScriptException e) {
             e.printStackTrace();

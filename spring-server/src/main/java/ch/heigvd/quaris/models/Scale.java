@@ -20,8 +20,6 @@ public class Scale {
 
     private String description;
 
-    private long points; // value
-
     public Application getApplication() {
         return application;
     }
@@ -44,13 +42,5 @@ public class Scale {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public long getPoints() {
-        return points;
-    }
-
-    public void setPoints(long points) {
-        this.points = points;
     }
 }

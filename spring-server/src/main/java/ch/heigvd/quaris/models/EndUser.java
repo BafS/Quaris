@@ -27,6 +27,7 @@ public class EndUser implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date creationDate;
 
+    @Column(unique = true, nullable = false)
     @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(
 //            name = "end_user_badge",
@@ -35,8 +36,8 @@ public class EndUser implements Serializable {
 //    )
     private List<Badge> badge;
 
-    @ManyToMany
-    private List<Scale> scales;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Scale> scale;
 
     @PrePersist
     protected void onCreate() {
@@ -96,10 +97,10 @@ public class EndUser implements Serializable {
     }
 
     public List<Scale> getScales() {
-        return scales;
+        return scale;
     }
 
     public void setScales(List<Scale> scales) {
-        this.scales = scales;
+        this.scale = scales;
     }
 }

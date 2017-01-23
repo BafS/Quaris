@@ -10,7 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ApplicationRepository extends CrudRepository<Application, Long> {
-
-    public Application findByName(String name);
-
+    Application findByName(String name);
 }

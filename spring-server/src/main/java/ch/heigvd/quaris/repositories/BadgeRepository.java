@@ -12,9 +12,9 @@ import java.util.List;
  */
 @Repository
 public interface BadgeRepository extends CrudRepository<Badge, Long> {
-    public List<Badge> findByApplicationId(Long applicationId);
+     List<Badge> findByApplicationId(Long applicationId);
 
-    public List<Badge> findByApplicationName(String applicationName);
+     List<Badge> findByApplicationName(String applicationName);
 
-    public Badge findByNameAndApplicationName(String badgeName, String applicationName);
+     Badge findByNameAndApplicationName(String badgeName, String applicationName);
 }

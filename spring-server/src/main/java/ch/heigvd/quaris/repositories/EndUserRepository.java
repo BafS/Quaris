@@ -10,7 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EndUserRepository extends CrudRepository<EndUser, Long> {
-
-    public EndUser findByApplicationNameAndIdInApplication(String targetApplicationName, String targetEndUserId);
-  
+    EndUser findByApplicationNameAndIdInApplication(String targetApplicationName, String targetEndUserId);
 }

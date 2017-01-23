@@ -12,5 +12,7 @@ import java.util.List;
  */
 @Repository
 public interface ScaleRepository extends CrudRepository<Scale, Long> {
-    public List<Scale> findByApplicationName(String applicationName);
+    List<Scale> findByApplicationName(String applicationName);
+
+    Scale findByNameAndApplicationName(String scaleName, String targetApplicationName);
 }
