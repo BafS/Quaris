@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 
 /**
@@ -22,6 +23,9 @@ public class Application implements Serializable, UserDetails {
     @Column(unique = true, nullable = false)
     private String name;
 
+    @Temporal(TemporalType.DATE)
+    private Date creationDate;
+
     @Column
     private String passwordHash;
 
@@ -31,6 +35,11 @@ public class Application implements Serializable, UserDetails {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        creationDate = new Date();
     }
 
     public String getName() {

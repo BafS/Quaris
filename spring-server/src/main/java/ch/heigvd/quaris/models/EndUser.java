@@ -38,6 +38,11 @@ public class EndUser implements Serializable {
     @ManyToMany
     private List<Scale> scales;
 
+    @PrePersist
+    protected void onCreate() {
+        creationDate = new Date();
+    }
+
     public long getId() {
         return id;
     }
