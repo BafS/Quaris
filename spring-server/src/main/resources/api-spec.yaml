@@ -80,9 +80,9 @@ paths:
         - application/json
       responses:
         200:
-          description: Returns the specified user state
+          description: Returns the specified user details
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/UserDetails'
         404:
           description: User not found
 
@@ -280,6 +280,19 @@ definitions:
       creationDate:
         type: string
         format: date
+  UserDetails:
+    type: object
+    properties:
+      user:
+        $ref: '#/definitions/User'
+      badges:
+        type: array
+        items:
+          $ref: '#/definitions/Badge'
+      scales:
+        type: array
+        items:
+          $ref: '#/definitions/Scale'
   RegistrationSummary:
     type: object
     properties:

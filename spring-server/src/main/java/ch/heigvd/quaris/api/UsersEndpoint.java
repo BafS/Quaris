@@ -2,6 +2,8 @@ package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.UsersApi;
 import ch.heigvd.quaris.api.dto.User;
+import ch.heigvd.quaris.api.dto.UserDetails;
+import ch.heigvd.quaris.models.Badge;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.models.EndUser;
 import ch.heigvd.quaris.services.ApplicationService;
@@ -11,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UsersEndpoint implements UsersApi {
@@ -30,13 +34,19 @@ public class UsersEndpoint implements UsersApi {
 
         EndUser endUser = endUserRepository.findByApplicationNameAndIdInApplication(targetApplicationName, userId);
 
+//        List<Badge> badges = endUser.getBadges();
+//        System.out.println("------ BADGES LIST -------");
+//        badges.forEach(b -> {
+//            System.out.println(b.getName());
+//        });
+
         if (endUser == null) {
             return ResponseEntity.notFound().build();
         }
 
-        User userDTO = new ModelMapper().map(endUser, User.class);
+        UserDetails userDetailsDTO = new ModelMapper().map(endUser, UserDetails.class);
 
-        return ResponseEntity.ok(userDTO);
+        return ResponseEntity.ok(userDetailsDTO);
     }
 
 }
