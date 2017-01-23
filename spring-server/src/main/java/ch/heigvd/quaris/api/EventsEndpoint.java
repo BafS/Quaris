@@ -8,6 +8,7 @@ import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.services.EventProcessor;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -29,6 +30,7 @@ public class EventsEndpoint implements EventsApi {
 
     private final EventProcessor eventProcessor;
 
+    @Autowired
     public EventsEndpoint(ApplicationRepository applicationsRepository, EndUserRepository endUsersRepository, EventProcessor eventProcessor) {
         this.applicationsRepository = applicationsRepository;
         this.endUsersRepository = endUsersRepository;
@@ -55,7 +57,8 @@ public class EventsEndpoint implements EventsApi {
 
         ch.heigvd.quaris.models.Event eventModel = new ch.heigvd.quaris.models.Event();
         eventModel.setApp(targetApplication);
-        // eventModel.setPayload(""); // event.getPayload()); // TODO ?
+        eventModel.setTimestamp(event.getTimestamp());
+        eventModel.setPayload(event.getPayload());
 
         eventModel.setUser(targetEndUser); // TODO remove ?
         eventModel.setIdentifier(targetEndUserId);

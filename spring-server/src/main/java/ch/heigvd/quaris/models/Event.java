@@ -2,34 +2,24 @@ package ch.heigvd.quaris.models;
 
 import org.joda.time.DateTime;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * @author Fabien Salathe
  */
-// @Entity
 public class Event implements Serializable {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private long id;
-
-//    @ManyToOne
     private EndUser user; // Identifier
 
     private String identifier;
 
-//    @OneToOne
     private Application app;
 
     private String type;
 
-    // @Temporal(TemporalType.TIMESTAMP)
-    private String createdAt;
+    private DateTime timestamp;
 
-    // @Column
-    // private String payload;
+    private Object payload;
 
     public EndUser getUser() {
         return user;
@@ -63,19 +53,19 @@ public class Event implements Serializable {
         this.identifier = identifier;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public DateTime getTimestamp() {
+        return timestamp;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setTimestamp(DateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
-    //    public String getPayload() {
-//        return payload;
-//    }
-//
-//    public void setPayload(String payload) {
-//        this.payload = payload;
-//    }
+    public Object getPayload() {
+        return payload;
+    }
+
+    public void setPayload(Object payload) {
+        this.payload = payload;
+    }
 }

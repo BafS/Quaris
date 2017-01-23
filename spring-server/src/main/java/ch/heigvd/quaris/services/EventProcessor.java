@@ -72,7 +72,7 @@ public class EventProcessor {
 
     }
 
-    private boolean applyRuleAction(Event event, String script) {
+    private boolean applyRuleAction(final Event event, String script) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
 
         boolean result = false;
@@ -108,7 +108,7 @@ public class EventProcessor {
         }
     }
 
-    private boolean testRuleCriteria(Event eventModel, String criteria) {
+    private boolean testRuleCriteria(final Event eventModel, String criteria) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
 
         boolean result = false;
@@ -142,15 +142,24 @@ public class EventProcessor {
         }
     }
 
+    /**
+     * Add a specific event to elasticsearch database
+     *
+     * @param event
+     * @return if response is positive
+     */
+    @Async
     private boolean addEventToElasticsearch(final Event event) {
-        final String url = "http://127.0.0.1:9200/quaris-app7/events";
+        final String url = "http://127.0.0.1:9200/quaris-app10/events";
 
         ch.heigvd.quaris.api.dto.Event eventDTO = new ModelMapper().map(event, ch.heigvd.quaris.api.dto.Event.class);
 
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<ch.heigvd.quaris.api.dto.Event> request = new HttpEntity<>(eventDTO);
+
         ResponseEntity<ch.heigvd.quaris.api.dto.Event> response = restTemplate
                 .exchange(url, HttpMethod.POST, request, ch.heigvd.quaris.api.dto.Event.class);
+
 
         return response.getStatusCode().equals(HttpStatus.CREATED);
     }
@@ -160,14 +169,15 @@ public class EventProcessor {
     public void processEvent(Application application, Event event) {
         EndUser targetEndUser = event.getUser();
 
+        // If user does not exists, we need to create a new "user" with this (id, application) tuple
         if (targetEndUser == null) {
-            // TODO org.modelmapper ?
-
             targetEndUser = new EndUser();
             targetEndUser.setApplication(application);
             targetEndUser.setIdInGamifiedApplication(event.getIdentifier());
             targetEndUser.setNumberOfEvents(0);
             endUserRepository.save(targetEndUser);
+
+            event.setUser(targetEndUser);
         }
 
 //        List<Rule> rules = ruleRepository.findByApplicationId(application.getId());
@@ -191,8 +201,5 @@ public class EventProcessor {
         System.out.println("[i] targetEndUser:: " + targetEndUser.getIdInGamifiedApplication());
 
         targetEndUser.setNumberOfEvents(targetEndUser.getNumberOfEvents() + 1);
-
-        event.setUser(targetEndUser);
-        // eventRepository.save(event);
     }
 }
