@@ -77,7 +77,7 @@ public class EventScriptsProcessor {
             if (scale != null) {
                 // scale.addPoints(points);
 
-                List<Scale> userScales = endUser.getScales();
+                // List<Scale> userScales = endUser.getScales();
 
 
 

@@ -1,6 +1,9 @@
 package ch.heigvd.quaris.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Fabien Salathe on 16.01.17.
@@ -17,6 +20,13 @@ public class Scale {
 
     @Column(unique = true, nullable = false)
     private String name;
+
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//, mappedBy = "scale")
+//    private List<Point> point;
+
+    @OneToMany(mappedBy = "scale")
+    private Set<Point> point = new HashSet<>();
+
 
     private String description;
 

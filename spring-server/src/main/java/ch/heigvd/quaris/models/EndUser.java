@@ -2,7 +2,9 @@ package ch.heigvd.quaris.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -36,8 +38,11 @@ public class EndUser implements Serializable {
 //    )
     private List<Badge> badge;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Scale> scale;
+    //@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//, mappedBy = "end_user")
+    // private List<Point> point;
+
+    @OneToMany(mappedBy = "endUser")
+    private Set<Point> point = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {
@@ -96,11 +101,4 @@ public class EndUser implements Serializable {
         this.badge = badges;
     }
 
-    public List<Scale> getScales() {
-        return scale;
-    }
-
-    public void setScales(List<Scale> scales) {
-        this.scale = scales;
-    }
 }
