@@ -19,7 +19,7 @@ public class Badge implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "badge")
     private List<EndUser> end_user;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     private String description;
