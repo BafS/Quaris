@@ -20,5 +20,9 @@ public interface PointRepository extends CrudRepository<Point, Long> {
 
     List<Point> findByEndUserId(Long endUserId); // ByOrderByPointsAsc
 
+    List<Point> findTop10PointsAscByEndUserId(Long endUserId);
+
+    List<Point> findAllByOrderByPointsDesc(); // TODO Top10
+
     //List<Point> findByApplicationNameByOrderByPointsAsc(String targetApplicationName);
 }
