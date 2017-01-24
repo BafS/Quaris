@@ -15,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
  */
 @Service
 public class ElasticSearchService {
+
+    final String ELASTIC_SEARCH_URL = "http://127.0.0.1:9200/";
+
     /**
      * Add a specific event to elasticsearch database
      *
@@ -23,16 +26,16 @@ public class ElasticSearchService {
      */
     @Async
     public boolean addEventToElasticsearch(final Event event) {
-        final String url = "http://127.0.0.1:9200/quaris-app10/events";
+        final String url = ELASTIC_SEARCH_URL + event.getApp().getName() + "/events";
 
         ch.heigvd.quaris.api.dto.Event eventDTO = new ModelMapper().map(event, ch.heigvd.quaris.api.dto.Event.class);
+        eventDTO.setApplication(event.getApp().getName());
 
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<ch.heigvd.quaris.api.dto.Event> request = new HttpEntity<>(eventDTO);
 
         ResponseEntity<ch.heigvd.quaris.api.dto.Event> response = restTemplate
                 .exchange(url, HttpMethod.POST, request, ch.heigvd.quaris.api.dto.Event.class);
-
 
         return response.getStatusCode().equals(HttpStatus.CREATED);
     }

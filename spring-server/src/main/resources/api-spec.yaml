@@ -419,13 +419,16 @@ definitions:
         description: Event's type
       identifier:
         type: string
-        description: user identifier
+        description: User identifier
       payload:
         type: object
         description: Parameters to use in rules (optional)
       timestamp:
         type: string
         format: date-time
+      application:
+        type: string
+        description: Application name
   Error:
     type: object
     properties:

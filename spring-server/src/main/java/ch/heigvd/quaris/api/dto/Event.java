@@ -13,7 +13,7 @@ import org.joda.time.DateTime;
 /**
  * Event
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-19T23:29:29.334+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-24T18:40:38.222+01:00")
 
 public class Event   {
   private String type = null;
@@ -23,6 +23,8 @@ public class Event   {
   private Object payload = null;
 
   private DateTime timestamp = null;
+
+  private String application = null;
 
   public Event type(String type) {
     this.type = type;
@@ -48,10 +50,10 @@ public class Event   {
   }
 
    /**
-   * user identifier
+   * User identifier
    * @return identifier
   **/
-  @ApiModelProperty(value = "user identifier")
+  @ApiModelProperty(value = "User identifier")
   public String getIdentifier() {
     return identifier;
   }
@@ -96,6 +98,24 @@ public class Event   {
     this.timestamp = timestamp;
   }
 
+  public Event application(String application) {
+    this.application = application;
+    return this;
+  }
+
+   /**
+   * Application name
+   * @return application
+  **/
+  @ApiModelProperty(value = "Application name")
+  public String getApplication() {
+    return application;
+  }
+
+  public void setApplication(String application) {
+    this.application = application;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -109,12 +129,13 @@ public class Event   {
     return Objects.equals(this.type, event.type) &&
         Objects.equals(this.identifier, event.identifier) &&
         Objects.equals(this.payload, event.payload) &&
-        Objects.equals(this.timestamp, event.timestamp);
+        Objects.equals(this.timestamp, event.timestamp) &&
+        Objects.equals(this.application, event.application);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, identifier, payload, timestamp);
+    return Objects.hash(type, identifier, payload, timestamp, application);
   }
 
   @Override
@@ -126,6 +147,7 @@ public class Event   {
     sb.append("    identifier: ").append(toIndentedString(identifier)).append("\n");
     sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    application: ").append(toIndentedString(application)).append("\n");
     sb.append("}");
     return sb.toString();
   }
