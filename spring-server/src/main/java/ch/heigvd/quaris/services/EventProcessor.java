@@ -40,19 +40,23 @@ public class EventProcessor {
 
     private final PointRepository pointRepository;
 
+    private final ElasticSearchService elasticSearchService;
+
     @Autowired
     public EventProcessor(
             EndUserRepository endUserRepository,
             RuleRepository ruleRepository,
             BadgeRepository badgeRepository,
             ScaleRepository scaleRepository,
-            PointRepository pointRepository
+            PointRepository pointRepository,
+            ElasticSearchService els
     ) {
         this.endUserRepository = endUserRepository;
         this.ruleRepository = ruleRepository;
         this.badgeRepository = badgeRepository;
         this.scaleRepository = scaleRepository;
         this.pointRepository = pointRepository;
+        this.elasticSearchService = els;
     }
 
     private boolean applyRuleAction(final Event event, String script) {
@@ -126,28 +130,6 @@ public class EventProcessor {
         }
     }
 
-    /**
-     * Add a specific event to elasticsearch database
-     *
-     * @param event
-     * @return if response is positive
-     */
-    @Async
-    private boolean addEventToElasticsearch(final Event event) {
-        final String url = "http://127.0.0.1:9200/quaris-app10/events";
-
-        ch.heigvd.quaris.api.dto.Event eventDTO = new ModelMapper().map(event, ch.heigvd.quaris.api.dto.Event.class);
-
-        RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<ch.heigvd.quaris.api.dto.Event> request = new HttpEntity<>(eventDTO);
-
-        ResponseEntity<ch.heigvd.quaris.api.dto.Event> response = restTemplate
-                .exchange(url, HttpMethod.POST, request, ch.heigvd.quaris.api.dto.Event.class);
-
-
-        return response.getStatusCode().equals(HttpStatus.CREATED);
-    }
-
     @Async
     @Transactional
     public void processEvent(Application application, Event event) {
@@ -179,7 +161,8 @@ public class EventProcessor {
                         System.out.println("ACTION OK [" + rule.getName() + "]");
                         // TODO ?
                     }
-                    this.addEventToElasticsearch(event);
+
+                    elasticSearchService.addEventToElasticsearch(event);
                 });
 
         System.out.println("[i] targetEndUser:: " + targetEndUser.getIdInGamifiedApplication());
