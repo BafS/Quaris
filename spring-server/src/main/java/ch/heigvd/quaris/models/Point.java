@@ -26,11 +26,27 @@ public class Point {
         return points;
     }
 
+    public Scale getScale() {
+        return scale;
+    }
+
+    public void setScale(Scale scale) {
+        this.scale = scale;
+    }
+
     public void setPoints(long points) {
         this.points = points;
     }
 
     public void addPoints(long delta) {
         this.points += delta;
+    }
+
+    public EndUser getEndUser() {
+        return endUser;
+    }
+
+    public void setEndUser(EndUser endUser) {
+        this.endUser = endUser;
     }
 }

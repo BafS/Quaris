@@ -4,10 +4,7 @@ import ch.heigvd.quaris.models.*;
 import ch.heigvd.quaris.models.Badge;
 import ch.heigvd.quaris.models.Event;
 import ch.heigvd.quaris.models.Rule;
-import ch.heigvd.quaris.repositories.BadgeRepository;
-import ch.heigvd.quaris.repositories.EndUserRepository;
-import ch.heigvd.quaris.repositories.RuleRepository;
-import ch.heigvd.quaris.repositories.ScaleRepository;
+import ch.heigvd.quaris.repositories.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -41,13 +38,21 @@ public class EventProcessor {
 
     private final ScaleRepository scaleRepository;
 
+    private final PointRepository pointRepository;
+
     @Autowired
     public EventProcessor(
-            EndUserRepository endUserRepository, RuleRepository ruleRepository, BadgeRepository badgeRepository, ScaleRepository scaleRepository) {
+            EndUserRepository endUserRepository,
+            RuleRepository ruleRepository,
+            BadgeRepository badgeRepository,
+            ScaleRepository scaleRepository,
+            PointRepository pointRepository
+    ) {
         this.endUserRepository = endUserRepository;
         this.ruleRepository = ruleRepository;
         this.badgeRepository = badgeRepository;
         this.scaleRepository = scaleRepository;
+        this.pointRepository = pointRepository;
     }
 
     private boolean applyRuleAction(final Event event, String script) {
@@ -59,9 +64,9 @@ public class EventProcessor {
         // TODO add timeout
 
         try {
-            engine.eval("function funAction(identifier, event, scales, a, b, c) {\n" +
+            engine.eval("function funAction(identifier, event, scales, a, b, c, d) {\n" +
                     "var EventScriptsProcessor = Java.type('ch.heigvd.quaris.services.EventScriptsProcessor');\n" +
-                    "var quaris = new EventScriptsProcessor(a, b, c);\n" +
+                    "var quaris = new EventScriptsProcessor(a, b, c, d);\n" +
                     "print('identifier is: ' + identifier + ', replies:' + scales.replies);\n" +
                     "// quaris.addBadge(identifier, 'asd');\n" +
                     script + "\n" +
@@ -75,7 +80,7 @@ public class EventProcessor {
 
             result = (boolean) invocable.invokeFunction(
                     "funAction", event.getIdentifier(), event, scales,
-                    endUserRepository, badgeRepository, scaleRepository // TODO can we do better ?
+                    endUserRepository, badgeRepository, scaleRepository, pointRepository
             );
         } catch (ScriptException e) {
             e.printStackTrace();

@@ -3,6 +3,8 @@ package ch.heigvd.quaris.api;
 import ch.heigvd.quaris.api.definitions.ScalesApi;
 import ch.heigvd.quaris.api.dto.Scale;
 import ch.heigvd.quaris.models.Application;
+import ch.heigvd.quaris.models.EndUser;
+import ch.heigvd.quaris.models.Point;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.ScaleRepository;
 import ch.heigvd.quaris.services.ApplicationService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -56,7 +59,6 @@ public class ScalesEndpoint implements ScalesApi {
         scaleModel.setApplication(app);
         scaleModel.setName(scale.getName());
         scaleModel.setDescription(scale.getDescription());
-        // scaleModel.setPoints(0);
 
         if (scalesRepository.save(scaleModel) == null) {
             // Todo -> if duplicate

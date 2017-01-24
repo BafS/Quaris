@@ -101,4 +101,21 @@ public class EndUser implements Serializable {
         this.badge = badges;
     }
 
+    public Set<Point> getPoint() {
+        return point;
+    }
+
+    public Point getPoint(final String scaleName) {
+        for (Point p : point) {
+            if (p.getScale().getName().equals(scaleName)) {
+                return p;
+            }
+        }
+
+        return null;
+    }
+
+    public void setPoint(Set<Point> point) {
+        this.point = point;
+    }
 }
