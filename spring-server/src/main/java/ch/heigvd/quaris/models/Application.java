@@ -3,6 +3,7 @@ package ch.heigvd.quaris.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -54,8 +55,12 @@ public class Application implements Serializable, UserDetails {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    /**
+     * Encode clear password with BCrypt
+     * @param password
+     */
+    public void setPasswordHash(final String password) {
+        this.passwordHash = new BCryptPasswordEncoder().encode(password);
     }
 
     @Override
