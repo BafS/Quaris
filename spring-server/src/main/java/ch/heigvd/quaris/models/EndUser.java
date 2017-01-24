@@ -38,9 +38,6 @@ public class EndUser implements Serializable {
 //    )
     private List<Badge> badge;
 
-    //@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//, mappedBy = "end_user")
-    // private List<Point> point;
-
     @OneToMany(mappedBy = "endUser")
     private Set<Point> point = new HashSet<>();
 

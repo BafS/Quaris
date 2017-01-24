@@ -269,6 +269,52 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+
+  /points:
+    get:
+      summary: All Scales
+      description: The Scales endpoint returns information about all the points.
+      security:
+        - Bearer: []
+      tags:
+        - Point
+      responses:
+        200:
+          description: Points information
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Point'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /points/{identifier}:
+    get:
+      summary: All Scales
+      description: The Scales endpoint returns information about all the existing scales.
+      security:
+        - Bearer: []
+      parameters:
+        - name: identifier
+          in: path
+          description: Identifier
+          required: true
+          type: string
+      tags:
+        - Point
+      responses:
+        200:
+          description: User's scales information
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Point'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
 definitions:
   User:
     type: object
@@ -354,6 +400,17 @@ definitions:
       description:
         type: string
         description: Scale's description
+  Point:
+    type: object
+    properties:
+      point:
+        type: integer
+        format: int32
+        description: Number of points
+      user:
+        $ref: '#/definitions/User'
+      scale:
+        $ref: '#/definitions/Scale'
   Event:
     type: object
     properties:

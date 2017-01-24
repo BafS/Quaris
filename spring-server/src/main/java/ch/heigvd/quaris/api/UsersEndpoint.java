@@ -1,9 +1,7 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.UsersApi;
-import ch.heigvd.quaris.api.dto.User;
 import ch.heigvd.quaris.api.dto.UserDetails;
-import ch.heigvd.quaris.models.Badge;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.models.EndUser;
 import ch.heigvd.quaris.services.ApplicationService;
@@ -13,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class UsersEndpoint implements UsersApi {
