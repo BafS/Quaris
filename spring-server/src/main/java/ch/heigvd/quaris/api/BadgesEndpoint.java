@@ -43,11 +43,13 @@ public class BadgesEndpoint implements BadgesApi {
 
 
         if (badgeRepository != null) {
-            badgeRepository.save(badgeModel);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            try {
+                badgeRepository.save(badgeModel);
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
         }
-
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override

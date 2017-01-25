@@ -6,6 +6,7 @@ import ch.heigvd.quaris.models.Event;
 import ch.heigvd.quaris.models.Rule;
 import ch.heigvd.quaris.repositories.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.transaction.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -136,6 +137,7 @@ public class EventProcessor {
         EndUser targetEndUser = event.getUser();
 
         // If user does not exists, we need to create a new "user" with this (id, application) tuple
+
         if (targetEndUser == null) {
             targetEndUser = new EndUser();
             targetEndUser.setApplication(application);

@@ -38,22 +38,26 @@ public class RegistrationsEndpoint implements RegistrationsApi {
 
     @Override
     public ResponseEntity<Void> registrationsPost(@RequestBody Registration registration) {
-        Application newApplication = new Application();
-        newApplication.setName(registration.getApplicationName());
-        String passwordHash = registration.getPassword(); // TODO hash password
-        newApplication.setPasswordHash(passwordHash);
+        System.out.println(registration);
+        if(registration.getPassword() != null && registration.getApplicationName() != null && registration.getPassword().length() >= 5) {
+            Application newApplication = new Application();
+            newApplication.setName(registration.getApplicationName());
+            String passwordHash = registration.getPassword(); // TODO hash password
+            newApplication.setPasswordHash(passwordHash);
 
-        System.out.println("> New registration:");
-        System.out.println(registration); // DEV
+            System.out.println("> New registration:");
+            System.out.println(registration); // DEV
 
-        try {
-            applicationsRepository.save(newApplication);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        } catch (DataIntegrityViolationException e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getClass());
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+            try {
+                applicationsRepository.save(newApplication);
+                return ResponseEntity.status(HttpStatus.CREATED).build();
+            } catch (DataIntegrityViolationException e) {
+                System.out.println(e.getMessage());
+                System.out.println(e.getClass());
+                return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+            }
         }
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
     }
 
 }

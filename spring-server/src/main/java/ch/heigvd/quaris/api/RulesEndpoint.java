@@ -9,6 +9,7 @@ import ch.heigvd.quaris.services.ApplicationService;
 import io.swagger.annotations.ApiParam;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- *
  * @author Fabien Salathe
  */
 @RestController
@@ -55,15 +55,20 @@ public class RulesEndpoint implements RulesApi {
 
         Application app = applicationsRepository.findByName(as.getCurrentApplicationName());
         System.out.println("targetApplicationName: " + app.getName()); // DEBUG
+        try {
+            ch.heigvd.quaris.models.Rule ruleModel = new ch.heigvd.quaris.models.Rule();
+            ruleModel.setName(rule.getName());
+            ruleModel.setAction(rule.getAction());
+            ruleModel.setApplication(app);
+            ruleModel.setCriteria(rule.getCriteria());
+            ruleModel.setEnabled(rule.getEnabled());
 
-        ch.heigvd.quaris.models.Rule ruleModel = new ch.heigvd.quaris.models.Rule();
-        ruleModel.setName(rule.getName());
-        ruleModel.setAction(rule.getAction());
-        ruleModel.setApplication(app);
-        ruleModel.setCriteria(rule.getCriteria());
-        ruleModel.setEnabled(rule.getEnabled());
+            rulesRepository.save(ruleModel);
 
-        rulesRepository.save(ruleModel);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
 
         return ResponseEntity.ok().build();
     }
