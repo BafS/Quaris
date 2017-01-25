@@ -391,6 +391,19 @@ definitions:
         type: string
         format: binary
         description: Image associated to the badge
+  AwardDTO:
+    type: object
+    properties:
+      application:
+        type: string
+        description: Award from the given application
+      user:
+        $ref: '#/definitions/UserDTO'
+      badge:
+        $ref: '#/definitions/BadgeDTO'
+      createdAt:
+        type: string
+        format: date-time
   ScaleDTO:
     type: object
     properties:
@@ -423,7 +436,7 @@ definitions:
       payload:
         type: object
         description: Parameters to use in rules (optional)
-      timestamp:
+      createdAt:
         type: string
         format: date-time
       application:

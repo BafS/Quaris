@@ -58,7 +58,7 @@ public class EventsEndpoint implements EventsApi {
 
         Event eventModel = new Event();
         eventModel.setApp(targetApplication);
-        eventModel.setTimestamp(event.getTimestamp());
+        eventModel.setCreatedAt(event.getCreatedAt());
         eventModel.setPayload(event.getPayload());
 
         eventModel.setUser(targetEndUser); // TODO remove ?

@@ -56,7 +56,10 @@ public class EventScriptsProcessor {
 //            });
 
 //            }
-            endUserRepository.save(endUser);
+
+            if (endUserRepository.save(endUser) != null) {
+                new ElasticSearchService().addBadgeToElasticsearch(badge, targetApplicationName);
+            }
         }
 
         System.out.println("[i] Badge [" + badgeName + "] added to [" + identifier + "]!");

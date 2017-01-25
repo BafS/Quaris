@@ -1,22 +1,14 @@
 package ch.heigvd.quaris.services;
 
 import ch.heigvd.quaris.models.*;
-import ch.heigvd.quaris.models.Badge;
 import ch.heigvd.quaris.models.Event;
 import ch.heigvd.quaris.models.Rule;
 import ch.heigvd.quaris.repositories.*;
-import org.modelmapper.ModelMapper;
-import org.springframework.transaction.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;

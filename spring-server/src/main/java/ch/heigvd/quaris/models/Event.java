@@ -17,7 +17,7 @@ public class Event implements Serializable {
 
     private String type;
 
-    private DateTime timestamp;
+    private DateTime createdAt;
 
     private Object payload;
 
@@ -53,19 +53,19 @@ public class Event implements Serializable {
         this.identifier = identifier;
     }
 
-    public DateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(DateTime timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public Object getPayload() {
         return payload;
     }
 
     public void setPayload(Object payload) {
         this.payload = payload;
+    }
+
+    public DateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

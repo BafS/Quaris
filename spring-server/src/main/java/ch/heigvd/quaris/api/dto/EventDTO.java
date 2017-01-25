@@ -13,7 +13,7 @@ import org.joda.time.DateTime;
 /**
  * EventDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T16:31:01.726+01:00")
 
 public class EventDTO   {
   private String type = null;
@@ -22,7 +22,7 @@ public class EventDTO   {
 
   private Object payload = null;
 
-  private DateTime timestamp = null;
+  private DateTime createdAt = null;
 
   private String application = null;
 
@@ -80,22 +80,22 @@ public class EventDTO   {
     this.payload = payload;
   }
 
-  public EventDTO timestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
+  public EventDTO createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
     return this;
   }
 
    /**
-   * Get timestamp
-   * @return timestamp
+   * Get createdAt
+   * @return createdAt
   **/
   @ApiModelProperty(value = "")
-  public DateTime getTimestamp() {
-    return timestamp;
+  public DateTime getCreatedAt() {
+    return createdAt;
   }
 
-  public void setTimestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
   public EventDTO application(String application) {
@@ -129,13 +129,13 @@ public class EventDTO   {
     return Objects.equals(this.type, eventDTO.type) &&
         Objects.equals(this.identifier, eventDTO.identifier) &&
         Objects.equals(this.payload, eventDTO.payload) &&
-        Objects.equals(this.timestamp, eventDTO.timestamp) &&
+        Objects.equals(this.createdAt, eventDTO.createdAt) &&
         Objects.equals(this.application, eventDTO.application);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, identifier, payload, timestamp, application);
+    return Objects.hash(type, identifier, payload, createdAt, application);
   }
 
   @Override
@@ -146,7 +146,7 @@ public class EventDTO   {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    identifier: ").append(toIndentedString(identifier)).append("\n");
     sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    application: ").append(toIndentedString(application)).append("\n");
     sb.append("}");
     return sb.toString();
