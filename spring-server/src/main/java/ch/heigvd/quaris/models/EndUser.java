@@ -36,7 +36,7 @@ public class EndUser implements Serializable {
 //            joinColumns = {@JoinColumn(name = "end_user_id")},
 //            inverseJoinColumns = {@JoinColumn(name = "badge_id")}
 //    )
-    private List<Badge> badge;
+    private Set<Badge> badge;
 
     @OneToMany(mappedBy = "endUser")
     private Set<Point> point = new HashSet<>();
@@ -90,11 +90,11 @@ public class EndUser implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public List<Badge> getBadges() {
+    public Set<Badge> getBadges() {
         return badge;
     }
 
-    public void setBadges(List<Badge> badges) {
+    public void setBadges(Set<Badge> badges) {
         this.badge = badges;
     }
 

@@ -39,7 +39,7 @@ public class EventScriptsProcessor {
         return endUserRepository.findByApplicationNameAndIdInApplication(targetApplicationName, identifier);
     }
 
-    public void addBadge(String identifier, String badgeName) {
+    public boolean addBadge(final String identifier, final String badgeName) {
         System.out.println("[i] Add new badge tu user " + identifier);
 
         EndUser endUser = getCurrentUser(identifier);
@@ -48,25 +48,31 @@ public class EventScriptsProcessor {
         Badge badge = badgeRepository.findByNameAndApplicationName(badgeName, targetApplicationName);
 
         if (endUser != null) {
-//            if (!endUser.hasBadge(badge)) {
             endUser.getBadges().add(badge);
-
-//            endUser.getBadges().forEach(b -> {
-//                System.out.println(b.getName());
-//            });
-
-//            }
 
             if (endUserRepository.save(endUser) != null) {
                 new ElasticSearchService().addBadgeToElasticsearch(badge, targetApplicationName);
+
+                return true;
             }
         }
 
-        System.out.println("[i] Badge [" + badgeName + "] added to [" + identifier + "]!");
+        return false;
     }
 
-    public void removeBadge(String badgeName) {
+    public boolean removeBadge(final String identifier, final String badgeName) {
+        EndUser endUser = getCurrentUser(identifier);
 
+        String targetApplicationName = new ApplicationService().getCurrentApplicationName();
+        Badge badge = badgeRepository.findByNameAndApplicationName(badgeName, targetApplicationName);
+
+        if (endUser != null) {
+            endUser.getBadges().remove(badge);
+
+            return endUserRepository.save(endUser) != null;
+        }
+
+        return false;
     }
 
     /**
@@ -77,7 +83,6 @@ public class EventScriptsProcessor {
      * @param pointsToAdd
      */
     public boolean addToScale(final String identifier, final String scaleName, final int pointsToAdd) {
-        System.out.println("addToScale::");
         EndUser endUser = getCurrentUser(identifier);
 
         if (endUser != null) {
