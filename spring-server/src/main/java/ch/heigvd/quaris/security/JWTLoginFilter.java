@@ -1,6 +1,6 @@
 package ch.heigvd.quaris.security;
 
-import ch.heigvd.quaris.api.dto.Registration;
+import ch.heigvd.quaris.api.dto.RegistrationDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +31,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws AuthenticationException, IOException, ServletException {
-        Registration credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), Registration.class);
+        RegistrationDTO credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), RegistrationDTO.class);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getApplicationName(), credentials.getPassword());
         return getAuthenticationManager().authenticate(token);
     }

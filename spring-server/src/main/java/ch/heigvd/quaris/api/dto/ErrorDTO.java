@@ -10,16 +10,16 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * Error
+ * ErrorDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
-public class Error   {
+public class ErrorDTO   {
   private Integer code = null;
 
   private String message = null;
 
-  public Error code(Integer code) {
+  public ErrorDTO code(Integer code) {
     this.code = code;
     return this;
   }
@@ -37,7 +37,7 @@ public class Error   {
     this.code = code;
   }
 
-  public Error message(String message) {
+  public ErrorDTO message(String message) {
     this.message = message;
     return this;
   }
@@ -64,9 +64,9 @@ public class Error   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Error error = (Error) o;
-    return Objects.equals(this.code, error.code) &&
-        Objects.equals(this.message, error.message);
+    ErrorDTO errorDTO = (ErrorDTO) o;
+    return Objects.equals(this.code, errorDTO.code) &&
+        Objects.equals(this.message, errorDTO.message);
   }
 
   @Override
@@ -77,7 +77,7 @@ public class Error   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Error {\n");
+    sb.append("class ErrorDTO {\n");
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");

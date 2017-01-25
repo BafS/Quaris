@@ -1,7 +1,7 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.RulesApi;
-import ch.heigvd.quaris.api.dto.Rule;
+import ch.heigvd.quaris.api.dto.RuleDTO;
 import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.RuleRepository;
@@ -38,15 +38,15 @@ public class RulesEndpoint implements RulesApi {
         List<ch.heigvd.quaris.models.Rule> allRulesModel = rulesRepository.findByApplicationName(as.getCurrentApplicationName());
 
         // Create DTOs
-        Stream<Rule> allRulesDTO = allRulesModel
+        Stream<RuleDTO> allRulesDTO = allRulesModel
                 .parallelStream()
-                .map(rm -> new ModelMapper().map(rm, Rule.class));
+                .map(rm -> new ModelMapper().map(rm, RuleDTO.class));
 
         return ResponseEntity.ok(allRulesDTO.collect(Collectors.toList()));
     }
 
     @Override
-    public ResponseEntity<Void> rulesPost(@ApiParam(value = "Rule to add", required = true) @RequestBody Rule rule) {
+    public ResponseEntity<Void> rulesPost(@ApiParam(value = "Rule to add", required = true) @RequestBody RuleDTO rule) {
         if (rule == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -68,7 +68,6 @@ public class RulesEndpoint implements RulesApi {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-
 
         return ResponseEntity.ok().build();
     }

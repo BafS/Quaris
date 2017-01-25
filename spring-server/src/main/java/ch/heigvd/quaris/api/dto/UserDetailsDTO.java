@@ -1,9 +1,9 @@
 package ch.heigvd.quaris.api.dto;
 
 import java.util.Objects;
-import ch.heigvd.quaris.api.dto.Badge;
-import ch.heigvd.quaris.api.dto.Scale;
-import ch.heigvd.quaris.api.dto.User;
+import ch.heigvd.quaris.api.dto.BadgeDTO;
+import ch.heigvd.quaris.api.dto.ScaleDTO;
+import ch.heigvd.quaris.api.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
@@ -15,18 +15,18 @@ import java.util.List;
 
 
 /**
- * UserDetails
+ * UserDetailsDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-23T14:46:09.926+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
-public class UserDetails   {
-  private User user = null;
+public class UserDetailsDTO   {
+  private UserDTO user = null;
 
-  private List<Badge> badges = new ArrayList<Badge>();
+  private List<BadgeDTO> badges = new ArrayList<BadgeDTO>();
 
-  private List<Scale> scales = new ArrayList<Scale>();
+  private List<ScaleDTO> scales = new ArrayList<ScaleDTO>();
 
-  public UserDetails user(User user) {
+  public UserDetailsDTO user(UserDTO user) {
     this.user = user;
     return this;
   }
@@ -36,20 +36,20 @@ public class UserDetails   {
    * @return user
   **/
   @ApiModelProperty(value = "")
-  public User getUser() {
+  public UserDTO getUser() {
     return user;
   }
 
-  public void setUser(User user) {
+  public void setUser(UserDTO user) {
     this.user = user;
   }
 
-  public UserDetails badges(List<Badge> badges) {
+  public UserDetailsDTO badges(List<BadgeDTO> badges) {
     this.badges = badges;
     return this;
   }
 
-  public UserDetails addBadgesItem(Badge badgesItem) {
+  public UserDetailsDTO addBadgesItem(BadgeDTO badgesItem) {
     this.badges.add(badgesItem);
     return this;
   }
@@ -59,20 +59,20 @@ public class UserDetails   {
    * @return badges
   **/
   @ApiModelProperty(value = "")
-  public List<Badge> getBadges() {
+  public List<BadgeDTO> getBadges() {
     return badges;
   }
 
-  public void setBadges(List<Badge> badges) {
+  public void setBadges(List<BadgeDTO> badges) {
     this.badges = badges;
   }
 
-  public UserDetails scales(List<Scale> scales) {
+  public UserDetailsDTO scales(List<ScaleDTO> scales) {
     this.scales = scales;
     return this;
   }
 
-  public UserDetails addScalesItem(Scale scalesItem) {
+  public UserDetailsDTO addScalesItem(ScaleDTO scalesItem) {
     this.scales.add(scalesItem);
     return this;
   }
@@ -82,11 +82,11 @@ public class UserDetails   {
    * @return scales
   **/
   @ApiModelProperty(value = "")
-  public List<Scale> getScales() {
+  public List<ScaleDTO> getScales() {
     return scales;
   }
 
-  public void setScales(List<Scale> scales) {
+  public void setScales(List<ScaleDTO> scales) {
     this.scales = scales;
   }
 
@@ -99,10 +99,10 @@ public class UserDetails   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserDetails userDetails = (UserDetails) o;
-    return Objects.equals(this.user, userDetails.user) &&
-        Objects.equals(this.badges, userDetails.badges) &&
-        Objects.equals(this.scales, userDetails.scales);
+    UserDetailsDTO userDetailsDTO = (UserDetailsDTO) o;
+    return Objects.equals(this.user, userDetailsDTO.user) &&
+        Objects.equals(this.badges, userDetailsDTO.badges) &&
+        Objects.equals(this.scales, userDetailsDTO.scales);
   }
 
   @Override
@@ -113,7 +113,7 @@ public class UserDetails   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserDetails {\n");
+    sb.append("class UserDetailsDTO {\n");
     
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("    badges: ").append(toIndentedString(badges)).append("\n");

@@ -1,10 +1,9 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.ScalesApi;
-import ch.heigvd.quaris.api.dto.Scale;
+import ch.heigvd.quaris.api.dto.ScaleDTO;
 import ch.heigvd.quaris.models.Application;
-import ch.heigvd.quaris.models.EndUser;
-import ch.heigvd.quaris.models.Point;
+import ch.heigvd.quaris.models.Scale;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.ScaleRepository;
 import ch.heigvd.quaris.services.ApplicationService;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  *
@@ -33,21 +31,21 @@ public class ScalesEndpoint implements ScalesApi {
     private final ScaleRepository scalesRepository = null;
 
     @Override
-    public ResponseEntity<List<Scale>> scalesGet() {
+    public ResponseEntity<List<ScaleDTO>> scalesGet() {
         ApplicationService as = new ApplicationService();
-        List<ch.heigvd.quaris.models.Scale> all = scalesRepository.findByApplicationName(as.getCurrentApplicationName());
+        List<Scale> all = scalesRepository.findByApplicationName(as.getCurrentApplicationName());
 
         // Create DTOs
-        List<Scale> dtos = all
+        List<ScaleDTO> dtos = all
                 .parallelStream()
-                .map(sm -> new ModelMapper().map(sm, Scale.class))
+                .map(sm -> new ModelMapper().map(sm, ScaleDTO.class))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(dtos);
     }
 
     @Override
-    public ResponseEntity<Void> scalesPost(@ApiParam(value = "Scale to add", required = true) @RequestBody Scale scale) {
+    public ResponseEntity<Void> scalesPost(@ApiParam(value = "Scale to add", required = true) @RequestBody ScaleDTO scale) {
         ApplicationService as = new ApplicationService();
         Application app = applicationsRepository.findByName(as.getCurrentApplicationName());
 

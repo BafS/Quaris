@@ -10,16 +10,16 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * Scale
+ * ScaleDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
-public class Scale   {
+public class ScaleDTO   {
   private String name = null;
 
   private String description = null;
 
-  public Scale name(String name) {
+  public ScaleDTO name(String name) {
     this.name = name;
     return this;
   }
@@ -37,7 +37,7 @@ public class Scale   {
     this.name = name;
   }
 
-  public Scale description(String description) {
+  public ScaleDTO description(String description) {
     this.description = description;
     return this;
   }
@@ -64,9 +64,9 @@ public class Scale   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Scale scale = (Scale) o;
-    return Objects.equals(this.name, scale.name) &&
-        Objects.equals(this.description, scale.description);
+    ScaleDTO scaleDTO = (ScaleDTO) o;
+    return Objects.equals(this.name, scaleDTO.name) &&
+        Objects.equals(this.description, scaleDTO.description);
   }
 
   @Override
@@ -77,7 +77,7 @@ public class Scale   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Scale {\n");
+    sb.append("class ScaleDTO {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

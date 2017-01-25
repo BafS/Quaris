@@ -1,7 +1,7 @@
 package ch.heigvd.quaris.api.definitions;
 
-import ch.heigvd.quaris.api.dto.Token;
-import ch.heigvd.quaris.api.dto.Credentials;
+import ch.heigvd.quaris.api.dto.CredentialsDTO;
+import ch.heigvd.quaris.api.dto.TokenDTO;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -16,22 +16,22 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-15T16:56:19.733+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
 @Api(value = "auth", description = "the auth API")
 public interface AuthApi {
 
-    @ApiOperation(value = "", notes = "", response = Token.class, tags={  })
+    @ApiOperation(value = "", notes = "", response = TokenDTO.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Authentication sucessful", response = Token.class),
-        @ApiResponse(code = 401, message = "Authentication failed", response = Token.class) })
+        @ApiResponse(code = 200, message = "Authentication sucessful", response = TokenDTO.class),
+        @ApiResponse(code = 401, message = "Authentication failed", response = TokenDTO.class) })
     @RequestMapping(value = "/auth",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Token> authenticateApplicationAndGetToken(
+    ResponseEntity<TokenDTO> authenticateApplicationAndGetToken(
 
-@ApiParam(value = "The info required to authenticate an application" ,required=true ) @RequestBody Credentials body
+@ApiParam(value = "The info required to authenticate an application" ,required=true ) @RequestBody CredentialsDTO body
 
 );
 

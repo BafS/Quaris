@@ -1,10 +1,11 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.EventsApi;
-import ch.heigvd.quaris.api.dto.Event;
-import ch.heigvd.quaris.models.EndUser;
-import ch.heigvd.quaris.repositories.ApplicationRepository;
+import ch.heigvd.quaris.api.dto.EventDTO;
 import ch.heigvd.quaris.models.Application;
+import ch.heigvd.quaris.models.EndUser;
+import ch.heigvd.quaris.models.Event;
+import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.services.EventProcessor;
 import io.swagger.annotations.ApiParam;
@@ -38,7 +39,7 @@ public class EventsEndpoint implements EventsApi {
     }
 
     @Override
-    public ResponseEntity reportEvent(@ApiParam(value = "Event to add", required = true) @RequestBody Event event) {
+    public ResponseEntity reportEvent(@ApiParam(value = "Event to add", required = true) @RequestBody EventDTO event) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String targetApplicationName = "";
@@ -55,7 +56,7 @@ public class EventsEndpoint implements EventsApi {
 
         EndUser targetEndUser = endUsersRepository.findByApplicationNameAndIdInApplication(targetApplication.getName(), targetEndUserId);
 
-        ch.heigvd.quaris.models.Event eventModel = new ch.heigvd.quaris.models.Event();
+        Event eventModel = new Event();
         eventModel.setApp(targetApplication);
         eventModel.setTimestamp(event.getTimestamp());
         eventModel.setPayload(event.getPayload());

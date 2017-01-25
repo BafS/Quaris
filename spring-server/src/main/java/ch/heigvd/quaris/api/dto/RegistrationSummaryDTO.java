@@ -10,16 +10,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * Credentials
+ * RegistrationSummaryDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
-public class Credentials   {
+public class RegistrationSummaryDTO   {
   private String applicationName = null;
 
-  private String password = null;
-
-  public Credentials applicationName(String applicationName) {
+  public RegistrationSummaryDTO applicationName(String applicationName) {
     this.applicationName = applicationName;
     return this;
   }
@@ -37,24 +35,6 @@ public class Credentials   {
     this.applicationName = applicationName;
   }
 
-  public Credentials password(String password) {
-    this.password = password;
-    return this;
-  }
-
-   /**
-   * Get password
-   * @return password
-  **/
-  @ApiModelProperty(value = "")
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -64,23 +44,21 @@ public class Credentials   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Credentials credentials = (Credentials) o;
-    return Objects.equals(this.applicationName, credentials.applicationName) &&
-        Objects.equals(this.password, credentials.password);
+    RegistrationSummaryDTO registrationSummaryDTO = (RegistrationSummaryDTO) o;
+    return Objects.equals(this.applicationName, registrationSummaryDTO.applicationName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicationName, password);
+    return Objects.hash(applicationName);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Credentials {\n");
+    sb.append("class RegistrationSummaryDTO {\n");
     
     sb.append("    applicationName: ").append(toIndentedString(applicationName)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");
     return sb.toString();
   }

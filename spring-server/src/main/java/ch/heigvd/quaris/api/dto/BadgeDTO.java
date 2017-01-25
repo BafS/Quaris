@@ -10,18 +10,18 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * Badge
+ * BadgeDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
-public class Badge   {
+public class BadgeDTO   {
   private String name = null;
 
   private String description = null;
 
   private byte[] icon = null;
 
-  public Badge name(String name) {
+  public BadgeDTO name(String name) {
     this.name = name;
     return this;
   }
@@ -39,7 +39,7 @@ public class Badge   {
     this.name = name;
   }
 
-  public Badge description(String description) {
+  public BadgeDTO description(String description) {
     this.description = description;
     return this;
   }
@@ -57,7 +57,7 @@ public class Badge   {
     this.description = description;
   }
 
-  public Badge icon(byte[] icon) {
+  public BadgeDTO icon(byte[] icon) {
     this.icon = icon;
     return this;
   }
@@ -84,10 +84,10 @@ public class Badge   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Badge badge = (Badge) o;
-    return Objects.equals(this.name, badge.name) &&
-        Objects.equals(this.description, badge.description) &&
-        Objects.equals(this.icon, badge.icon);
+    BadgeDTO badgeDTO = (BadgeDTO) o;
+    return Objects.equals(this.name, badgeDTO.name) &&
+        Objects.equals(this.description, badgeDTO.description) &&
+        Objects.equals(this.icon, badgeDTO.icon);
   }
 
   @Override
@@ -98,7 +98,7 @@ public class Badge   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Badge {\n");
+    sb.append("class BadgeDTO {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

@@ -1,5 +1,8 @@
 package ch.heigvd.quaris.services;
 
+import ch.heigvd.quaris.api.dto.BadgeDTO;
+import ch.heigvd.quaris.api.dto.EventDTO;
+import ch.heigvd.quaris.models.Badge;
 import ch.heigvd.quaris.models.Event;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpEntity;
@@ -31,14 +34,18 @@ public class ElasticSearchService {
     public boolean addEventToElasticsearch(final Event event) {
         final String url = ELASTIC_SEARCH_URL + event.getApp().getName() + "/events";
 
-        ch.heigvd.quaris.api.dto.Event eventDTO = new ModelMapper().map(event, ch.heigvd.quaris.api.dto.Event.class);
+
+        EventDTO eventDTO = new ModelMapper().map(event, EventDTO.class);
         eventDTO.setApplication(event.getApp().getName());
 
-        RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<ch.heigvd.quaris.api.dto.Event> request = new HttpEntity<>(eventDTO);
+        System.out.println("POST ");
+        System.out.println(eventDTO);
 
-        ResponseEntity<ch.heigvd.quaris.api.dto.Event> response = restTemplate
-                .exchange(url, HttpMethod.POST, request, ch.heigvd.quaris.api.dto.Event.class);
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<EventDTO> request = new HttpEntity<>(eventDTO);
+
+        ResponseEntity<EventDTO> response = restTemplate
+                .exchange(url, HttpMethod.POST, request, EventDTO.class);
 
         return response.getStatusCode().equals(HttpStatus.CREATED);
     }

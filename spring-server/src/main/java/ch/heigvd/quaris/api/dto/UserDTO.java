@@ -11,18 +11,18 @@ import org.joda.time.LocalDate;
 
 
 /**
- * User
+ * UserDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-20T19:51:07.406+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
-public class User   {
+public class UserDTO   {
   private String userId = null;
 
   private Integer numberOfEvents = null;
 
   private LocalDate creationDate = null;
 
-  public User userId(String userId) {
+  public UserDTO userId(String userId) {
     this.userId = userId;
     return this;
   }
@@ -40,7 +40,7 @@ public class User   {
     this.userId = userId;
   }
 
-  public User numberOfEvents(Integer numberOfEvents) {
+  public UserDTO numberOfEvents(Integer numberOfEvents) {
     this.numberOfEvents = numberOfEvents;
     return this;
   }
@@ -58,7 +58,7 @@ public class User   {
     this.numberOfEvents = numberOfEvents;
   }
 
-  public User creationDate(LocalDate creationDate) {
+  public UserDTO creationDate(LocalDate creationDate) {
     this.creationDate = creationDate;
     return this;
   }
@@ -85,10 +85,10 @@ public class User   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    User user = (User) o;
-    return Objects.equals(this.userId, user.userId) &&
-        Objects.equals(this.numberOfEvents, user.numberOfEvents) &&
-        Objects.equals(this.creationDate, user.creationDate);
+    UserDTO userDTO = (UserDTO) o;
+    return Objects.equals(this.userId, userDTO.userId) &&
+        Objects.equals(this.numberOfEvents, userDTO.numberOfEvents) &&
+        Objects.equals(this.creationDate, userDTO.creationDate);
   }
 
   @Override
@@ -99,7 +99,7 @@ public class User   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class User {\n");
+    sb.append("class UserDTO {\n");
     
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    numberOfEvents: ").append(toIndentedString(numberOfEvents)).append("\n");

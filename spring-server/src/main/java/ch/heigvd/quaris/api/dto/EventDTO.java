@@ -11,11 +11,11 @@ import org.joda.time.DateTime;
 
 
 /**
- * Event
+ * EventDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-24T18:40:38.222+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
-public class Event   {
+public class EventDTO   {
   private String type = null;
 
   private String identifier = null;
@@ -26,7 +26,7 @@ public class Event   {
 
   private String application = null;
 
-  public Event type(String type) {
+  public EventDTO type(String type) {
     this.type = type;
     return this;
   }
@@ -44,16 +44,16 @@ public class Event   {
     this.type = type;
   }
 
-  public Event identifier(String identifier) {
+  public EventDTO identifier(String identifier) {
     this.identifier = identifier;
     return this;
   }
 
    /**
-   * User identifier
+   * user identifier
    * @return identifier
   **/
-  @ApiModelProperty(value = "User identifier")
+  @ApiModelProperty(value = "user identifier")
   public String getIdentifier() {
     return identifier;
   }
@@ -62,7 +62,7 @@ public class Event   {
     this.identifier = identifier;
   }
 
-  public Event payload(Object payload) {
+  public EventDTO payload(Object payload) {
     this.payload = payload;
     return this;
   }
@@ -80,7 +80,7 @@ public class Event   {
     this.payload = payload;
   }
 
-  public Event timestamp(DateTime timestamp) {
+  public EventDTO timestamp(DateTime timestamp) {
     this.timestamp = timestamp;
     return this;
   }
@@ -98,7 +98,7 @@ public class Event   {
     this.timestamp = timestamp;
   }
 
-  public Event application(String application) {
+  public EventDTO application(String application) {
     this.application = application;
     return this;
   }
@@ -125,12 +125,12 @@ public class Event   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Event event = (Event) o;
-    return Objects.equals(this.type, event.type) &&
-        Objects.equals(this.identifier, event.identifier) &&
-        Objects.equals(this.payload, event.payload) &&
-        Objects.equals(this.timestamp, event.timestamp) &&
-        Objects.equals(this.application, event.application);
+    EventDTO eventDTO = (EventDTO) o;
+    return Objects.equals(this.type, eventDTO.type) &&
+        Objects.equals(this.identifier, eventDTO.identifier) &&
+        Objects.equals(this.payload, eventDTO.payload) &&
+        Objects.equals(this.timestamp, eventDTO.timestamp) &&
+        Objects.equals(this.application, eventDTO.application);
   }
 
   @Override
@@ -141,7 +141,7 @@ public class Event   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Event {\n");
+    sb.append("class EventDTO {\n");
     
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    identifier: ").append(toIndentedString(identifier)).append("\n");

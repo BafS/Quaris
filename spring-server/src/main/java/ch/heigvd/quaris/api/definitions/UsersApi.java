@@ -1,6 +1,6 @@
 package ch.heigvd.quaris.api.definitions;
 
-import ch.heigvd.quaris.api.dto.UserDetails;
+import ch.heigvd.quaris.api.dto.UserDetailsDTO;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -15,21 +15,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-23T14:46:09.926+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
 @Api(value = "users", description = "the users API")
 public interface UsersApi {
 
-    @ApiOperation(value = "", notes = "Retrieve one user by id", response = UserDetails.class, authorizations = {
+    @ApiOperation(value = "", notes = "Retrieve one user by id", response = UserDetailsDTO.class, authorizations = {
         @Authorization(value = "Bearer")
     }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Returns the specified user details", response = UserDetails.class),
-        @ApiResponse(code = 404, message = "User not found", response = UserDetails.class) })
+        @ApiResponse(code = 200, message = "Returns the specified user details", response = UserDetailsDTO.class),
+        @ApiResponse(code = 404, message = "User not found", response = UserDetailsDTO.class) })
     @RequestMapping(value = "/users/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<UserDetails> findUserById(
+    ResponseEntity<UserDetailsDTO> findUserById(
 @ApiParam(value = "id of the user to fetch",required=true ) @PathVariable("id") String id
 
 

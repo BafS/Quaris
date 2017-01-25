@@ -27,7 +27,7 @@ paths:
             title: Registration summary
             type: array
             items:
-              $ref: '#/definitions/RegistrationSummary'
+              $ref: '#/definitions/RegistrationSummaryDTO'
     post:
       consumes:
         - application/json
@@ -36,7 +36,7 @@ paths:
           in: body
           description: The info required to register an application
           schema:
-            $ref: '#/definitions/Registration'
+            $ref: '#/definitions/RegistrationDTO'
           required: true
       responses:
         201:
@@ -54,13 +54,13 @@ paths:
           in: body
           description: The info required to authenticate an application
           schema:
-            $ref: '#/definitions/Credentials'
+            $ref: '#/definitions/CredentialsDTO'
           required: true
       responses:
         200:
           description: Authentication sucessful
           schema:
-            $ref: '#/definitions/Token'
+            $ref: '#/definitions/TokenDTO'
         401:
           description: Authentication failed
 
@@ -82,7 +82,7 @@ paths:
         200:
           description: Returns the specified user details
           schema:
-            $ref: '#/definitions/UserDetails'
+            $ref: '#/definitions/UserDetailsDTO'
         404:
           description: User not found
 
@@ -100,11 +100,11 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Badge'
+              $ref: '#/definitions/BadgeDTO'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ErrorDTO'
     post:
       summary: Create a new Badge
       description: Create a new Badge.
@@ -116,7 +116,7 @@ paths:
           description: Badge to add
           required: true
           schema:
-            $ref: '#/definitions/Badge'
+            $ref: '#/definitions/BadgeDTO'
       tags:
         - Badge
       responses:
@@ -127,7 +127,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ErrorDTO'
   /badges/{badgename}:
     get:
         summary: Badge Information
@@ -147,13 +147,13 @@ paths:
           200:
             description: Badge object
             schema:
-              $ref: '#/definitions/Badge'
+              $ref: '#/definitions/BadgeDTO'
           404:
             description: Badge not found
           default:
             description: Unexpected error
             schema:
-              $ref: '#/definitions/Error'
+              $ref: '#/definitions/ErrorDTO'
 
   /events:
     post:
@@ -171,18 +171,18 @@ paths:
           description: Event to add
           required: true
           schema:
-            $ref: '#/definitions/Event'
+            $ref: '#/definitions/EventDTO'
       tags:
         - Event
       responses:
         202:
           description: Event was accepted
           schema:
-            $ref: '#/definitions/Event'
+            $ref: '#/definitions/EventDTO'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ErrorDTO'
 
   /rules:
     get:
@@ -198,11 +198,11 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Rule'
+              $ref: '#/definitions/RuleDTO'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ErrorDTO'
     post:
       summary: Create a new Rule
       description: Create a new Rule.
@@ -214,7 +214,7 @@ paths:
           description: Rule to add
           required: true
           schema:
-            $ref: '#/definitions/Rule'
+            $ref: '#/definitions/RuleDTO'
       tags:
         - Rule
       responses:
@@ -225,7 +225,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ErrorDTO'
 
   /scales:
     get:
@@ -241,11 +241,11 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Scale'
+              $ref: '#/definitions/ScaleDTO'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ErrorDTO'
     post:
       summary: Create a new Scale
       description: Create a new Scale.
@@ -257,7 +257,7 @@ paths:
           description: Scale to add
           required: true
           schema:
-            $ref: '#/definitions/Scale'
+            $ref: '#/definitions/ScaleDTO'
       tags:
         - Scale
       responses:
@@ -268,7 +268,7 @@ paths:
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ErrorDTO'
 
   /points:
     get:
@@ -284,11 +284,11 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Point'
+              $ref: '#/definitions/PointDTO'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ErrorDTO'
   /points/{identifier}:
     get:
       summary: All Scales
@@ -309,14 +309,14 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Point'
+              $ref: '#/definitions/PointDTO'
         default:
           description: Unexpected error
           schema:
-            $ref: '#/definitions/Error'
+            $ref: '#/definitions/ErrorDTO'
 
 definitions:
-  User:
+  UserDTO:
     type: object
     properties:
       userId:
@@ -326,44 +326,44 @@ definitions:
       creationDate:
         type: string
         format: date
-  UserDetails:
+  UserDetailsDTO:
     type: object
     properties:
       user:
-        $ref: '#/definitions/User'
+        $ref: '#/definitions/UserDTO'
       badges:
         type: array
         items:
-          $ref: '#/definitions/Badge'
+          $ref: '#/definitions/BadgeDTO'
       scales:
         type: array
         items:
-          $ref: '#/definitions/Scale'
-  RegistrationSummary:
+          $ref: '#/definitions/ScaleDTO'
+  RegistrationSummaryDTO:
     type: object
     properties:
       applicationName:
         type: string
-  Registration:
-    type: object
-    properties:
-      applicationName:
-        type: string
-      password:
-        type: string
-  Credentials:
+  RegistrationDTO:
     type: object
     properties:
       applicationName:
         type: string
       password:
         type: string
-  Token:
+  CredentialsDTO:
     type: object
     properties:
       applicationName:
         type: string
-  Rule:
+      password:
+        type: string
+  TokenDTO:
+    type: object
+    properties:
+      applicationName:
+        type: string
+  RuleDTO:
     type: object
     properties:
       name:
@@ -378,7 +378,7 @@ definitions:
       enabled:
         type: boolean
         description: If the Rule is enabled or not
-  Badge:
+  BadgeDTO:
     type: object
     properties:
       name:
@@ -391,7 +391,7 @@ definitions:
         type: string
         format: binary
         description: Image associated to the badge
-  Scale:
+  ScaleDTO:
     type: object
     properties:
       name:
@@ -400,7 +400,7 @@ definitions:
       description:
         type: string
         description: Scale's description
-  Point:
+  PointDTO:
     type: object
     properties:
       point:
@@ -408,10 +408,10 @@ definitions:
         format: int32
         description: Number of points
       user:
-        $ref: '#/definitions/User'
+        $ref: '#/definitions/UserDTO'
       scale:
-        $ref: '#/definitions/Scale'
-  Event:
+        $ref: '#/definitions/ScaleDTO'
+  EventDTO:
     type: object
     properties:
       type:
@@ -419,7 +419,7 @@ definitions:
         description: Event's type
       identifier:
         type: string
-        description: User identifier
+        description: user identifier
       payload:
         type: object
         description: Parameters to use in rules (optional)
@@ -429,7 +429,7 @@ definitions:
       application:
         type: string
         description: Application name
-  Error:
+  ErrorDTO:
     type: object
     properties:
       code:

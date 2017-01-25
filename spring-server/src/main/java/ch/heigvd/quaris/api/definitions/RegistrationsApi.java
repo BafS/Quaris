@@ -1,7 +1,7 @@
 package ch.heigvd.quaris.api.definitions;
 
-import ch.heigvd.quaris.api.dto.RegistrationSummary;
-import ch.heigvd.quaris.api.dto.Registration;
+import ch.heigvd.quaris.api.dto.RegistrationSummaryDTO;
+import ch.heigvd.quaris.api.dto.RegistrationDTO;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +16,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
 @Api(value = "registrations", description = "the registrations API")
 public interface RegistrationsApi {
 
-    @ApiOperation(value = "", notes = "", response = RegistrationSummary.class, responseContainer = "List", tags={  })
+    @ApiOperation(value = "", notes = "", response = RegistrationSummaryDTO.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "List all registered applications", response = RegistrationSummary.class) })
+        @ApiResponse(code = 200, message = "List all registered applications", response = RegistrationSummaryDTO.class) })
     @RequestMapping(value = "/registrations",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<RegistrationSummary>> registrationsGet();
+    ResponseEntity<List<RegistrationSummaryDTO>> registrationsGet();
 
 
     @ApiOperation(value = "", notes = "", response = Void.class, tags={  })
@@ -39,7 +39,7 @@ public interface RegistrationsApi {
         method = RequestMethod.POST)
     ResponseEntity<Void> registrationsPost(
 
-@ApiParam(value = "The info required to register an application" ,required=true ) @RequestBody Registration body
+@ApiParam(value = "The info required to register an application" ,required=true ) @RequestBody RegistrationDTO body
 
 );
 

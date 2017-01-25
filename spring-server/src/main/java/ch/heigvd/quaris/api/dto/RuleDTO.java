@@ -10,11 +10,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * Rule
+ * RuleDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-20T20:41:52.586+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
-public class Rule   {
+public class RuleDTO   {
   private String name = null;
 
   private String criteria = null;
@@ -23,7 +23,7 @@ public class Rule   {
 
   private Boolean enabled = null;
 
-  public Rule name(String name) {
+  public RuleDTO name(String name) {
     this.name = name;
     return this;
   }
@@ -41,7 +41,7 @@ public class Rule   {
     this.name = name;
   }
 
-  public Rule criteria(String criteria) {
+  public RuleDTO criteria(String criteria) {
     this.criteria = criteria;
     return this;
   }
@@ -59,7 +59,7 @@ public class Rule   {
     this.criteria = criteria;
   }
 
-  public Rule action(String action) {
+  public RuleDTO action(String action) {
     this.action = action;
     return this;
   }
@@ -77,7 +77,7 @@ public class Rule   {
     this.action = action;
   }
 
-  public Rule enabled(Boolean enabled) {
+  public RuleDTO enabled(Boolean enabled) {
     this.enabled = enabled;
     return this;
   }
@@ -104,11 +104,11 @@ public class Rule   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Rule rule = (Rule) o;
-    return Objects.equals(this.name, rule.name) &&
-        Objects.equals(this.criteria, rule.criteria) &&
-        Objects.equals(this.action, rule.action) &&
-        Objects.equals(this.enabled, rule.enabled);
+    RuleDTO ruleDTO = (RuleDTO) o;
+    return Objects.equals(this.name, ruleDTO.name) &&
+        Objects.equals(this.criteria, ruleDTO.criteria) &&
+        Objects.equals(this.action, ruleDTO.action) &&
+        Objects.equals(this.enabled, ruleDTO.enabled);
   }
 
   @Override
@@ -119,7 +119,7 @@ public class Rule   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Rule {\n");
+    sb.append("class RuleDTO {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    criteria: ").append(toIndentedString(criteria)).append("\n");

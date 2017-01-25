@@ -1,7 +1,7 @@
 package ch.heigvd.quaris.api.definitions;
 
-import ch.heigvd.quaris.api.dto.Error;
-import ch.heigvd.quaris.api.dto.Badge;
+import ch.heigvd.quaris.api.dto.BadgeDTO;
+import ch.heigvd.quaris.api.dto.ErrorDTO;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -16,38 +16,38 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-19T23:29:29.334+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
 @Api(value = "badges", description = "the badges API")
 public interface BadgesApi {
 
-    @ApiOperation(value = "Badge Information", notes = "The Badge Information endpoint returns information about the given badge. ", response = Badge.class, authorizations = {
+    @ApiOperation(value = "Badge Information", notes = "The Badge Information endpoint returns information about the given badge. ", response = BadgeDTO.class, authorizations = {
         @Authorization(value = "Bearer")
     }, tags={ "Badge", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Badge object", response = Badge.class),
-        @ApiResponse(code = 404, message = "Badge not found", response = Badge.class),
-        @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class) })
+        @ApiResponse(code = 200, message = "Badge object", response = BadgeDTO.class),
+        @ApiResponse(code = 404, message = "Badge not found", response = BadgeDTO.class),
+        @ApiResponse(code = 200, message = "Unexpected error", response = BadgeDTO.class) })
     @RequestMapping(value = "/badges/{badgename}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<Badge> badgesBadgenameGet(
+    ResponseEntity<BadgeDTO> badgesBadgenameGet(
 @ApiParam(value = "A specific Badge's name",required=true ) @PathVariable("badgename") String badgename
 
 
 );
 
 
-    @ApiOperation(value = "All Badges", notes = "The Badges endpoint returns information about all the badges existing.", response = Badge.class, responseContainer = "List", authorizations = {
+    @ApiOperation(value = "All Badges", notes = "The Badges endpoint returns information about all the badges existing.", response = BadgeDTO.class, responseContainer = "List", authorizations = {
         @Authorization(value = "Bearer")
     }, tags={ "Badge", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Badge's information", response = Badge.class),
-        @ApiResponse(code = 200, message = "Unexpected error", response = Badge.class) })
+        @ApiResponse(code = 200, message = "Badge's information", response = BadgeDTO.class),
+        @ApiResponse(code = 200, message = "Unexpected error", response = BadgeDTO.class) })
     @RequestMapping(value = "/badges",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Badge>> badgesGet();
+    ResponseEntity<List<BadgeDTO>> badgesGet();
 
 
     @ApiOperation(value = "Create a new Badge", notes = "Create a new Badge.", response = Void.class, authorizations = {
@@ -62,7 +62,7 @@ public interface BadgesApi {
         method = RequestMethod.POST)
     ResponseEntity<Void> badgesPost(
 
-@ApiParam(value = "Badge to add" ,required=true ) @RequestBody Badge badge
+@ApiParam(value = "Badge to add" ,required=true ) @RequestBody BadgeDTO badge
 
 );
 

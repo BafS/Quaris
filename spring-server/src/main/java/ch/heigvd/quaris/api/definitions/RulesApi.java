@@ -1,7 +1,7 @@
 package ch.heigvd.quaris.api.definitions;
 
-import ch.heigvd.quaris.api.dto.Error;
-import ch.heigvd.quaris.api.dto.Rule;
+import ch.heigvd.quaris.api.dto.RuleDTO;
+import ch.heigvd.quaris.api.dto.ErrorDTO;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +16,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-20T19:51:07.406+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
 @Api(value = "rules", description = "the rules API")
 public interface RulesApi {
 
-    @ApiOperation(value = "All Rules", notes = "The Rules endpoint returns information about all the existing rules.", response = Rule.class, responseContainer = "List", authorizations = {
+    @ApiOperation(value = "All Rules", notes = "The Rules endpoint returns information about all the existing rules.", response = RuleDTO.class, responseContainer = "List", authorizations = {
         @Authorization(value = "Bearer")
     }, tags={ "Rule", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Rules' information", response = Rule.class),
-        @ApiResponse(code = 200, message = "Unexpected error", response = Rule.class) })
+        @ApiResponse(code = 200, message = "Rules' information", response = RuleDTO.class),
+        @ApiResponse(code = 200, message = "Unexpected error", response = RuleDTO.class) })
     @RequestMapping(value = "/rules",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Rule>> rulesGet();
+    ResponseEntity<List<RuleDTO>> rulesGet();
 
 
     @ApiOperation(value = "Create a new Rule", notes = "Create a new Rule.", response = Void.class, authorizations = {
@@ -45,7 +45,7 @@ public interface RulesApi {
         method = RequestMethod.POST)
     ResponseEntity<Void> rulesPost(
 
-@ApiParam(value = "Rule to add" ,required=true ) @RequestBody Rule rule
+@ApiParam(value = "Rule to add" ,required=true ) @RequestBody RuleDTO rule
 
 );
 

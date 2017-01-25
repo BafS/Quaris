@@ -1,8 +1,9 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.BadgesApi;
+import ch.heigvd.quaris.api.dto.BadgeDTO;
 import ch.heigvd.quaris.models.Application;
-import ch.heigvd.quaris.api.dto.Badge;
+import ch.heigvd.quaris.models.Badge;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.BadgeRepository;
 import ch.heigvd.quaris.services.ApplicationService;
@@ -27,7 +28,7 @@ public class BadgesEndpoint implements BadgesApi {
     private final BadgeRepository badgeRepository = null;
 
     @Override
-    public ResponseEntity<Void> badgesPost(@ApiParam(value = "Badge to add", required = true) @RequestBody Badge badgeDTO) {
+    public ResponseEntity<Void> badgesPost(@ApiParam(value = "Badge to add", required = true) @RequestBody BadgeDTO badgeDTO) {
         if (badgeDTO == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -53,13 +54,13 @@ public class BadgesEndpoint implements BadgesApi {
     }
 
     @Override
-    public ResponseEntity<Badge> badgesBadgenameGet(@ApiParam(value = "A specific Badge's name", required = true) @PathVariable("badgename") String badgename) {
+    public ResponseEntity<BadgeDTO> badgesBadgenameGet(@ApiParam(value = "A specific Badge's name", required = true) @PathVariable("badgename") String badgename) {
         ApplicationService as = new ApplicationService();
-        ch.heigvd.quaris.models.Badge badgeModel = badgeRepository.findByNameAndApplicationName(badgename, as.getCurrentApplicationName());
+        Badge badgeModel = badgeRepository.findByNameAndApplicationName(badgename, as.getCurrentApplicationName());
 
         if (badgeModel != null) {
             ModelMapper modelMapper = new ModelMapper();
-            Badge badgeDTO = modelMapper.map(badgeModel, Badge.class);
+            BadgeDTO badgeDTO = modelMapper.map(badgeModel, BadgeDTO.class);
             return ResponseEntity.ok(badgeDTO);
         }
 
@@ -70,7 +71,7 @@ public class BadgesEndpoint implements BadgesApi {
     public ResponseEntity badgesGet() {
         ApplicationService as = new ApplicationService();
 
-        Iterable<ch.heigvd.quaris.models.Badge> allBadges = badgeRepository.findByApplicationName(as.getCurrentApplicationName());
+        Iterable<Badge> allBadges = badgeRepository.findByApplicationName(as.getCurrentApplicationName());
 
         return ResponseEntity.ok(allBadges);
     }

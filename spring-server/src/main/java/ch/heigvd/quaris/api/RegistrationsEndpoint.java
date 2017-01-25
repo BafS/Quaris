@@ -1,8 +1,8 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.RegistrationsApi;
-import ch.heigvd.quaris.api.dto.Registration;
-import ch.heigvd.quaris.api.dto.RegistrationSummary;
+import ch.heigvd.quaris.api.dto.RegistrationDTO;
+import ch.heigvd.quaris.api.dto.RegistrationSummaryDTO;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.models.Application;
 
@@ -26,10 +26,10 @@ public class RegistrationsEndpoint implements RegistrationsApi {
     private ApplicationRepository applicationsRepository;
 
     @Override
-    public ResponseEntity<List<RegistrationSummary>> registrationsGet() {
-        List<RegistrationSummary> result = new ArrayList<>();
+    public ResponseEntity<List<RegistrationSummaryDTO>> registrationsGet() {
+        List<RegistrationSummaryDTO> result = new ArrayList<>();
         for (Application application : applicationsRepository.findAll()) {
-            RegistrationSummary rs = new RegistrationSummary();
+            RegistrationSummaryDTO rs = new RegistrationSummaryDTO();
             rs.setApplicationName(application.getName());
             result.add(rs);
         }
@@ -37,7 +37,7 @@ public class RegistrationsEndpoint implements RegistrationsApi {
     }
 
     @Override
-    public ResponseEntity<Void> registrationsPost(@RequestBody Registration registration) {
+    public ResponseEntity<Void> registrationsPost(@RequestBody RegistrationDTO registration) {
         System.out.println(registration);
         if(registration.getPassword() != null && registration.getApplicationName() != null && registration.getPassword().length() >= 5) {
             Application newApplication = new Application();

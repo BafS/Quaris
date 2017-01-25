@@ -10,16 +10,14 @@ import io.swagger.annotations.ApiModelProperty;
 
 
 /**
- * Registration
+ * TokenDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
-public class Registration   {
+public class TokenDTO   {
   private String applicationName = null;
 
-  private String password = null;
-
-  public Registration applicationName(String applicationName) {
+  public TokenDTO applicationName(String applicationName) {
     this.applicationName = applicationName;
     return this;
   }
@@ -37,24 +35,6 @@ public class Registration   {
     this.applicationName = applicationName;
   }
 
-  public Registration password(String password) {
-    this.password = password;
-    return this;
-  }
-
-   /**
-   * Get password
-   * @return password
-  **/
-  @ApiModelProperty(value = "")
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -64,23 +44,21 @@ public class Registration   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Registration registration = (Registration) o;
-    return Objects.equals(this.applicationName, registration.applicationName) &&
-        Objects.equals(this.password, registration.password);
+    TokenDTO tokenDTO = (TokenDTO) o;
+    return Objects.equals(this.applicationName, tokenDTO.applicationName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicationName, password);
+    return Objects.hash(applicationName);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Registration {\n");
+    sb.append("class TokenDTO {\n");
     
     sb.append("    applicationName: ").append(toIndentedString(applicationName)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");
     return sb.toString();
   }

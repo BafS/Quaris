@@ -1,11 +1,12 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.PointsApi;
-import ch.heigvd.quaris.api.dto.Point;
-import ch.heigvd.quaris.api.dto.Scale;
-import ch.heigvd.quaris.api.dto.User;
+import ch.heigvd.quaris.api.dto.PointDTO;
+import ch.heigvd.quaris.api.dto.ScaleDTO;
+import ch.heigvd.quaris.api.dto.UserDTO;
 import ch.heigvd.quaris.models.Application;
 import ch.heigvd.quaris.models.EndUser;
+import ch.heigvd.quaris.models.Point;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.repositories.PointRepository;
@@ -34,22 +35,22 @@ public class PointsEndpoint implements PointsApi {
     private final ApplicationRepository applicationsRepository = null;
 
     @Override
-    public ResponseEntity<List<Point>> pointsGet() {
+    public ResponseEntity<List<PointDTO>> pointsGet() {
         // All apps
         String targetApplicationName = new ApplicationService().getCurrentApplicationName();
 
         Application app = applicationsRepository.findByName(targetApplicationName);
 
         if (app != null) {
-            List<ch.heigvd.quaris.models.Point> topPoints = pointRepository.findAllByOrderByPointsDesc();
+            List<Point> topPoints = pointRepository.findAllByOrderByPointsDesc();
 
-            List<Point> usersPointsDTO = new ArrayList<>();
+            List<PointDTO> usersPointsDTO = new ArrayList<>();
 
             topPoints.forEach(p -> {
-                Point pointDTO = new Point();
-                pointDTO.setScale(new ModelMapper().map(p.getScale(), Scale.class));
+                PointDTO pointDTO = new PointDTO();
+                pointDTO.setScale(new ModelMapper().map(p.getScale(), ScaleDTO.class));
                 pointDTO.setPoint((int) p.getPoints());
-                pointDTO.setUser(new ModelMapper().map(p.getEndUser(), User.class));
+                pointDTO.setUser(new ModelMapper().map(p.getEndUser(), UserDTO.class));
 
                 usersPointsDTO.add(pointDTO);
             });
@@ -61,20 +62,20 @@ public class PointsEndpoint implements PointsApi {
     }
 
     @Override
-    public ResponseEntity<List<Point>> pointsIdentifierGet(@ApiParam(value = "Identifier", required = true) @PathVariable("identifier") String identifier) {
+    public ResponseEntity<List<PointDTO>> pointsIdentifierGet(@ApiParam(value = "Identifier", required = true) @PathVariable("identifier") String identifier) {
         String targetApplicationName = new ApplicationService().getCurrentApplicationName();
 
         EndUser endUser = endUserRepository.findByApplicationNameAndIdInApplication(targetApplicationName, identifier);
 
-        Set<ch.heigvd.quaris.models.Point> userPoints = endUser.getPoint();
+        Set<Point> userPoints = endUser.getPoint();
 
-        List<Point> userPointsDTO = new ArrayList<>();
+        List<PointDTO> userPointsDTO = new ArrayList<>();
 
         userPoints.forEach(p -> {
-            Point pointDTO = new Point();
-            pointDTO.setScale(new ModelMapper().map(p.getScale(), Scale.class));
+            PointDTO pointDTO = new PointDTO();
+            pointDTO.setScale(new ModelMapper().map(p.getScale(), ScaleDTO.class));
             pointDTO.setPoint((int) p.getPoints());
-            pointDTO.setUser(new ModelMapper().map(endUser, User.class));
+            pointDTO.setUser(new ModelMapper().map(endUser, UserDTO.class));
 
             userPointsDTO.add(pointDTO);
         });

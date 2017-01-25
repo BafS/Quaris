@@ -1,7 +1,7 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.UsersApi;
-import ch.heigvd.quaris.api.dto.UserDetails;
+import ch.heigvd.quaris.api.dto.UserDetailsDTO;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.models.EndUser;
 import ch.heigvd.quaris.services.ApplicationService;
@@ -40,7 +40,7 @@ public class UsersEndpoint implements UsersApi {
             return ResponseEntity.notFound().build();
         }
 
-        UserDetails userDetailsDTO = new ModelMapper().map(endUser, UserDetails.class);
+        UserDetailsDTO userDetailsDTO = new ModelMapper().map(endUser, UserDetailsDTO.class);
 
         return ResponseEntity.ok(userDetailsDTO);
     }

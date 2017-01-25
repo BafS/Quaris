@@ -1,7 +1,7 @@
 package ch.heigvd.quaris.api.definitions;
 
-import ch.heigvd.quaris.api.dto.Error;
-import ch.heigvd.quaris.api.dto.Scale;
+import ch.heigvd.quaris.api.dto.ScaleDTO;
+import ch.heigvd.quaris.api.dto.ErrorDTO;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
@@ -16,21 +16,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-12-30T03:48:03.027+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
 
 @Api(value = "scales", description = "the scales API")
 public interface ScalesApi {
 
-    @ApiOperation(value = "All Scales", notes = "The Scales endpoint returns information about all the existing scales.", response = Scale.class, responseContainer = "List", authorizations = {
+    @ApiOperation(value = "All Scales", notes = "The Scales endpoint returns information about all the existing scales.", response = ScaleDTO.class, responseContainer = "List", authorizations = {
         @Authorization(value = "Bearer")
     }, tags={ "Scale", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Scales' information", response = Scale.class),
-        @ApiResponse(code = 200, message = "Unexpected error", response = Scale.class) })
+        @ApiResponse(code = 200, message = "Scales' information", response = ScaleDTO.class),
+        @ApiResponse(code = 200, message = "Unexpected error", response = ScaleDTO.class) })
     @RequestMapping(value = "/scales",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Scale>> scalesGet();
+    ResponseEntity<List<ScaleDTO>> scalesGet();
 
 
     @ApiOperation(value = "Create a new Scale", notes = "Create a new Scale.", response = Void.class, authorizations = {
@@ -45,7 +45,7 @@ public interface ScalesApi {
         method = RequestMethod.POST)
     ResponseEntity<Void> scalesPost(
 
-@ApiParam(value = "Scale to add" ,required=true ) @RequestBody Scale scale
+@ApiParam(value = "Scale to add" ,required=true ) @RequestBody ScaleDTO scale
 
 );
 
