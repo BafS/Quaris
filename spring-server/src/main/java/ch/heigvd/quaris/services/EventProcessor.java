@@ -126,7 +126,7 @@ public class EventProcessor {
 
     @Async
     @Transactional(propagation = Propagation.REQUIRED)
-    public void processEvent(Application application, Event event) {
+    synchronized public void processEvent(Application application, Event event) {
         EndUser targetEndUser = event.getUser();
 
         // If user does not exists, we need to create a new "user" with this (id, application) tuple

@@ -39,7 +39,7 @@ public class EventScriptsProcessor {
         return endUserRepository.findByApplicationNameAndIdInApplication(targetApplicationName, identifier);
     }
 
-    public boolean addBadge(final String identifier, final String badgeName) {
+    synchronized public boolean addBadge(final String identifier, final String badgeName) {
         System.out.println("[i] Add new badge tu user " + identifier);
 
         EndUser endUser = getCurrentUser(identifier);
@@ -60,7 +60,7 @@ public class EventScriptsProcessor {
         return false;
     }
 
-    public boolean removeBadge(final String identifier, final String badgeName) {
+    synchronized public boolean removeBadge(final String identifier, final String badgeName) {
         EndUser endUser = getCurrentUser(identifier);
 
         String targetApplicationName = new ApplicationService().getCurrentApplicationName();
@@ -82,7 +82,7 @@ public class EventScriptsProcessor {
      * @param scaleName
      * @param pointsToAdd
      */
-    public boolean addToScale(final String identifier, final String scaleName, final int pointsToAdd) {
+    synchronized public boolean addToScale(final String identifier, final String scaleName, final int pointsToAdd) {
         EndUser endUser = getCurrentUser(identifier);
 
         if (endUser != null) {
