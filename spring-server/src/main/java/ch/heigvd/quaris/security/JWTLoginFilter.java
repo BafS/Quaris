@@ -31,9 +31,15 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws AuthenticationException, IOException, ServletException {
-        RegistrationDTO credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), RegistrationDTO.class);
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getApplicationName(), credentials.getPassword());
-        return getAuthenticationManager().authenticate(token);
+
+        // For "pre-flight" requests
+        if (!httpServletRequest.getMethod().equals("OPTIONS")) {
+            RegistrationDTO credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), RegistrationDTO.class);
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getApplicationName(), credentials.getPassword());
+            return getAuthenticationManager().authenticate(token);
+        }
+
+        return null;
     }
 
     @Override
