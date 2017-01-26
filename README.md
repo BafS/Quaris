@@ -1,33 +1,43 @@
-# QUARIS
+# Quaris
 
-## A multi-tier application project by Henrik Akesson & Fabien Salathe
+## A Gamification project by Henrik Akesson & Fabien Salathe
 
 # Context
-This repo contains the code to run a gamification API. It is a project proposed by [Olivier Liechti](https://github.com/wasadigi) in the context of our [AMT lesson](https://github.com/SoftEng-HEIGVD/Teaching-HEIGVD-AMT-Lectures) at HEIG-VD.
+This platform was developed as a project for the Multi Tiered Applications course.
+It's purpose is to offer a Gamification platform for other applications.
 
-# How to
+# Gamify your application now!
+## Easy to use
+Quaris is a REST API based platform. Interacting with it is done entirely through HTTP CRUD requests.
 
-## Setup
-Before getting started you'll need to download and install [IntelliJ IDEA](https://www.jetbrains.com/idea/#chooseYourEdition) and  [MySql Server](https://dev.mysql.com/downloads/windows/installer/5.7.html).
+## Almost no configuration required
+Quaris handles everything related to the gamification of your application, and the only thing you need to configure and run the application is to provide your MySQL root username and password in the file located at **Quaris/spring-server/src/main/resources/application.properties** (lines 26 and 27).
+
+## Requirements
+Before getting started you'll need to have
+- [Maven](https://maven.apache.org/download.cgi)
+- [MySql Server](https://dev.mysql.com/downloads/windows/installer/5.7.html)
+- [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
 
 ## Run the app
-Then, after cloning this repo, open it IntelliJ IDE run the project by clicking on the run/debug command. IntelliJ will build and run the Spring Server that will run the database and run the app.
-
-- Clone this repository
-- Open the projet in your IntelliJ IDE
-- Edit the application.properties file, by adding the password of you Root account of MySql Server
-- Click on the Run/Update button
-- Open your browser and access the url `http://localhost:8090/`
-- And magic happens.
+commands:
+- **mvn clean**
+- **mvn compile spring-boot:run**
 
 ## API documentation
-Check it out here: https://akessonhenrik.github.io/QUARIS/api/
+The complete Quaris API documentation is available at **docs/index.html**
 
-### PostMan tests info
-To make the postman tests work ("*QUARIS.postman_collection.json*"), you may want to use postman environment variables.
+## Tests
 
-Three are needed in that case, unless you want to manually inject them in every query:
+There are two ways to test the platform:
+### Mocha/Chai tests
+In order to run the tests you need:
+- [Node](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/)
 
- - **host** : address where the site is running (examples: **localhost** or **192.168.99.100**)
- - **port** : port where the webapp is accessible (using docker or without modifying the configuration: **9090**)
- - **base** : Name of the webapp (using docker or without modifying the configuration: **/QUARIS-1.0-SNAPSHOT**)
+API Testing is available through the Chai and mocha tests in the **Quaris\Quaris-tests\Quaris-tests\specifications\api** folder.
+
+Run **npm install**, then run each file.
+
+### Simple web app
