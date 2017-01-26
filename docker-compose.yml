@@ -1,0 +1,24 @@
+version: '2'
+services:
+  java:
+    build:
+      context: ./
+      dockerfile: ./docker/openjdk/Dockerfile
+    ports:
+     - "8090:8090"
+    links:
+     - mysql:db
+  mysql:
+    build: ./docker/mysql
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+    ports:
+     - "3306:3306"
+  phpmyadmin:
+    build: ./docker/phpmyadmin
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+    ports:
+     - "6060:80"
+    links:
+     - mysql:db
