@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quaris country game</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v3.20.1/css/ol.css" type="text/css">
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v3.20.1/build/ol.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: #f8f8f8;
+            color: #333;
+            font-family: sans-serif;
+            font-size: 14pt;
+        }
+        
+        #info {
+            margin: 2px 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map" class="map"></div>
+    <div id="info">&nbsp;</div>
+
+
+    <script>
+        var badges = [];
+        var countries = [
+            "Afghanistan", "Angola", "Albania", "United Arab Emirates", "Argentina", "Armenia", "Antarctica", "French Southern and Antarctic Lands", "Australia", "Austria", "Azerbaijan", "Burundi", "Belgium", "Benin", "Burkina Faso", "Bangladesh", "Bulgaria", "The Bahamas", "Bosnia and Herzegovina", "Belarus", "Belize", "Bermuda", "Bolivia", "Brazil", "Brunei", "Bhutan", "Botswana", "Central African Republic", "Canada", "Switzerland", "Chile", "China", "Ivory Coast", "Cameroon", "Democratic Republic of the Congo", "Republic of the Congo", "Colombia", "Costa Rica", "Cuba", "Northern Cyprus", "Cyprus", "Czech Republic", "Germany", "Djibouti", "Denmark", "Dominican Republic", "Algeria", "Ecuador", "Egypt", "Eritrea", "Spain", "Estonia", "Ethiopia", "Finland", "Fiji", "Falkland Islands", "France", "Gabon", "United Kingdom", "Georgia", "Ghana", "Guinea", "Gambia", "Guinea Bissau", "Equatorial Guinea", "Greece", "Greenland", "Guatemala", "French Guiana", "Guyana", "Honduras", "Croatia", "Haiti", "Hungary", "Indonesia", "India", "Ireland", "Iran", "Iraq", "Iceland", "Israel", "Italy", "Jamaica", "Jordan", "Japan", "Kazakhstan", "Kenya", "Kyrgyzstan", "Cambodia", "South Korea", "Kosovo", "Kuwait", "Laos", "Lebanon", "Liberia", "Libya", "Sri Lanka", "Lesotho", "Lithuania", "Luxembourg", "Latvia", "Morocco", "Moldova", "Madagascar", "Mexico", "Macedonia", "Mali", "Myanmar", "Montenegro", "Mongolia", "Mozambique", "Mauritania", "Malawi", "Malaysia", "Namibia", "New Caledonia", "Niger", "Nigeria", "Nicaragua", "Netherlands", "Norway", "Nepal", "New Zealand", "Oman", "Pakistan", "Panama", "Peru", "Philippines", "Papua New Guinea", "Poland", "Puerto Rico", "North Korea", "Portugal", "Paraguay", "Qatar", "Romania", "Russia", "Rwanda", "Western Sahara", "Saudi Arabia", "Sudan", "South Sudan", "Senegal", "Solomon Islands", "Sierra Leone", "El Salvador", "Somaliland", "Somalia", "Republic of Serbia", "Suriname", "Slovakia", "Slovenia", "Sweden", "Swaziland", "Syria", "Chad", "Togo", "Thailand", "Tajikistan", "Turkmenistan", "East Timor", "Trinidad and Tobago", "Tunisia", "Turkey", "Taiwan", "United Republic of Tanzania", "Uganda", "Ukraine", "Uruguay", "United States of America", "Uzbekistan", "Venezuela", "Vietnam", "Vanuatu", "West Bank", "Yemen", "South Africa", "Zambia", "Zimbabwe"
+        ]
+
+        var numberOfTries = 0;
+        randomCountry = function() {
+            var randomCountry = countries[Math.floor(Math.random() * (countries.length + 1))];
+            alert("Find " + randomCountry + "!");
+            console.log("Find " + randomCountry + "!");
+            return randomCountry;
+        }
+        var countryToFind;
+
+        getUserInfo = function(callback) {
+            jQuery.ajax({
+                url: 'http://localhost:8090/api/users/' + username,
+                type: 'GET',
+                dataType: "json",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": localStorage["token"]
+                },
+                success: function(data, textStatus, request) {
+                    console.log(data);
+                    callback(data.badges);
+                    //console.log(textStatus);
+                    //console.log(request);
+                },
+                error: function(request, textStatus, errorThrown) {
+                    //console.log("didn't work");
+                }
+            });
+        }
+        checkIfNewBadges = function(data) {
+            for (var i = 0; i < data.length; i++) {
+                if (badges.indexOf(data[i]) == -1) {
+                    alert("You have earned badge: " + data[i].name)
+                    badges.push(data[i]);
+                }
+            }
+        }
+        handleGoodAnswer = function() {
+            alert("You chose right!")
+            countryToFind = randomCountry();
+            var r = jQuery.ajax({
+                url: 'http://localhost:8090/api/events',
+                type: 'POST',
+                dataType: "json",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": localStorage["token"]
+                },
+                data: JSON.stringify({
+                    "identifier": username,
+                    "type": "rightAnswer",
+                }),
+                success: function(data, textStatus, request) {
+                    console.log(r.getAllResponseHeaders());
+                },
+                error: function(request, textStatus, errorThrown) {
+                    //console.log("didn't work");
+                }
+            });
+            getUserInfo(checkIfNewBadges);
+
+        }
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 255, 255, 0.6)'
+            }),
+            stroke: new ol.style.Stroke({
+                color: '#319FD3',
+                width: 1
+            }),
+            text: new ol.style.Text({
+                font: '14px Calibri,sans-serif',
+                fill: new ol.style.Fill({
+                    color: '#000'
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#fff',
+                    width: 3
+                })
+            })
+        });
+        var username;
+        $(document).ready(function() {
+
+            username = prompt("Enter Your Name");
+
+            $.ajax({
+                url: 'http://localhost:8090/api/auth',
+                type: 'POST',
+                dataType: "json",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                // APPLICATION PASSWORD
+                data: JSON.stringify({
+                    "applicationName": "mapy",
+                    "password": "mapyPass"
+                })
+            }).then((data, status, xhr) => {
+                localStorage["token"] = xhr.getResponseHeader('Authorization').replace(/Bearer */i, '');
+            });
+            getUserInfo(function(data) {
+                badges = data;
+                console.log("BADGES");
+                console.log(badges);
+            });
+            countryToFind = randomCountry();
+        });
+        var vectorLayer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                url: 'https://openlayers.org/en/v3.20.1/examples/data/geojson/countries.geojson',
+                format: new ol.format.GeoJSON()
+            }),
+            style: function(feature, resolution) {
+                //style.getText().setText(resolution < 5000 ? feature.get('name') : '');
+                return style;
+            }
+        });
+
+        var view = new ol.View({
+            center: [0, 0],
+            zoom: 3.5
+        });
+
+        var map = new ol.Map({
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.Stamen({
+                        layer: 'watercolor'
+                    })
+                }),
+                vectorLayer
+            ],
+
+            target: 'map',
+            view: view
+        });
+
+        var highlightStyleCache = {};
+
+        var featureOverlay = new ol.layer.Vector({
+            source: new ol.source.Vector(),
+            map: map,
+            style: function(feature, resolution) {
+                var text = resolution < 5000 ? feature.get('name') : '';
+                if (!highlightStyleCache[text]) {
+                    highlightStyleCache[text] = new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: '#f00',
+                            width: 1
+                        }),
+                        fill: new ol.style.Fill({
+                            color: 'rgba(255,0,0,0.15)'
+                        }),
+                        text: new ol.style.Text({
+                            font: '12px Calibri,sans-serif',
+                            text: text,
+                            fill: new ol.style.Fill({
+                                color: '#000'
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: '#f00',
+                                width: 3
+                            })
+                        })
+                    });
+                }
+                return highlightStyleCache[text];
+            }
+        });
+
+        var highlight;
+        var displayFeatureInfo = function(pixel) {
+
+            var feature = map.forEachFeatureAtPixel(pixel, function(feature) {
+                return feature;
+            });
+
+            var info = document.getElementById('info');
+            if (feature) {
+                info.innerHTML = feature.getId() + ': ' + feature.get('name');
+                console.log(feature.get('name'))
+                if (feature.get('name') === countryToFind) {
+                    handleGoodAnswer();
+                    numberOfTries = 0;
+                } else {
+                    numberOfTries++;
+                    if (numberOfTries == 5) {
+                        console.log("You have used all your tries!");
+                        countryToFind = randomCountry();
+                        numberOfTries = 0;
+                    }
+                }
+            } else {
+                info.innerHTML = '&nbsp;';
+            }
+
+            if (feature !== highlight) {
+                if (highlight) {
+                    featureOverlay.getSource().removeFeature(highlight);
+                }
+                if (feature) {
+                    featureOverlay.getSource().addFeature(feature);
+                }
+                highlight = feature;
+            }
+        };
+
+        map.on('pointermove', function(evt) {
+            if (evt.dragging) {
+                return;
+            }
+            var pixel = map.getEventPixel(evt.originalEvent);
+        });
+
+        map.on('click', function(evt) {
+            displayFeatureInfo(evt.pixel);
+        });
+
+
+        function onClick(id, callback) {
+            document.getElementById(id).addEventListener('click', callback);
+        }
+
+        var ok = [0, 0];
+        var current = [0, 0];
+
+
+        var london = ol.proj.fromLonLat([-0.12755, 51.507222]);
+        var moscow = ol.proj.fromLonLat([37.6178, 55.7517]);
+
+        function showMe(coords) {
+            view.animate({
+                center: coords,
+                duration: 1000
+            });
+
+            current = coords
+
+            var cen = map.getView().getCenter();
+
+            console.log(cen);
+
+            ok = map.getPixelFromCoordinate(cen);
+            ok[0] = Math.round(ok[0])
+            ok[1] = Math.round(ok[1])
+        }
+
+        onClick('a', function() {
+            showMe(london)
+        });
+
+        onClick('b', function() {
+            showMe(moscow)
+        });
+
+        map.on('moveend', function(event) {
+            displayFeatureInfo(ok);
+            view.setCenter(current)
+        });
+    </script>
+
+</body>
+
+</html>
