@@ -22,6 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author Fabien Salathe
+ * @author Henrik Akesson
+ */
 @RestController
 public class PointsEndpoint implements PointsApi {
 

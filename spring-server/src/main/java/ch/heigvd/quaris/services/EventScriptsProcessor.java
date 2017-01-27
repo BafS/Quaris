@@ -40,7 +40,7 @@ public class EventScriptsProcessor {
     }
 
     public boolean addBadge(final String identifier, final String badgeName) {
-        System.out.println("[i] Add new badge tu user " + identifier);
+        System.out.println("[i] Add new badge to user " + identifier);
 
         EndUser endUser = getCurrentUser(identifier);
 
@@ -78,9 +78,9 @@ public class EventScriptsProcessor {
     /**
      * Add (or substract) some points to a given scale
      *
-     * @param identifier
-     * @param scaleName
-     * @param pointsToAdd
+     * @param identifier : username
+     * @param scaleName : scale to add points to
+     * @param pointsToAdd : number of points to add/remove
      */
     synchronized public boolean addToScale(final String identifier, final String scaleName, final int pointsToAdd) {
         EndUser endUser = getCurrentUser(identifier);
