@@ -29,6 +29,14 @@ public class Rule implements Serializable {
 
     private boolean enabled;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Application getApplication() {
         return application;
     }

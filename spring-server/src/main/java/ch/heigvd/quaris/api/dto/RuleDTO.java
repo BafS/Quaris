@@ -12,9 +12,11 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * RuleDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-27T10:57:14.535+01:00")
 
 public class RuleDTO   {
+  private Integer id = null;
+
   private String name = null;
 
   private String criteria = null;
@@ -22,6 +24,24 @@ public class RuleDTO   {
   private String action = null;
 
   private Boolean enabled = null;
+
+  public RuleDTO id(Integer id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Rule's ID.
+   * @return id
+  **/
+  @ApiModelProperty(value = "Rule's ID.")
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
   public RuleDTO name(String name) {
     this.name = name;
@@ -105,7 +125,8 @@ public class RuleDTO   {
       return false;
     }
     RuleDTO ruleDTO = (RuleDTO) o;
-    return Objects.equals(this.name, ruleDTO.name) &&
+    return Objects.equals(this.id, ruleDTO.id) &&
+        Objects.equals(this.name, ruleDTO.name) &&
         Objects.equals(this.criteria, ruleDTO.criteria) &&
         Objects.equals(this.action, ruleDTO.action) &&
         Objects.equals(this.enabled, ruleDTO.enabled);
@@ -113,7 +134,7 @@ public class RuleDTO   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, criteria, action, enabled);
+    return Objects.hash(id, name, criteria, action, enabled);
   }
 
   @Override
@@ -121,6 +142,7 @@ public class RuleDTO   {
     StringBuilder sb = new StringBuilder();
     sb.append("class RuleDTO {\n");
     
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    criteria: ").append(toIndentedString(criteria)).append("\n");
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
