@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +44,11 @@ public class RulesEndpoint implements RulesApi {
                 .map(rm -> new ModelMapper().map(rm, RuleDTO.class));
 
         return ResponseEntity.ok(allRulesDTO.collect(Collectors.toList()));
+    }
+
+    @Override
+    public ResponseEntity<Void> rulesIdPut(@ApiParam(value = "Rule id", required = true) @PathVariable("id") String id, @ApiParam(value = "new Rule data", required = true) @RequestBody RuleDTO data) {
+        return null;
     }
 
     @Override
