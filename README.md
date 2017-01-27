@@ -51,7 +51,7 @@ API Testing is available through the Chai and mocha tests in the **Quaris\Quaris
 Run **npm install**, then run each file.
 
 ### Simple web app
-Try out how quaris can gamify a simple application with our "country finding" app, where the user is prompted to pinpoint on a world map where specific countries are. You get it right, you get points. First you get the points, then you get the badges, then you get the power.
+Try out how quaris can gamify a simple application with our "country finding" app, located in the frontend folder (you only need a browser), where the user is prompted to pinpoint on a world map where specific countries are. You get it right, you get points. First you get the points, then you get the badges, then you get the power.
 
 ### Admin app
 Want to gamify your application and define rules, scales and badges? Try our administrator app, located here: https://github.com/BafS/Quaris-backend-admin
