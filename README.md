@@ -22,11 +22,10 @@ Before getting started you'll need to have
 - [MySql Server](https://dev.mysql.com/downloads/windows/installer/5.7.html)
 - [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-
 ## Run the app
 commands:
-- **mvn clean**
-- **mvn compile spring-boot:run**
+- `mvn clean`
+- `mvn compile spring-boot:run`
 
 ## API documentation
 The complete Quaris API documentation is available [here](https://bafs.github.io/Quaris/)
@@ -48,7 +47,7 @@ In order to run the tests you need:
 
 API Testing is available through the Chai and mocha tests in the **Quaris\Quaris-tests\Quaris-tests\specifications\api** folder.
 
-Run **npm install**, then run each file.
+Run `npm install`, then run each file.
 
 ### Simple web app
 Try out how quaris can gamify a simple application with our "country finding" app, where the user is prompted to pinpoint on a world map where specific countries are. You get it right, you get points. First you get the points, then you get the badges, then you get the power.

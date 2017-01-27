@@ -39,7 +39,7 @@ public class EventScriptsProcessor {
         return endUserRepository.findByApplicationNameAndIdInApplication(targetApplicationName, identifier);
     }
 
-    synchronized public boolean addBadge(final String identifier, final String badgeName) {
+    public boolean addBadge(final String identifier, final String badgeName) {
         System.out.println("[i] Add new badge tu user " + identifier);
 
         EndUser endUser = getCurrentUser(identifier);
