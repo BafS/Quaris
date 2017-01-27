@@ -7,7 +7,8 @@ import javax.persistence.*;
  */
 @Entity
 public class Point {
-
+    @Version
+    private int version;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

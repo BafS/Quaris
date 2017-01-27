@@ -8,6 +8,8 @@ import java.io.Serializable;
  */
 @Entity
 public class Rule implements Serializable {
+    @Version
+    private int version;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

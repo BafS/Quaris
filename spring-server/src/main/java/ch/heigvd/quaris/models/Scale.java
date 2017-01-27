@@ -9,6 +9,8 @@ import java.util.Set;
  */
 @Entity
 public class Scale {
+    @Version
+    private int version;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

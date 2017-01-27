@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,8 @@ public class BadgesEndpoint implements BadgesApi {
     @Autowired
     private final BadgeRepository badgeRepository = null;
 
+
+    @Transactional
     @Override
     public ResponseEntity<Void> badgesPost(@ApiParam(value = "Badge to add", required = true) @RequestBody BadgeDTO badgeDTO) {
         if (badgeDTO == null) {
@@ -41,7 +44,6 @@ public class BadgesEndpoint implements BadgesApi {
         badgeModel.setName(badgeDTO.getName());
         badgeModel.setDescription(badgeDTO.getDescription());
         badgeModel.setApplication(app);
-
 
         if (badgeRepository != null) {
             try {

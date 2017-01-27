@@ -2,12 +2,15 @@ package ch.heigvd.quaris.models;
 
 import org.joda.time.DateTime;
 
+import javax.persistence.Version;
 import java.io.Serializable;
 
 /**
  * @author Fabien Salathe
  */
 public class Event implements Serializable {
+    @Version
+    private int version;
 
     private EndUser user; // Identifier
 

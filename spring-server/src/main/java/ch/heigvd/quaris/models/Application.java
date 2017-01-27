@@ -16,7 +16,8 @@ import java.util.HashSet;
  */
 @Entity
 public class Application implements Serializable, UserDetails {
-
+    @Version
+    private int version;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

@@ -13,7 +13,8 @@ import javax.persistence.*;
 @Entity
 @Table
 public class EndUser implements Serializable {
-
+    @Version
+    private int version;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

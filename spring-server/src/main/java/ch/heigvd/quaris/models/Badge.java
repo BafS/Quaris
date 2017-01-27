@@ -9,6 +9,8 @@ import java.util.List;
  */
 @Entity
 public class Badge implements Serializable {
+    @Version
+    private int version;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
