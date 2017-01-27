@@ -244,6 +244,33 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/ErrorDTO'
+  /rules/{id}:
+    put:
+      summary: Modify existing Rule
+      description: Modify an existing Rule
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          description: Rule id
+          required: true
+          type: string
+        - name: data
+          in: body
+          description: new Rule data
+          required: true
+          schema:
+            $ref: '#/definitions/RuleDTO'
+      tags:
+        - Rule
+      responses:
+        200:
+          description: Rule modified successfully
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorDTO'
 
   /scales:
     get:
