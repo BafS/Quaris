@@ -14,12 +14,6 @@
     <div id="info">&nbsp;</div>
 
 
-
-    <button id="a" title="Rotate clockwise">a </button>
-    <button id="b" title="Rotate counterclockwise">b </button>
-    <button id="c">c </button>
-
-
     <script>
         var countries = [
             "Afghanistan", "Angola", "Albania", "United Arab Emirates", "Argentina", "Armenia", "Antarctica", "French Southern and Antarctic Lands", "Australia", "Austria", "Azerbaijan", "Burundi", "Belgium", "Benin", "Burkina Faso", "Bangladesh", "Bulgaria", "The Bahamas", "Bosnia and Herzegovina", "Belarus", "Belize", "Bermuda", "Bolivia", "Brazil", "Brunei", "Bhutan", "Botswana", "Central African Republic", "Canada", "Switzerland", "Chile", "China", "Ivory Coast", "Cameroon", "Democratic Republic of the Congo", "Republic of the Congo", "Colombia", "Costa Rica", "Cuba", "Northern Cyprus", "Cyprus", "Czech Republic", "Germany", "Djibouti", "Denmark", "Dominican Republic", "Algeria", "Ecuador", "Egypt", "Eritrea", "Spain", "Estonia", "Ethiopia", "Finland", "Fiji", "Falkland Islands", "France", "Gabon", "United Kingdom", "Georgia", "Ghana", "Guinea", "Gambia", "Guinea Bissau", "Equatorial Guinea", "Greece", "Greenland", "Guatemala", "French Guiana", "Guyana", "Honduras", "Croatia", "Haiti", "Hungary", "Indonesia", "India", "Ireland", "Iran", "Iraq", "Iceland", "Israel", "Italy", "Jamaica", "Jordan", "Japan", "Kazakhstan", "Kenya", "Kyrgyzstan", "Cambodia", "South Korea", "Kosovo", "Kuwait", "Laos", "Lebanon", "Liberia", "Libya", "Sri Lanka", "Lesotho", "Lithuania", "Luxembourg", "Latvia", "Morocco", "Moldova", "Madagascar", "Mexico", "Macedonia", "Mali", "Myanmar", "Montenegro", "Mongolia", "Mozambique", "Mauritania", "Malawi", "Malaysia", "Namibia", "New Caledonia", "Niger", "Nigeria", "Nicaragua", "Netherlands", "Norway", "Nepal", "New Zealand", "Oman", "Pakistan", "Panama", "Peru", "Philippines", "Papua New Guinea", "Poland", "Puerto Rico", "North Korea", "Portugal", "Paraguay", "Qatar", "Romania", "Russia", "Rwanda", "Western Sahara", "Saudi Arabia", "Sudan", "South Sudan", "Senegal", "Solomon Islands", "Sierra Leone", "El Salvador", "Somaliland", "Somalia", "Republic of Serbia", "Suriname", "Slovakia", "Slovenia", "Sweden", "Swaziland", "Syria", "Chad", "Togo", "Thailand", "Tajikistan", "Turkmenistan", "East Timor", "Trinidad and Tobago", "Tunisia", "Turkey", "Taiwan", "United Republic of Tanzania", "Uganda", "Ukraine", "Uruguay", "United States of America", "Uzbekistan", "Venezuela", "Vietnam", "Vanuatu", "West Bank", "Yemen", "South Africa", "Zambia", "Zimbabwe"
@@ -29,6 +23,7 @@
         randomCountry = function() {
             var randomCountry = countries[Math.floor(Math.random() * (countries.length + 1))];
             alert("Find " + randomCountry + "!");
+            console.log("Find " + randomCountry + "!");
             return randomCountry;
         }
         var countryToFind;
@@ -99,8 +94,7 @@
         $(document).ready(function() {
 
             username = prompt("Enter Your Name");
-
-            var r = jQuery.ajax({
+            $.ajax({
                 url: 'http://localhost:8090/api/auth',
                 type: 'POST',
                 dataType: "json",
@@ -111,6 +105,8 @@
                     "applicationName": "mapy",
                     "password": "mapyPass"
                 })
+            }).then((data, status, xhr) => {
+                localStorage["token"] = xhr.getResponseHeader('Authorization').replace(/Bearer */i, '');
             });
 
             countryToFind = randomCountry();
@@ -121,7 +117,7 @@
                 format: new ol.format.GeoJSON()
             }),
             style: function(feature, resolution) {
-                style.getText().setText(resolution < 5000 ? feature.get('name') : '');
+                //style.getText().setText(resolution < 5000 ? feature.get('name') : '');
                 return style;
             }
         });
@@ -228,13 +224,10 @@
                 return;
             }
             var pixel = map.getEventPixel(evt.originalEvent);
-            //displayFeatureInfo(pixel);
         });
 
         map.on('click', function(evt) {
             displayFeatureInfo(evt.pixel);
-
-            //console.log(evt.pixel)
         });
 
 
@@ -260,12 +253,10 @@
             var cen = map.getView().getCenter();
 
             console.log(cen);
-            //console.log(map.getPixelFromCoordinate(cen));
 
             ok = map.getPixelFromCoordinate(cen);
             ok[0] = Math.round(ok[0])
             ok[1] = Math.round(ok[1])
-                //console.log("ok", ok)
         }
 
 
@@ -281,7 +272,6 @@
         map.on('moveend', function(event) {
             displayFeatureInfo(ok);
             view.setCenter(current)
-                //console.log("OKKKKK", event);
         });
     </script>
 
