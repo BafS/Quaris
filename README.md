@@ -13,6 +13,9 @@ Quaris is a REST API based platform. Interacting with it is done entirely throug
 ## Almost no configuration required
 Quaris handles everything related to the gamification of your application, and the only thing you need to configure and run the application is to provide your MySQL root username and password in the file located at **Quaris/spring-server/src/main/resources/application.properties** (lines 26 and 27).
 
+## No funny business - Quaris uses [JSON Web Tokens](https://jwt.io/) to authenticate requests
+Except for registering new apps and authenticating, every CRUD request to Quaris must contain the JWT provided by the server in its header. (Header must include : **"Authorization": "[jwt given by server]"**)
+
 ## Requirements
 Before getting started you'll need to have
 - [Maven](https://maven.apache.org/download.cgi)
@@ -26,10 +29,17 @@ commands:
 - **mvn compile spring-boot:run**
 
 ## API documentation
-The complete Quaris API documentation is available at **docs/index.html**
+The complete Quaris API documentation is available [here](https://bafs.github.io/Quaris/)
+
+## Database structure
+![Database](./docs/db_uml.png)
+
+## Server UML
+Check out how our server classes are structured, if you dare
+
+![UML](./docs/server_uml_2.png)
 
 ## Tests
-
 There are two ways to test the platform:
 ### Mocha/Chai tests
 In order to run the tests you need:
@@ -41,3 +51,7 @@ API Testing is available through the Chai and mocha tests in the **Quaris\Quaris
 Run **npm install**, then run each file.
 
 ### Simple web app
+Try out how quaris can gamify a simple application with our "country finding" app, where the user is prompted to pinpoint on a world map where specific countries are. You get it right, you get points. First you get the points, then you get the badges, then you get the power.
+
+### Admin app
+Want to gamify your application and define rules, scales and badges? Try our administrator app, located here: https://github.com/BafS/Quaris-backend-admin
