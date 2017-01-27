@@ -1,6 +1,7 @@
 package ch.heigvd.quaris.api;
 
 import ch.heigvd.quaris.api.definitions.UsersApi;
+import ch.heigvd.quaris.api.dto.UserDTO;
 import ch.heigvd.quaris.api.dto.UserDetailsDTO;
 import ch.heigvd.quaris.repositories.EndUserRepository;
 import ch.heigvd.quaris.models.EndUser;
@@ -12,11 +13,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class UsersEndpoint implements UsersApi {
 
     @Autowired
     private final EndUserRepository endUserRepository = null;
+
+    @Override
+    public ResponseEntity<List<UserDetailsDTO>> findAllUser() {
+        String targetApplicationName = new ApplicationService().getCurrentApplicationName();
+
+        List<EndUser> endUsers = endUserRepository.findByApplicationName(targetApplicationName);
+
+        // Create DTOs
+        List<UserDetailsDTO> dtos = endUsers
+                .parallelStream()
+                .map(sm -> new ModelMapper().map(sm, UserDetailsDTO.class))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(dtos);
+    }
 
     @Override
     public ResponseEntity findUserById(@PathVariable("id") String userId) {

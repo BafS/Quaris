@@ -64,9 +64,27 @@ paths:
         401:
           description: Authentication failed
 
+  /users:
+    get:
+      description: Retrieve all users
+      operationId: findAllUser
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Returns the specified user details
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserDetailsDTO'
+        404:
+          description: No users found
+
   /users/{id}:
     get:
-      description: Retrieve one user by id
+      description: Retrieve one user by identifier
       operationId: findUserById
       security:
         - Bearer: []
