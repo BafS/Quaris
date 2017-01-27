@@ -3,12 +3,14 @@ package ch.heigvd.quaris.api;
 import ch.heigvd.quaris.api.definitions.RulesApi;
 import ch.heigvd.quaris.api.dto.RuleDTO;
 import ch.heigvd.quaris.models.Application;
+import ch.heigvd.quaris.models.Rule;
 import ch.heigvd.quaris.repositories.ApplicationRepository;
 import ch.heigvd.quaris.repositories.RuleRepository;
 import ch.heigvd.quaris.services.ApplicationService;
 import io.swagger.annotations.ApiParam;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +50,27 @@ public class RulesEndpoint implements RulesApi {
 
     @Override
     public ResponseEntity<Void> rulesIdPut(@ApiParam(value = "Rule id", required = true) @PathVariable("id") String id, @ApiParam(value = "new Rule data", required = true) @RequestBody RuleDTO data) {
-        return null;
+
+        ch.heigvd.quaris.models.Rule rule = rulesRepository.findOne(Long.parseLong(id));
+
+        try {
+            if(data.getName() != null)
+                rule.setName(data.getName());
+            if(data.getEnabled() != null)
+                rule.setEnabled(data.getEnabled());
+            if(data.getAction() != null)
+                rule.setAction(data.getAction());
+            if(data.getCriteria() != null)
+                rule.setCriteria(data.getCriteria());
+            rulesRepository.save(rule);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (EmptyResultDataAccessException e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println(e.getClass());
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
     @Override
