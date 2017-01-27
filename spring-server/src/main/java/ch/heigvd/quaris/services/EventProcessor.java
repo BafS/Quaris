@@ -17,6 +17,7 @@ import javax.script.ScriptException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This service is uses to process events by evaluation javascript from each rule
@@ -94,26 +95,26 @@ public class EventProcessor {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
 
         boolean result = false;
+        ApplicationService as = new ApplicationService();
 
         try {
-            engine.eval("function funCriteria(user, event, scales) {\n" +
-                    "print('event: '+event+' user is: ' + user + ', replies:' + scales.replies);\n" +
+            engine.eval("function funCriteria(user, event, points, scale) {\n" +
+                    "print('event: '+event+' user is: ' + user + ', replies:' + points.replies);\n" +
                     "return " + criteria + "\n" +
                     "}");
 
             Invocable invocable = (Invocable) engine;
 
-            Map<String, Object> scales = new HashMap<>();
-            scales.put("replies", 10);
-            scales.put("level", 1250);
+            Map<String, Object> points = new HashMap<>();
+            points.put("end_user_id", eventModel.getIdentifier());
+            EndUser user = endUserRepository.findByApplicationNameAndIdInApplication(as.getCurrentApplicationName(), eventModel.getIdentifier());
 
-            Map<String, String> event = new HashMap<>();
-            scales.put("indentifier", eventModel.getIdentifier());
-            scales.put("type", eventModel.getType());
-            // scales.put("payload", eventModel.getType());
-            // scales.put("level", eventModel.getApp().getName());
+//            Map<String, String> event = new HashMap<>();
+//            points.put("indentifier", eventModel.getIdentifier());
+//            points.put("type", eventModel.getType());
+            List<Scale> scales = scaleRepository.findByApplicationName(as.getCurrentApplicationName());
 
-            result = (boolean) invocable.invokeFunction("funCriteria", "Testuser", eventModel, scales);
+            result = (boolean) invocable.invokeFunction("funCriteria", eventModel.getIdentifier(), eventModel, user.getPoint(), scales);
         } catch (ScriptException e) {
             // e.printStackTrace();
             System.out.println("[ERROR] Error in the script");
@@ -146,19 +147,25 @@ public class EventProcessor {
 
         System.out.println("------" + application.getName());
 
-        rules.parallelStream()
-                // Filter rules if criteria is true
-                .filter(rule -> this.testRuleCriteria(event, rule.getCriteria()))
-                // Apply action
-                .forEach(rule -> {
-                    System.out.println("ACTION FOR " + rule.getName());
-                    if (this.applyRuleAction(event, rule.getAction())) {
-                        System.out.println("ACTION OK [" + rule.getName() + "]");
-                        // TODO ?
-                    }
-
-                    elasticSearchService.addEventToElasticsearch(event);
-                });
+//        rules.parallelStream()
+//                // Filter rules if criteria is true
+//                .filter(rule -> this.testRuleCriteria(event, rule.getCriteria()))
+//                // Apply action
+//                .forEach(rule -> {
+//                    System.out.println("ACTION FOR " + rule.getName());
+//                    if (this.applyRuleAction(event, rule.getAction())) {
+//                        System.out.println("ACTION OK [" + rule.getName() + "]");
+//                        // TODO ?
+//                    }
+//
+//                    elasticSearchService.addEventToElasticsearch(event);
+//                });
+        rules.forEach(rule -> {
+            if(testRuleCriteria(event, rule.getCriteria())) {
+                applyRuleAction(event, rule.getAction());
+            }
+        });
+        elasticSearchService.addEventToElasticsearch(event);
 
         System.out.println("[i] targetEndUser:: " + targetEndUser.getIdInGamifiedApplication());
 

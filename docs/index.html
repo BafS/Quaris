@@ -834,6 +834,11 @@ margin-bottom: 20px;
     defs.RuleDTO = {
   "type" : "object",
   "properties" : {
+    "id" : {
+      "type" : "integer",
+      "format" : "int32",
+      "description" : "Rule's ID."
+    },
     "name" : {
       "type" : "string",
       "description" : "Rule's name. Unique identifier."
@@ -964,6 +969,9 @@ margin-bottom: 20px;
                   <li class="nav-header" data-group="Rule"><a href="#api-Rule">API Methods - Rule</a></li>
                     <li data-group="Rule" data-name="rulesGet" class="">
                       <a href="#api-Rule-rulesGet">rulesGet</a>
+                    </li>
+                    <li data-group="Rule" data-name="rulesIdDelete" class="">
+                      <a href="#api-Rule-rulesIdDelete">rulesIdDelete</a>
                     </li>
                     <li data-group="Rule" data-name="rulesIdPut" class="">
                       <a href="#api-Rule-rulesIdPut">rulesIdPut</a>
@@ -4458,6 +4466,294 @@ try {
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Rule-rulesIdDelete">
+                      <article id="api-Rule-rulesIdDelete-0" data-group="User" data-name="rulesIdDelete" data-version="0">
+                        <div class="pull-left">
+                          <h1>rulesIdDelete</h1>
+                          <p>Delete an existing Rule</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Delete an existing Rule</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/rules/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Rule-rulesIdDelete-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Rule-rulesIdDelete-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Rule-rulesIdDelete-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Rule-rulesIdDelete-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Rule-rulesIdDelete-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Rule-rulesIdDelete-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Rule-rulesIdDelete-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Rule-rulesIdDelete-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Rule-rulesIdDelete-0-php">PHP</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Rule-rulesIdDelete-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X <span style="text-transform: uppercase;">delete</span> -H "Authorization: [[apiKey]]" "https://api.quaris.com/v1/rules/{id}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Rule-rulesIdDelete-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.RuleApi;
+
+import java.io.File;
+import java.util.*;
+
+public class RuleApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        
+        // Configure API key authorization: Bearer
+        ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+        Bearer.setApiKey("YOUR API KEY");
+        // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+        //Bearer.setApiKeyPrefix("Token");
+
+        RuleApi apiInstance = new RuleApi();
+        String id = id_example; // String | Rule id
+        try {
+            apiInstance.rulesIdDelete(id);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling RuleApi#rulesIdDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Rule-rulesIdDelete-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.RuleApi;
+
+public class RuleApiExample {
+
+    public static void main(String[] args) {
+        RuleApi apiInstance = new RuleApi();
+        String id = id_example; // String | Rule id
+        try {
+            apiInstance.rulesIdDelete(id);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling RuleApi#rulesIdDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Rule-rulesIdDelete-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Rule-rulesIdDelete-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: Bearer)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"Authorization"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"Authorization"];
+
+String *id = id_example; // Rule id
+
+RuleApi *apiInstance = [[RuleApi alloc] init];
+
+// Delete an existing Rule
+[apiInstance rulesIdDeleteWith:id
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Rule-rulesIdDelete-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Quaris = require('quaris');
+var defaultClient = Quaris.ApiClient.instance;
+
+// Configure API key authorization: Bearer
+var Bearer = defaultClient.authentications['Bearer'];
+Bearer.apiKey = "YOUR API KEY"
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.apiKeyPrefix['Authorization'] = "Token"
+
+var api = new Quaris.RuleApi()
+
+var id = id_example; // {String} Rule id
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.rulesIdDelete(id, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Rule-rulesIdDelete-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Rule-rulesIdDelete-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class rulesIdDeleteExample
+    {
+        public void main()
+        {
+            
+            // Configure API key authorization: Bearer
+            Configuration.Default.ApiKey.Add("Authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // Configuration.Default.ApiKeyPrefix.Add("Authorization", "Bearer");
+
+            var apiInstance = new RuleApi();
+            var id = id_example;  // String | Rule id
+
+            try
+            {
+                // Delete an existing Rule
+                apiInstance.rulesIdDelete(id);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling RuleApi.rulesIdDelete: " + e.Message );
+            }
+        }
+    }
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Rule-rulesIdDelete-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+// Configure API key authorization: Bearer
+Swagger\Client\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+// Swagger\Client\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
+
+$api_instance = new Swagger\Client\Api\RuleApi();
+$id = id_example; // String | Rule id
+
+try {
+    $api_instance->rulesIdDelete($id);
+} catch (Exception $e) {
+    echo 'Exception when calling RuleApi->rulesIdDelete: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+<td>
+
+
+<script>
+												$(document).ready(function() {
+													var schemaWrapper = {
+  "name" : "id",
+  "in" : "path",
+  "description" : "Rule id",
+  "required" : true,
+  "type" : "string"
+};
+													var schema = schemaWrapper;
+
+
+
+
+													var view = new JSONSchemaView(schema,1);
+													var result = $('#d2e199_rulesIdDelete_id');
+													result.empty();
+													result.append(view.render());
+
+
+
+
+
+												});
+												</script>
+												<div id="d2e199_rulesIdDelete_id"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 204 - Rule deleted successfully </h3>
+
+                            <h3> Status: 0 - Unexpected error </h3>
+
+                              <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a href="#examples-Rule-rulesIdDelete-schema">Schema</a>
+                                </li>
+
+                              </ul>
+
+                              <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="examples-Rule-rulesIdDelete-schema">
+                                  <div id='examples-Rule-rulesIdDelete-schema-0' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Unexpected error",
+  "schema" : {
+    "$ref" : "#/definitions/ErrorDTO"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        schemaWrapper.definitions = defs;
+                                        //console.log(JSON.stringify(schema))
+                                        JsonRefs.resolveRefs(schemaWrapper, {
+                                            "depth": 3,
+                                            "resolveRemoteRefs": false,
+                                            "resolveFileRefs": false
+                                        }, function(err, resolved, metadata) {
+                                          //console.log(JSON.stringify(resolved));
+                                          var view = new JSONSchemaView(resolved.schema, 3);
+                                          $('#examples-Rule-rulesIdDelete-schema-data').val(JSON.stringify(resolved.schema));
+                                          var result = $('#examples-Rule-rulesIdDelete-schema-0');
+                                          result.empty();
+                                          result.append(view.render());
+                                        });
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='examples-Rule-rulesIdDelete-schema-data' type='hidden' value=''></input>
+                                </div>
+                              </div>
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Rule-rulesIdPut">
                       <article id="api-Rule-rulesIdPut-0" data-group="User" data-name="rulesIdPut" data-version="0">
                         <div class="pull-left">
@@ -5714,7 +6010,7 @@ try {
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-01-27T04:46:52.097Z
+              Generated 2017-01-27T12:31:21.044Z
             </div>
           </div>
       </div>

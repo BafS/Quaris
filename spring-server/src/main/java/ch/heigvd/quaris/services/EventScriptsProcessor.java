@@ -82,9 +82,9 @@ public class EventScriptsProcessor {
      * @param scaleName : scale to add points to
      * @param pointsToAdd : number of points to add/remove
      */
-    synchronized public boolean addToScale(final String identifier, final String scaleName, final int pointsToAdd) {
+    public boolean addToScale(final String identifier, final String scaleName, final int pointsToAdd) {
         EndUser endUser = getCurrentUser(identifier);
-
+        System.out.println("hylkmlkmldakmsldkml");
         if (endUser != null) {
             String targetApplicationName = new ApplicationService().getCurrentApplicationName();
 
@@ -124,5 +124,14 @@ public class EventScriptsProcessor {
         }
 
         return false;
+    }
+    synchronized public long getPoints(final String identifier, final String scaleName) {
+        EndUser endUser = getCurrentUser(identifier);
+        if(endUser != null) {
+            System.out.println("hello");
+            long points = endUser.getPoint(scaleName).getPoints();
+            return points;
+        }
+        return 0;
     }
 }
