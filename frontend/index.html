@@ -2,11 +2,26 @@
 <html>
 
 <head>
-    <title>Vector Layer</title>
+    <title>Quaris country game</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v3.20.1/css/ol.css" type="text/css">
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v3.20.1/build/ol.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #f8f8f8;
+    color: #333;
+    font-family: sans-serif;
+    font-size: 14pt;
+}
+#info {
+    margin: 2px 8px;
+}
+</style>
 </head>
 
 <body>
@@ -94,6 +109,7 @@
         $(document).ready(function() {
 
             username = prompt("Enter Your Name");
+
             $.ajax({
                 url: 'http://localhost:8090/api/auth',
                 type: 'POST',
@@ -101,6 +117,7 @@
                 headers: {
                     "Content-Type": "application/json",
                 },
+                // APPLICATION PASSWORD
                 data: JSON.stringify({
                     "applicationName": "mapy",
                     "password": "mapyPass"
@@ -128,13 +145,6 @@
         });
 
         var map = new ol.Map({
-            // layers: [
-            //   new ol.layer.Tile({
-            //     source: new ol.source.OSM()
-            //   }),
-            //   vectorLayer
-            // ],
-
             layers: [
                 new ol.layer.Tile({
                     source: new ol.source.Stamen({
@@ -162,7 +172,7 @@
                             width: 1
                         }),
                         fill: new ol.style.Fill({
-                            color: 'rgba(255,0,0,0.1)'
+                            color: 'rgba(255,0,0,0.15)'
                         }),
                         text: new ol.style.Text({
                             font: '12px Calibri,sans-serif',
@@ -216,7 +226,6 @@
                 }
                 highlight = feature;
             }
-
         };
 
         map.on('pointermove', function(evt) {
@@ -258,8 +267,6 @@
             ok[0] = Math.round(ok[0])
             ok[1] = Math.round(ok[1])
         }
-
-
 
         onClick('a', function() {
             showMe(london)
