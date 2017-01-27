@@ -2,6 +2,7 @@ package ch.heigvd.quaris.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class TokenAuthenticationService {
                 .compact();
 
         // Set authorization header
+        response.setStatus(HttpStatus.NO_CONTENT.value());
         response.addHeader(HEADER_KEY, "Bearer " + jwt);
     }
 

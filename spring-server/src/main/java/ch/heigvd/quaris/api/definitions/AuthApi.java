@@ -16,14 +16,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-25T15:44:32.358+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-27T02:35:58.352+01:00")
 
 @Api(value = "auth", description = "the auth API")
 public interface AuthApi {
 
     @ApiOperation(value = "", notes = "", response = TokenDTO.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Authentication sucessful", response = TokenDTO.class),
+        @ApiResponse(code = 204, message = "Authentication sucessful", response = TokenDTO.class),
         @ApiResponse(code = 401, message = "Authentication failed", response = TokenDTO.class) })
     @RequestMapping(value = "/auth",
         produces = { "application/json" }, 

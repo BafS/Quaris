@@ -57,7 +57,7 @@ paths:
             $ref: '#/definitions/CredentialsDTO'
           required: true
       responses:
-        200:
+        204:
           description: Authentication sucessful
           schema:
             $ref: '#/definitions/TokenDTO'
