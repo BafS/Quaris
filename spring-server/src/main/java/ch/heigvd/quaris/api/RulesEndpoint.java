@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 
 /**
  * @author Fabien Salathe
+ * @author Henrik Akesson
  */
 @RestController
 public class RulesEndpoint implements RulesApi {
@@ -48,11 +49,18 @@ public class RulesEndpoint implements RulesApi {
         return ResponseEntity.ok(allRulesDTO.collect(Collectors.toList()));
     }
 
+    /**
+     * HTTP PUT handler. Updates a Rule
+     * @param id : Rule id
+     * @param data : Rule data to change
+     * @return
+     */
     @Override
     public ResponseEntity<Void> rulesIdPut(@ApiParam(value = "Rule id", required = true) @PathVariable("id") String id, @ApiParam(value = "new Rule data", required = true) @RequestBody RuleDTO data) {
 
         ch.heigvd.quaris.models.Rule rule = rulesRepository.findOne(Long.parseLong(id));
 
+        // Check which attributes need to be changed
         try {
             if(data.getName() != null)
                 rule.setName(data.getName());
@@ -62,17 +70,22 @@ public class RulesEndpoint implements RulesApi {
                 rule.setAction(data.getAction());
             if(data.getCriteria() != null)
                 rule.setCriteria(data.getCriteria());
+            // Save badge
             rulesRepository.save(rule);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        catch (EmptyResultDataAccessException e)
-        {
+        catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
             System.out.println(e.getClass());
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
+    /**
+     * HTTP POST Rule handler
+     * @param rule : Rule to add
+     * @return
+     */
     @Override
     public ResponseEntity<Void> rulesPost(@ApiParam(value = "Rule to add", required = true) @RequestBody RuleDTO rule) {
         if (rule == null) {

@@ -40,6 +40,7 @@ public class BadgesEndpoint implements BadgesApi {
 
         Application app = applicationsRepository.findByName(as.getCurrentApplicationName());
 
+        // Set new badge attributes
         ch.heigvd.quaris.models.Badge badgeModel = new ch.heigvd.quaris.models.Badge();
         badgeModel.setName(badgeDTO.getName());
         badgeModel.setDescription(badgeDTO.getDescription());
@@ -60,6 +61,7 @@ public class BadgesEndpoint implements BadgesApi {
         ApplicationService as = new ApplicationService();
         Badge badgeModel = badgeRepository.findByNameAndApplicationName(badgename, as.getCurrentApplicationName());
 
+        // If badge exists
         if (badgeModel != null) {
             ModelMapper modelMapper = new ModelMapper();
             BadgeDTO badgeDTO = modelMapper.map(badgeModel, BadgeDTO.class);
