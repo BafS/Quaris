@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * RuleDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-27T10:57:14.535+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-27T11:59:58.702+01:00")
 
 public class RuleDTO   {
   private Integer id = null;

@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-27T10:57:14.535+01:00")
+@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2017-01-27T11:59:58.702+01:00")
 
 @Api(value = "rules", description = "the rules API")
 public interface RulesApi {
@@ -31,6 +31,22 @@ public interface RulesApi {
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<RuleDTO>> rulesGet();
+
+
+    @ApiOperation(value = "Delete an existing Rule", notes = "Delete an existing Rule", response = Void.class, authorizations = {
+        @Authorization(value = "Bearer")
+    }, tags={ "Rule", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 204, message = "Rule deleted successfully", response = Void.class),
+        @ApiResponse(code = 200, message = "Unexpected error", response = Void.class) })
+    @RequestMapping(value = "/rules/{id}",
+        produces = { "application/json" }, 
+        method = RequestMethod.DELETE)
+    ResponseEntity<Void> rulesIdDelete(
+@ApiParam(value = "Rule id",required=true ) @PathVariable("id") String id
+
+
+);
 
 
     @ApiOperation(value = "Modify existing Rule", notes = "Modify an existing Rule", response = Void.class, authorizations = {

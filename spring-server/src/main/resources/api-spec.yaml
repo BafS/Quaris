@@ -271,6 +271,26 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/ErrorDTO'
+    delete:
+      summary: Delete an existing Rule
+      description: Delete an existing Rule
+      security:
+        - Bearer: []
+      parameters:
+        - name: id
+          in: path
+          description: Rule id
+          required: true
+          type: string
+      tags:
+        - Rule
+      responses:
+        204:
+          description: Rule deleted successfully
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ErrorDTO'
 
   /scales:
     get:

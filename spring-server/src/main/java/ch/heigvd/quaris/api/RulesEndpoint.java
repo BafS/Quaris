@@ -39,7 +39,7 @@ public class RulesEndpoint implements RulesApi {
     public ResponseEntity rulesGet() {
         ApplicationService as = new ApplicationService();
 
-        List<ch.heigvd.quaris.models.Rule> allRulesModel = rulesRepository.findByApplicationName(as.getCurrentApplicationName());
+        List<Rule> allRulesModel = rulesRepository.findByApplicationName(as.getCurrentApplicationName());
 
         // Create DTOs
         Stream<RuleDTO> allRulesDTO = allRulesModel
@@ -47,6 +47,12 @@ public class RulesEndpoint implements RulesApi {
                 .map(rm -> new ModelMapper().map(rm, RuleDTO.class));
 
         return ResponseEntity.ok(allRulesDTO.collect(Collectors.toList()));
+    }
+
+    @Override
+    public ResponseEntity<Void> rulesIdDelete(@ApiParam(value = "Rule id", required = true) @PathVariable("id") String id) {
+        rulesRepository.delete(Long.parseLong(id));
+        return ResponseEntity.status(204).build();
     }
 
     /**
